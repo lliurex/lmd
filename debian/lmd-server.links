@@ -1,0 +1,2 @@
+/var/lib/tftpboot/ltsp /usr/share/llxbootmanager/www-boot/pxe-ltsp
+/var/lib/tftpboot/ltsp/i386/lts.conf /var/lib/tftpboot/ltsp/lts.conf
