@@ -1,0 +1,78 @@
+<script>
+    function reclick(target){        
+        $("#menu").find(".menuitem[target='"+$(target).attr("target")+"']").click();
+        
+    }
+</script>
+
+<h1 class="topBanner" i18n>lmd.LliureX.Thin.Client.Management</h1>
+
+<div class="container col-md-8 col-md-offset-2">
+<div class="panel panel-default" style="padding: 0px;">
+<div class="panel-heading"><h2 i18n="">lmd.LliureX.Thin.Client.Management</h2></div>
+<div id="LtspMainWindow" class="panel-body">
+    <p i18n>ltsp_module_description</p>
+    
+    
+    <div class="col-md-10 col-md-offset-1 lmdMainMenuOption" target="ltsp_images" onclick="reclick(this);">
+            <div style="padding: 0px;width:96px; height:96px;float: left;" >
+                <img src="modules/lliurex-ltsp/src/icons/imageman.png" style="padding: 0px; width: 90%; height: 90%">
+            </div>
+            <div class="llx-ltsp-image-desc-div col-md-10">
+                <div class="ltsp-image-name" i18n>ltsp_manage_client_images</div>
+                <div class="ltsp-image-desc" i18n>ltsp_manage_clients_desc</div>
+            </div>
+    </div>
+    
+    <div class="col-md-10 col-md-offset-1 lmdMainMenuOption" target="llx-ltsconf" onclick="reclick(this);">
+            <div style="padding: 0px;width:96px; height:96px;float: left;" >
+                <img src="modules/lliurex-ltsp/src/icons/options.png" style="padding: 0px; width: 90%; height: 90%">
+            </div>
+            <div class="llx-ltsp-image-desc-div col-md-10">
+                <div class="ltsp-image-name" i18n>ltsp_manage_general_options</div>
+                <div class="ltsp-image-desc" i18n>ltsp_manage_general_options_desc</div>
+            </div>
+    </div>
+    
+    
+    <div class="col-md-10 col-md-offset-1 lmdMainMenuOption" target="llx-exported" onclick="reclick(this);">
+            <div style="padding: 0px;width:96px; height:96px;float: left;" >
+                <img src="modules/lliurex-ltsp/src/icons/exported.png" style="padding: 0px; width: 90%; height: 90%">
+            </div>
+            <div class="llx-ltsp-image-desc-div col-md-10">
+                <div class="ltsp-image-name" i18n>ltsp_export_images_menu</div>
+                <div class="ltsp-image-desc" i18n>ltsp_export_images_menu_desc</div>
+            </div>
+    </div>
+
+
+    <div class="col-md-10 col-md-offset-1 lmdMainMenuOption" target="ltsp-client-management" onclick="reclick(this);">
+            <div style="padding: 0px;width:96px; height:96px;float: left;" >
+                <img src="modules/lliurex-ltsp/src/icons/clients.png" style="padding: 0px; width: 90%; height: 90%">
+            </div>
+            <div class="llx-ltsp-image-desc-div col-md-10">
+                <div class="ltsp-image-name" i18n>ltsp_client_management_menu</div>
+                <div class="ltsp-image-desc" i18n>ltsp_client_management_menu_desc</div>
+            </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div></div></div>
+
+
+
+<!--div id="test2">Test2</div>
+
+<div id="test3">Test3</div-->

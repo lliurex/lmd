@@ -1,0 +1,11 @@
+[SETUP]
+type=python
+path=LmdClientManager.py
+class=LmdClientManager
+[METHODS]
+getClientList=anonymous
+getClient=anonymous
+setClient=admin,admins,adm
+deleteClient=admin,admins,adm
+getArpTable=anonymous
+

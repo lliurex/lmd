@@ -1,0 +1,35 @@
+#!/bin/bash
+
+usage(){
+    echo -e "Usage:"
+    echo -e "$0 IMAGETOPRMOTE" "DESTNAME"
+}
+if [ "$#" -lt 2 ]; then
+    usage
+fi
+
+IMAGETOPRMOTE=${1%/}
+shift
+DESTNAME=${1%/}
+
+# rm /etc/ltsp/images
+[ ! -e "/etc/ltsp/images/${IMAGETOPRMOTE}.json" ] || rm "/etc/ltsp/images/${IMAGETOPRMOTE}.json"
+
+# /etc/nbd-server
+[ ! -e "/etc/nbd-server/conf.d/ltsp_${IMAGETOPRMOTE}.conf" ] || rm "/etc/nbd-server/conf.d/ltsp_${IMAGETOPRMOTE}.conf"
+
+# /opt/ltsp/images
+if [ -e "/opt/ltsp/images/${IMAGETOPRMOTE}.img" ]; then
+    mv "/opt/ltsp/images/${DESTNAME}.img" "/opt/ltsp/images/${DESTNAME}.img.old"
+    mv "/opt/ltsp/images/${IMAGETOPRMOTE}.img" "/opt/ltsp/images/${DESTNAME}.img"
+fi
+
+# /var/lib/tftpboot/ltsp
+# Save custom conf from original image
+if [ -e "/var/lib/tftpboot/ltsp/${IMAGETOPRMOTE}/" ]; then
+    rsync -ax --delete --exclude="lts.conf" "/var/lib/tftpboot/ltsp/${IMAGETOPRMOTE}/" "/var/lib/tftpboot/ltsp/${DESTNAME}"
+    rm -rf "/var/lib/tftpboot/ltsp/${IMAGETOPRMOTE}/"
+fi
+# Restart NBD-SERVER
+systemctl restart nbd-server
+n4d-client -r -m process_tasks -c SchedulerClient

@@ -1,0 +1,68 @@
+
+
+.ltsp-clienticonContainer{
+    float: left;
+    width: 100px;
+    height: 100px;
+    font-size: xx-small;
+    text-align: center;
+    vertical-align: middle;
+    padding: 2px 16px 0px 16px;
+    margin: 2px;
+    position: relative;
+}
+
+.configured{ background: #00bfa5; }
+.configured:hover{ background: #1de9b6; }    
+.unconfigured{ background: #e0e0e0; }
+.unconfigured:hover{ background: #eeeeee; }
+.disconnected{ background: #ef9a9a; }
+.disconnected:hover{ background: #ffcdd2; }    
+
+.ltsp-clienticon{
+    vertical-align: middle;    
+    border-radius: 50%;
+    width: 64px;
+    height: 64px;
+    float: left;
+    clear: both;
+    font-size: 32px;
+    padding: 16px;
+    color: #ffffff;
+    transition: width 0.2s, height 0.2s, font-size 0.2s, margin 0.2s, padding 0.2s, border-radius 0.2s, background 0.2s;    
+}
+
+.ltsp-clienticon:hover{
+        cursor: pointer;
+        padding: 16px;
+        font-size: 36px;
+        /*padding-left: 10px;*/
+        border-radius: 50%;
+        width: 72px;
+        height: 72px;
+        margin-left: -3px;
+        margin-top: -6px;
+        transition: width 0.2s, font-size 0.2s, margin 0.2s, padding 0.2s, border-radius 0.2s background 0.2s;
+}
+
+.ltsp-clienttext{
+    float: left;
+    text-align: center;
+    margin-left: -16px;
+    width: 100px;
+    position: absolute;
+    bottom:0px;
+    
+    
+}
+
+#noClientsFound{
+    float: left;
+    clear: both;
+    color: #aaaaaa;
+    font-size: 1.5em;
+    font-weight: 700;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+

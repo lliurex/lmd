@@ -1,0 +1,7 @@
+[SETUP]
+type=binary
+path=LmdManager
+class=LmdManagerClass
+perms=anonymous
+[METHODS]
+compareVersions=anonymous

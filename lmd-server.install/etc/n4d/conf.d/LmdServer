@@ -1,0 +1,33 @@
+[SETUP]
+type=python
+path=LmdServer.py
+class=LmdServer
+[METHODS]
+(ip)do_command=admin,admins,adm
+(ip)create_image=admin,admins,adm
+create_imageWS=admin,admins,adm
+(ip)export_image=admin,admins,adm
+(ip)import_image=admin,admins,adm
+(ip)send=admin,admins,adm
+(ip)add_listener=anonymous
+(ip)remove_listener=anonymous
+(ip)cancel_job=anonymous
+(ip)deploy_minimal_client=admin,admins,adm
+deploy_minimal_clientWS=admin,admins,adm
+getJobList=anonymous
+getLastJobId=anonymous
+check_chroot_exists=anonymous
+getJobStatus=anonymous
+check_lmd_status=anonymous
+chek_minimal_client=anonymous
+(ip)refresh_image=admin,admins,adm
+refresh_imageWS=admin,admins,adm
+get_versions_13=anonymous
+(ip)update_images=admin, admins, adm
+delete_images=admin, admins, adm
+LmdServerVersion=anonymous
+inform_me=anonymous,*
+check_update_images=anonymous,*
+CloneOrExportWS=admin,admins,adm
+getExportedList=anonymous
+ImportImageWS=admin,admins,adm

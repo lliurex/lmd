@@ -1,0 +1,813 @@
+{
+  "login.username":{
+  	"message":"Username",
+  	"description":""
+  },
+  "login.password":{
+  	"message":"Password",
+  	"description":""
+  },
+  "login.server":{
+  	"message":"Server",
+  	"description":""
+  },
+  "login.login": {
+    "message": "Login",
+    "description": ""
+  },
+  "navtab.basic.images":{
+  	"message":"Images",
+  	"description":""
+  },
+  "navtab.basic.options":{
+  	"message":"Global Options",
+  	"description":""
+  },
+  "navtab.basic.bootmanager":{
+  	"message":"Boot Manager",
+  	"description":""
+  },
+  "navtab.advanced.templates":{
+  	"message":"Templates",
+  	"description":""
+  },
+  "navtab.advanced.clients":{
+  	"message":"Clients",
+  	"description":""
+  },
+  "navtab.advanced.raspberrypi":{
+  	"message":"Raspberry Pi",
+  	"description":""
+  },
+  "info.connectedto":{
+  	"message":"Connected to $server$ as $username$",
+  	"description":""
+  },
+  "bootmanager.enableunetinst":{
+  	"message":"Enable Unattended Network Installation ",
+  	"description":""
+  },
+  "bootmanager.username":{
+  	"message":"Username: ",
+  	"description":""
+  },
+  "bootmanager.password":{
+  	"message":"Password: ",
+  	"description":""
+  },
+  "bootmanager.rootpassword":{
+  	"message":"Root Password: ",
+  	"description":""
+  },
+  "bootmanager.save":{
+  	"message":"Save",
+  	"description":""
+  },
+  "bootmanager.exceptionconfignbd":{
+  	"message":"Exception in config NBD Size successfully",
+  	"description":""
+  },
+  "bootmanager.successconfignbd":{
+  	"message":"Config NBD Size successfully",
+  	"description":""
+  },
+  "bootmanager.headerAutoshutdown":{
+  	"message":"Configure clients automatic shutdown",
+  	"description":""
+  },
+  "Set.shutdown.time.at":{
+  	"message":"Shutdown clients at ",
+  	"description":""
+  },
+  "Set.Timeout.Ok":{
+  	"message":"Save time",
+  	"description":""
+  },
+  "bootmanager.enablenetinstall":{
+  	"message":"Enable Network Installation ",
+  	"description":""
+  },
+  "bootmanager.swapsize":{
+  	"message":"Swap Size",
+  	"description":""
+  },
+  "bootmanager.apply":{
+  	"message":"Apply",
+  	"description":""
+  },
+  "bootmanager.successsaveconfig":{
+  	"message":"Config file saved successfully",
+  	"description":""
+  },
+  "bootmanager.successsaveconfigstatus":{
+  	"message":"Config file save exit with status $status$ and response $response$",
+  	"description":""
+  },
+  "bootmanager.newparameter":{
+  	"message":"New Parameter",
+  	"description":""
+  },
+  "bootmanager.availablenetinstall":{
+  	"message":"Network installation is now available.",
+  	"description":""
+  },
+  "bootmanager.disablenetinstall":{
+  	"message":"Network installation is now disabled.",
+  	"description":""
+  },
+  "bootmanager.exceptionsetnetinstall":{
+  	"message":"Could not set network install. Server response: $msg$",
+  	"description":""
+  },
+  "bootmanager.alertstatus":{
+  	"message":"Status: $status$\nError: $error$",
+  	"description":""
+  },
+  "bootmanager.alertsavinguser":{
+  	"message":"saving $username$ $password$",
+  	"description":""
+  },
+  "bootmanager.alertremovinguser":{
+  	"message":"removing user and pass",
+  	"description":""
+  },
+  "bootmanager.ltsparamid":{
+  	"message":"lts.conf parameter identifier",
+  	"description":""
+  },
+  "bootmanager.ltsparamval":{
+  	"message":"lts.conf parameter value",
+  	"description":""
+  },
+  "bootmanager.addconfigparam":{
+  	"message":"Add a new config parameter",
+  	"description":""
+  },
+  "bootmanager.headernetinstall":{
+  	"message":"Network Installation",
+  	"description":""
+  },
+  "bootmanager.headerbootoptions":{
+  	"message":"Common Boot Options",
+  	"description":""
+  },
+  "bootmanager.headeradvanced":{
+  	"message":"Advanced Boot Options",
+  	"description":""
+  },
+  "buttonsuite.edit":{
+  	"message":"Edit",
+  	"description":""
+  },
+  "buttonsuite.delete":{
+  	"message":"Delete",
+  	"description":""
+  },
+  "buttonsuite.refresh":{
+  	"message":"Refresh Image",
+  	"description":""
+  },
+  "buttonsuite.export":{
+  	"message":"Export",
+  	"description":""
+  },
+  "buttonsuite.needsupdate":{
+  	"message":" (Needs update)",
+  	"description":""
+  },
+  "buttonsuite.editimagedescription":{
+  	"message":"Edit Image Description",
+  	"description":""
+  },
+  "buttonsuite.unmarkneedupdate":{
+  	"message":"Unmark the need to update",
+  	"description":""
+  },
+  "buttonsuite.listen":{
+  	"message":"Listen",
+  	"description":""
+  },
+  "templatemanager.clone":{
+  	"message":"Clone",
+  	"description":""
+  },
+  "templatemanager.newrow":{
+  	"message":"Add new row",
+  	"description":""
+  },
+  "templatemanager.filename":{
+  	"message":"Filename",
+  	"description":""
+  },
+  "templatemanager.answerdeletetemplate":{
+  	"message":"Are you sure you want to delete template: $name$ ($filename$)",
+  	"description":""
+  },
+  "templatemanager.newlabel":{
+  	"message":"New Label",
+  	"description":""
+  },
+  "templatemanager.warning":{
+  	"message":"Warning!",
+  	"description":""
+  },
+  "templatemanager.answerreplacetemplate":{
+  	"message":"The template $newfilename$ already exists, do you want to repace it?",
+  	"description":""
+  },
+  "templatemanager.writingfrom":{
+  	"message":"writing... $newfilename$ from original: $originalfilename$",
+  	"description":""
+  },
+  "ltsparameters.configurefstab":{
+  	"message":"Boot scripts generate /etc/fstab with FSTAB_0..FSTAB_9",
+  	"description":""
+  },
+  "ltsparameters.dnsserver":{
+  	"message":"IP Address for DNS Server",
+  	"description":""
+  },
+  "ltsparameters.searchdomain":{
+  	"message":"Search Domain in resolv.conf",
+  	"description":""
+  },
+  "ltsparameters.nbdswap":{
+  	"message":"Turn on NBD Swap",
+  	"description":""
+  },
+  "ltsparameters.nbdswapserver":{
+  	"message":"IP Address in server for NBD Swap",
+  	"description":""
+  },
+  "ltsparameters.nbdswapport":{
+  	"message":"Port in server for NBD Swap",
+  	"description":""
+  },
+  "ltsparameters.nbdswapthreshold":{
+  	"message":"Automatically enable NBD_SWAP if client has less",
+  	"description":""
+  },
+  "ltsparameters.rmsystem":{
+  	"message":"Services that shouldn't start on the clients",
+  	"description":""
+  },
+  "ltsparameters.rmthinsystem":{
+  	"message":"Services that shouldn't start on thin clients",
+  	"description":""
+  },
+  "ltsparameters.ltspfatclient":{
+  	"message":"Force to use as Fat Client",
+  	"description":""
+  },
+  "ltsparameters.ldmsession":{
+  	"message":"Default session",
+  	"description":""
+  },
+  "ltsparameters.ldmdirectx":{
+  	"message":"turn off the encrypted X tunnel via SSH (less secure but faster)",
+  	"description":""
+  },
+  "ltsparameters.uselocalswap":{
+  	"message":"Enables local swap if there is a swap partition en disk",
+  	"description":""
+  },
+  "ltsparameters.netinstall":{
+  	"message":"Network Installation",
+  	"description":""
+  },
+  "imagemanager.newimage":{
+  	"message":"New Image",
+  	"description":""
+  },
+  "imagemanager.importimage":{
+  	"message":"Import Image",
+  	"description":""
+  },
+  "imagemanager.minimalavailable":{
+  	"message":"  Image minimal available!",
+  	"description":""
+  },
+  "imagemanager.infocreateimage":{
+  	"message":"LliureX LMD contains a lightweight minimal thin client image (not useful for fat-thin clients) that can be built quickly and does not need a mirror installed nor Internet access. Whould you like to enable this image? It will only take a few minutes.",
+  	"description":""
+  },
+  "imagemanager.confirmcool":{
+  	"message":"Yes! It seems cool!",
+  	"description":""
+  },
+  "imagemanager.imagename":{
+  	"message":"Image Name",
+  	"description":""
+  },
+  "imagemanager.imagedescription":{
+  	"message":"Description",
+  	"description":""
+  },
+  "imagemanager.finishminilightclient":{
+  	"message":"Finished. Your New image client mini-light-client is now availagle.",
+  	"description":""
+  },
+  "imagemanager.exceptionminilightclient":{
+  	"message":"Exception delploying mini-light-client: $msg$",
+  	"description":""
+  },
+  "imagemanager.finishimage":{
+  	"message":"Finished. Your New image client $filename$ has been created.",
+  	"description":""
+  },
+  "imagemanager.finishcompress":{
+  	"message":"Finished. Your compressed image is in $server$ :/tmp/$image$.tgz",
+  	"description":""
+  },
+  "imagemanager.specbootoptions":{
+  	"message":"Specific boot options for this image",
+  	"description":""
+  },
+  "imagemanager.thinclient":{
+  	"message":"Thin Client",
+  	"description":""
+  },
+  "imagemanager.fatclient":{
+  	"message":"Fat Client",
+  	"description":""
+  },
+  "imagemanager.defaultvalue":{
+  	"message":"Default Value",
+  	"description":""
+  },
+  "imagemanager.defaultsession":{
+  	"message":"Set default session: ",
+  	"description":""
+  },
+  "imagemanager.gnomesession":{
+  	"message":"Standard Desktop (Gnome Classic)",
+  	"description":""
+  },
+  "imagemanager.alternativesession":{
+  	"message":"Alternative Desktop (XFCE)",
+  	"description":""
+  },
+  "imagemanager.launchimageisless":{
+  	"message":"Run this image as a thin client if client RAM is less than ",
+  	"description":""
+  },
+  "imagemanager.mb128":{
+  	"message":"128 Mb",
+  	"description":""
+  },
+  "imagemanager.mb256":{
+  	"message":"256 Mb",
+  	"description":""
+  },
+  "imagemanager.mb512":{
+  	"message":"512 Mb",
+  	"description":""
+  },
+  "imagemanager.dontuse":{
+  	"message":"Do not use",
+  	"description":""
+  },
+  "imagemanager.aditionalparam":{
+  	"message":"Additional parameters for image: ",
+  	"description":""
+  },
+  "imagemanager.finishupdate":{
+  	"message":"Finished. Your Your client image is updated!",
+  	"description":""
+  },
+  "imagemanager.alert":{
+  	"message":"Alert",
+  	"description":""
+  },
+  "imagemanager.operationslmd":{
+  	"message":"There are still some operations performing in LMD.",
+  	"description":""
+  },
+  "imagemanager.finishtask":{
+  	"message":"Current task has finished.",
+  	"description":""
+  },
+  "imagemanager.createnewimage":{
+  	"message":"Create New Image",
+  	"description":""
+  },
+  "imagemanager.editimageinfo":{
+  	"message":"Edit Image Information",
+  	"description":""
+  },
+  "imagemanager.workonserver":{
+  	"message":"Work on server",
+  	"description":""
+  },
+  "imagemanager.finishwithstatus":{
+  	"message":"Current task has finished with exit $status$",
+  	"description":""
+  },
+  "imagemanager.errorunknown":{
+  	"message":"Unknown error. Server disconnected?",
+  	"description":""
+  },
+  "berrymanager.intro1":{
+  	"message":"Based on Raspbian, LliureXBerry is a project aimed to able small ARM computers, such as Raspberry Pi to run as thin clients.",
+  	"description":""
+  },
+  "berrymanager.intro2":{
+  	"message":"This wizard will guide you to make LliureXBerry on an SD Card to run Raspberry Pi as a thin client.",
+  	"description":""
+  },
+  "berrymanager.stage1.tittle":{
+  	"message":"Stage 1. Preparing SD Card.",
+  	"description":""
+  },
+  "berrymanager.stage1.description":{
+  	"message":"Remove SD Card from your system and press Start Wizard Button.",
+  	"description":""
+  },
+  "berrymanager.stage1.button":{
+  	"message":"    Start Wizard",
+  	"description":""
+  },
+  "berrymanager.stage2.tittle":{
+  	"message":"Stage 2. Preparing SD Card.",
+  	"description":""
+  },
+  "berrymanager.stage2.description":{
+  	"message":"Insert now your sd card, and wait for LMD find it.",
+  	"description":""
+  },
+  "berrymanager.cancel":{
+  	"message":"Cancel",
+  	"description":""
+  },
+  "berrymanager.stage3.tittle":{
+  	"message":"Stage 3. Select device.",
+  	"description":""
+  },
+  "berrymanager.stage3.description":{
+  	"message":"Select device from below.",
+  	"description":""
+  },
+  "berrymanager.stage3.tablecol1":{
+  	"message":"Device",
+  	"description":""
+  },
+  "berrymanager.stage3.tablecol2":{
+  	"message":"Model",
+  	"description":""
+  },
+  "berrymanager.stage3.tablecol3":{
+  	"message":"Size",
+  	"description":""
+  },
+  "berrymanager.stage3.media":{
+  	"message":"    Create LliureXBerry Startup media",
+  	"description":""
+  },
+  "berrymanager.loginlocal.tittle":{
+    "message":"Login with local user that belong to adm group",
+    "description":""
+  },
+  "buttonsuite.customize":{
+  	"message":"Edit Image",
+  	"description":""
+  },
+  "buttonsuite.parameters":{
+  	"message":"Boot Options",
+  	"description":""
+  },
+  "imagemanager.bootparameters":{
+  	"message":"Boot parameters for image",
+  	"description":""
+  },
+  "imagemanager.use.client.as":{
+  	"message":"Use this client as: ",
+  	"description":""
+  },
+  "imagemanager.imagenotselected":{
+  	"message":"Image not selected",
+  	"description":""
+  },
+  "imagemanager.select.image.please":{
+  	"message":"Select an image from below, please.",
+  	"description":""
+  },
+  "imagemanager.name.is.null":{
+  	"message":"Image name can not be null",
+  	"description":""
+  },
+  "imagemanager.specify.a.name":{
+  	"message":"Specify a name for the thin client, please.",
+  	"description":""
+  },
+  "berrymanager.finished_burn":{
+  	"message": "LliurexBerry has been burned successully",
+  	"description": ""
+  },
+  "berrymanager.finished_burn.tittle":{
+  	"message": "Finished",
+  	"description":""
+  },
+  "dialog.add":{
+  	"message":"Add",
+  	"description":""
+  },
+  "dialog.cancel":{
+  	"message":"Cancel",
+  	"description":""
+  },
+  "dialog.apply":{
+  	"message":"Apply",
+  	"description":""
+  },
+  "dialog.close":{
+  	"message":"Close",
+  	"description":""
+  },
+  "dialog.save":{
+  	"message":"Save",
+  	"description":""
+  },
+  "dialog.create":{
+  	"message":"Create",
+  	"description":""
+  },
+  "dialog.saved":{
+  	"message":"Saved",
+  	"description":""
+  },
+  "dialog.delete":{
+  	"message":"Delete",
+  	"description":""
+  },
+  "dialog.yes.replace.it":{
+  	"message":"Yes, replace it",
+  	"description":""
+  },
+  "dialog.no.cancel.it":{
+  	"message":"No, cancel it",
+  	"description":""
+  },
+  "dialog.clone":{
+  	"message":"Clone",
+  	"description":""
+  },
+  "Ok":{
+    "message":"Ok",
+    "description":""
+  },
+  "dialog.confirm.delete.title":{
+    "message":"Delete Image",
+    "description":""
+  },
+    "dialog.confirm.delete":{
+    "message":"Are you sure to delete this image?",
+    "description":""
+  },
+  "imagemanager.found.lliurex13":{
+    "message": "LMD Found images from LliureX 13! Click here for update them.",
+    "description":""
+  },
+  "imagemanager.images.exported":{
+    "message": "Images has been exported",
+    "description":""
+  },
+  "imagemanager.found.lliurex13.tittle":{
+    "message": "Update LliureX 13 Images",
+    "description":""
+  },
+  "imagemanager.found.lliurex13.update":{
+    "message": "Update",
+    "description":""
+  },
+  "imagemanager.found.lliurex13.delete":{
+    "message": "Delete",
+    "description":""
+  },
+  "imagemanager.found.lliurex13.keep":{
+    "message": "Keep",
+    "description":""
+  },
+  "imagemanager.found.lliurex13.description":{
+    "message": "These LliureX 13 images have been found and should be upgraded to LliureX 14.",
+    "description":""
+  },
+  "imagemanager.build.image":{
+	"message": "There is image building",
+    "description":""
+  },
+  "imagemanager.images.deleted":{
+	"message": "Images has been deleted",
+    "description":""
+  },
+  "bootmanager.availableunattended":{
+	"message": "Enabled unattended install",
+    "description":""
+  },
+  "bootmanager.disableunattended":{
+	"message": "Disabled unattended install",
+    "description":""
+  },
+  "bootmanager.savePass":{
+	"message": "Save user and passwords",
+    "description":""
+  },
+  "bootmanager.saveOptions":{
+	"message": "Save Options",
+    "description":""
+  },
+  "imagemanager.mirror_unavailable_br":{
+	"message": "Mirror<br>Unavailable",
+    "description":""
+  },
+  "imagemanager.mirror_unavailable":{
+	"message": "Mirror unavailable",
+    "description":""
+  },
+  "imagemanager.mirror_unavailable_desc":{
+	"message": "Mirror is unavailable. If this is a LliureX Image, create mirror first with LliureX Mirror from Zero Center. In other case, check if the specified mirror in this template is available.",
+    "description":""
+  },
+  "imagemanager.name.is.duplicated.title":{
+	"message": "Duplicated name",
+    "description":""
+  },
+  "imagemanager.name.is.duplicated.name":{
+	"message": "The image name already exists",
+    "description":""
+  },
+  "bootmanager.save.password":{
+	"message": "User and passwords has been set",
+    "description":""
+  },
+  "imagemanager.image.info.saved":{
+	"message": "Image info has been saved",
+    "description":""
+  },
+  "login.n4d.error":{
+	"message": "Host $server$ does not seem to be an N4D Server or lmd-server version is <1.2.1",
+    "description":""
+  },
+  "login.n4d.version":{
+	"message": "Host $server$ needs to be updated to lmd-server version $version$",
+    "description":""
+  },
+  "buttonsuite.set_default_boot":{
+	"message": "Set default boot",
+    "description":""
+  },
+  "bootmanager.timeout_established":{
+	"message": "Timeout established",
+    "description":""
+  },
+  "bootmanager.timeoutlabel":{
+	"message": "Menu Timeout",
+    "description":""
+  },
+  "bootmanager.timeouthelp":{
+	"message": "Set Timeout for boot menu (in seconds)",
+    "description":""
+  },
+  "imagemanager.default_boot":{
+	"message": "Default Boot",
+    "description":""
+  },
+  "ltsparameters.namelengtherror":{
+	"message": "User name can not be null",
+    "description":""
+  },
+  "ltsparameters.userpasslengtherror":{
+	"message": "User password can not be null",
+    "description":""
+  },
+  "ltsparameters.rootpasslengtherror":{
+	"message": "Root password can not be null",
+    "description":""
+  },
+  "clientmanager.dialogtitle":{
+	"message": "Modify Client Autologin",
+    "description":""
+  },
+  "clientmanager.dialogtitleNew":{
+	"message": "New Client Autologin",
+    "description":""
+  },
+  "mac.address":{
+	"message": "Mac Address for client",
+    "description":""
+  },
+  "autologin.username":{
+	"message": "Autologin Username",
+    "description":""
+  },
+  "autologin.password":{
+	"message": "Autologin Password",
+    "description":""
+  },
+  "autoboot.label":{
+    "message":"Force client to boot image",
+    "description":""
+  },
+  "default.boot":{
+    "message":"Show boot menu (default)",
+    "description":""
+  },
+  "clientmanager.wrongmac":{
+	"message": "Wrong MAC",
+    "description":""
+  },
+  "clientmanager.wrongmac.description":{
+	"message": "Mac address has not the right syntax",
+    "description":""
+  },
+  "ltsparameters.ldmlanguage": {
+      "message": "Default language",
+      "description": ""
+  },
+  "imagemanager.defaultldmlanguage": {
+    "message": "Default language to session",
+    "description": ""
+  },
+  "imagemanager.valencian": {
+    "message": "Valencian",
+    "description": ""
+  },
+  "imagemanager.spanish": {
+    "message": "Spanish",
+    "description": ""
+  },
+  "imagemanager.english": {
+    "message": "English",
+    "description": ""
+  },
+  "info.logout": {
+    "message": "Logout",
+    "description": ""
+  },
+  "imagemanager.boot.from.hd": {
+      "message": "Clients default boot from hard disk",
+      "description": ""
+  },
+  "_boot.changed": {
+      "message": "Boot image has changed to",
+      "description": ""
+  },
+  "_updateimage.title":{
+    "message":"Update image",
+    "description":""
+  },
+  "_updateimage.description":{
+    "message":"There are updates into image ",
+    "description":""
+  },
+  "Enable.Local.Apps":{
+    "message":"Enable Local Apps",
+    "description":""
+  },
+  "Some.util.apps":{
+    "message":"Some util local apps",
+    "description":""
+  },
+  "Add.Applications":{
+    "message":"Add Applications",
+    "description":""
+  },
+  "Local.Apps.Desc":{
+    "message":"Local Apps enhaces performance of Thin Clients (enable it for run Itaca in Firefox)",
+    "description":""
+  },
+  "ask.sure.delete":{
+    "message":"Are you sure to delete this image?",
+    "description":""
+  },
+  "berrymanager.msg.error_download":{
+    "message":"Couldn't download lliurexberry-data package, check your sources.list or availability",
+    "description":""
+  },
+  "berrymanager.checking_package":{
+    "message":"Checking package data",
+    "description":""
+  },
+  "berrymanager.download_package":{
+    "message":"lliurexberry-data not found, this is a needed package to work properly, please download from the button below ",
+    "description":""
+  },
+  "berrymanager.download_package_title":{
+    "message":"Download package lliurexberry-data",
+    "description":""
+  },
+  "berrymanager.download_package_text":{
+    "message":"Pressing the button lliurexberry-data package will install on this system",
+    "description":""
+  },
+  "berrymanager.download_package_button":{
+    "message":"Download & Install",
+    "description":""
+  },
+  "berrymanager.retry_button":{
+    "message":"Check another time",
+    "description":""
+  }
+}
+
+
+

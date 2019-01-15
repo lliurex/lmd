@@ -1,0 +1,12 @@
+#!/bin/bash
+
+mountpoint -q /opt/ltsp/${1}/proc && sudo umount -l /opt/ltsp/${1}/proc
+mountpoint -q /opt/ltsp/${1}/sys && sudo umount -l /opt/ltsp/${1}/sys
+mountpoint -q /opt/ltsp/${1}/dev/pts && sudo umount -l /opt/ltsp/${1}/dev/pts
+mountpoint -q /opt/ltsp/${1}/etc/hosts && sudo umount -l /opt/ltsp/${1}/etc/hosts
+mountpoint -q /opt/ltsp/${1}/etc/ld.so.conf.d && sudo umount -l /opt/ltsp/${1}/etc/ld.so.conf.d
+mountpoint -q /opt/ltsp/${1}/etc/nsswitch.conf && sudo umount -l /opt/ltsp/${1}/etc/nsswitch.conf
+mountpoint -q /opt/ltsp/${1}/dev && sudo umount -l /opt/ltsp/${1}/dev
+
+
+

@@ -1,0 +1,104 @@
+#!/usr/bin/env python
+
+import socket
+import subprocess
+import threading
+
+from xmlrpclib import *
+
+
+'''
+USAGE:
+
+lmd-cli -host 127.0.0.1 -c LmdServer -m do_command -u [username] -p [password] -a 'COMMAND'
+
+'''
+
+import argparse
+
+
+def listen_log(s,port):
+#def listen_log(self, output,port):
+	while True:
+		try:
+			data, addr = s.recvfrom(1024)
+			if data:
+				print data[:-1]
+					#subprocess.Popen(["echo '"+data[:-1]+"' >> "+output], shell=True)
+		except Exception as e:
+			print "EXCEPTION "+str(e)
+			
+parser = argparse.ArgumentParser(description='Execute command in server.')
+parser.add_argument('-host', help='Server address')
+parser.add_argument('-m', help='Server Method')
+parser.add_argument('-c', help='Server Class')
+parser.add_argument('-u', help='Server Usernane')
+parser.add_argument('-p', help='Server Password')
+parser.add_argument('-ip', help='Local IP')
+parser.add_argument('-a', help='Server Arguments', nargs="+")
+
+args = parser.parse_args()
+host=args.host
+username=args.u
+password=args.p
+method=args.m
+fromclass=args.c
+params=args.a
+ip=args.ip
+
+# Prepare a socket to listen
+
+#backlog = 5
+#size = 2048
+s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+s.bind(('',0))
+port=s.getsockname()[1]
+
+
+# Throws thread to listen socket
+t=threading.Thread(target=listen_log,args=(s,port))
+
+#t=threading.Thread(target=listen_log,args=(output, port))
+t.daemon=True
+t.start()
+
+
+
+# Prepare Arguments
+param_list=[]
+
+# Adding Credentials (1ts argument)
+if username!=None:
+	param_list.append((username,password))
+else:
+    param_list.append("")
+
+#Adding Class (2nd argument)
+param_list.append(fromclass)
+
+#Adding IP (3rd argument)
+if ip!=None:
+	param_list.append(ip)
+else:
+	param_list.append("127.0.0.1")
+
+# Adding port (4th argument)
+param_list.append(port)
+
+# Other parameters
+if params!=None:
+	param_list.append(' '.join(args.a))
+
+print param_list
+
+# Performing command
+server = ServerProxy ("https://"+host+":9779")
+print "method is "+method
+print "args: "+str(param_list)
+ret=getattr(server,method)(*param_list)
+print ret
+
+
+		
+#	return (self.port)
+	

@@ -1,0 +1,15 @@
+[Desktop Entry]
+Version=1.0
+Name=LliureX LTSP Manager
+Name[es]=Gestor de LliureX LTSP
+Name[ca_ES.UTF-8@valencia]=Gestor de LliureX LTSP
+
+Comment=Image Manager for LTSP light clients
+Comment[es]=Gestor de imagenes LTSP para clientes ligeros
+Comment[ca_ES.UTF-8@valencia]=Gestor d'imatges LTSP per a clients lleugers
+Exec=xdg-open "http://admin-center"
+Terminal=false
+Icon=ltsp-manager.png
+Type=Application
+GenericName=LtspClientInfo
+Categories=LliureX-Administration;

@@ -1,0 +1,29 @@
+#!/usr/bin/env python
+import xmlrpclib
+c = xmlrpclib.ServerProxy('https://localhost:9779')
+domain = c.get_variable('','VariablesManager','INTERNAL_DOMAIN')
+ltsfile = '/var/lib/tftpboot/ltsp/lts.conf'
+f = open(ltsfile,'r')
+lines = f.readlines()
+f.close()
+needle="SEARCH_DOMAIN"
+msg="# AUTOMATICALLY ADDED BY LTSP-SET-DOMAIN-SEARCH"
+new_lines=[]
+
+for x in lines:
+	if x.startswith(needle):
+		continue
+	if x.find(msg)==0:
+		continue
+	new_lines.append(x)
+
+lines=new_lines
+
+if domain != None:
+	domainvalue = msg + "\n"
+	domainvalue += needle + '="' + domain +'"\n'
+	lines.append(domainvalue)
+	f = open(ltsfile,'w')
+	for x in lines:
+		f.write(x)
+	f.close()

@@ -1,0 +1,37 @@
+#!/usr/bin/env python3
+import json
+import sys
+import subprocess
+import os
+
+class FixArchticture:
+	def __init__(self,imgid):
+		self.identifier = imgid
+		self.LMD_CONFIG_BASE = '/etc/ltsp/images'
+		self.architectures = ['amd64','i386']
+
+	def run(self):
+		if not os.path.exists(os.path.join(self.LMD_CONFIG_BASE, self.identifier + ".json")):
+			print("!!! LTSP image not exists")
+			sys.exit(1)
+		with open(os.path.join(self.LMD_CONFIG_BASE, self.identifier + ".json"), 'r') as data_file:
+			lmd_config = json.load(data_file)
+		command = ["ltsp-chroot -a {identifier} dpkg-architecture | grep DEB_BUILD_ARCH_CPU | awk -F '=' '{{print $2}}".format(identifier=self.identifier)]
+		arch = subprocess.Popen(command,shell=True,stdout=subprocess.PIPE).communicate()[0].decode('utf-8').strip()
+		if arch in self.architectures:
+			lmd_config['arch'] = arch
+		if '(64 bits)' in lmd_config['desc'] and arch == 'i386':
+			lmd_config['desc'] = lmd_config['desc'].replace('(64 bits)','').strip()
+		with open(os.path.join(self.LMD_CONFIG_BASE, self.identifier + ".json"), 'w') as data_file:
+			json.dump(lmd_config, data_file, indent=4)
+
+def main():
+	if len(sys.argv) >= 2:
+		p = FixArchticture(sys.argv[1])
+		p.run()
+	else:
+		print("!!! Error on arguments")
+		sys.exit(1)
+
+if __name__ == '__main__':
+	main()

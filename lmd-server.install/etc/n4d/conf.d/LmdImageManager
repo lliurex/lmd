@@ -1,0 +1,14 @@
+[SETUP]
+type=python
+path=LmdImageManager.py
+class=LmdImageManager
+[METHODS]
+getImageList=anonymous
+getImage=anonymous
+setImage=admin,admins,adm
+setStatusImage=admin,admins,adm
+setNewTaskIdForImage=admin,admins,adm
+deleteImage=admin,admins,adm
+check_image_editing=anonymous
+clean_image_editing=admin,admins,adm
+check_mirror=anonymous

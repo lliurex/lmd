@@ -1,0 +1,11 @@
+[SETUP]
+type=python
+path=LmdTemplateManager.py
+class=LmdTemplateManager
+[METHODS]
+getTemplateList=anonymous
+getTemplate=anonymous
+testMirror=anonymous
+checkTemplateExists=anonymous
+setTemplate=admin,admins,adm
+deleteTemplate=admin,admins,adm

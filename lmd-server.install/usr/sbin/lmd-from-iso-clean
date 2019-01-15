@@ -1,0 +1,22 @@
+#!/bin/bash
+
+while [[ $# -gt 0 ]]
+do
+	key="$1"
+
+	case $key in
+		--isopath)
+		ISOPATH="$2"
+		shift
+		shift
+		;;
+		*)
+		shift
+		;;
+	esac
+done
+
+if [ "$ISOPATH" != "" ]; then
+	mount | grep -q "$ISOPATH" && umount "$ISOPATH"
+	[[ "$ISOPATH" =~ ^/opt/ltsp/isos/* ]] && rm "$ISOPATH"
+fi

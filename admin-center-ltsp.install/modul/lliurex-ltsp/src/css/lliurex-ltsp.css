@@ -1,0 +1,22 @@
+
+#llx-ltsp-imagelist{
+    padding: 20px;
+}
+
+/*.llx-ltsp-image-file{
+
+    
+}*/
+
+.lmdMainMenuOption{
+    font-size: 1.2em;
+    background: #fafafa;
+    padding: 5px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+
+.lmdMainMenuOption:hover{
+    cursor: pointer;
+    background: radial-gradient(circle, #eeeeee, #cccccc);
+    
+}

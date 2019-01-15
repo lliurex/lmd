@@ -1,0 +1,124 @@
+#!/usr/bin/python3
+import subprocess
+import json
+import sys
+import datetime
+import os
+import xmlrpc.client
+import ssl
+import sys
+import time
+
+class UpdateLTSPImage:
+	def __init__(self, identifier, datetime_delay):
+
+		self.identifier = identifier
+		self.datetime = datetime.datetime.strptime(datetime_delay, '%d-%m-%Y %H:%M')
+		self.TODAY = datetime.datetime.now()
+		self.ID_DATE_STRING = self.TODAY.strftime("%Y%m%d")
+		self.new_identifier = "{identifier}_{date_string}".format(identifier=self.identifier, date_string=self.ID_DATE_STRING)
+
+		self.CHROOT_BASE = '/opt/ltsp'
+		self.LMD_CONFIG_BASE = '/etc/ltsp/images'
+		context = ssl._create_unverified_context()
+		self.n4d = xmlrpc.client.ServerProxy('https://localhost:9779',context=context)
+		command = "ltsp-chroot -a {chroot} dpkg-architecture | grep DEB_BUILD_ARCH_CPU | awk -F'[/=]' {{'print $2'}}".format(chroot=self.identifier)
+		p = subprocess.Popen([command],shell=True,stdout=subprocess.PIPE)
+		self.arch = p.communicate()[0].strip().decode('utf-8')
+
+	def get_unique_identifier(self):
+		'''
+			Set self.new_identifier unique identifier. 
+			This identifier is non exists folder on /opt/ltsp with identifier value 
+			and date on name
+		'''
+		counter = 1
+		while os.path.exists(os.path.join(self.CHROOT_BASE,'images',self.new_identifier) + ".img") or os.path.exists(os.path.join(self.CHROOT_BASE,self.new_identifier)) or os.path.exists(os.path.join(self.LMD_CONFIG_BASE,self.new_identifier + ".json")) :
+			self.new_identifier = "{identifier}_{date_string}_{counter}".format(
+																identifier=self.identifier,
+																date_string=self.ID_DATE_STRING,
+																counter=str(counter))
+			counter+=1
+		return self.new_identifier
+
+	def build_lmd_conf_file(self):
+		'''
+			Create file on /etc/ltsp/images/ with new identifier based on original identifier.
+			On file change id and name.
+		'''
+		with open(os.path.join(self.LMD_CONFIG_BASE, self.identifier + ".json"), 'r') as data_file:
+			lmd_config = json.load(data_file)
+		lmd_config['id'] = self.new_identifier
+		lmd_config['name'] = "{name} ({date_string})".format(name=lmd_config['name'], date_string=self.TODAY.strftime("%d-%m-%Y %H:%M"))
+		lmd_config['status'] = "enabled-non-editable"
+		with open(os.path.join(self.LMD_CONFIG_BASE, self.new_identifier + ".json"), 'w') as data_file:
+			json.dump(lmd_config, data_file, indent=4)
+		print("Created config for Lmd")
+
+	def ltsp_update_image(self):
+		arch_build = 'linux32'
+		if self.arch == 'amd64':
+			arch_build = 'linux64'
+		options = {
+			"original_chroot" : os.path.join(self.CHROOT_BASE,self.identifier),
+			"new_chroot": os.path.join(self.CHROOT_BASE,self.new_identifier),
+			"new_identifier" : self.new_identifier,
+			"arch" : arch_build
+		}
+		command = "mount --bind {original_chroot} {new_chroot} && {arch} ltsp-update-image {new_identifier}".format(**options)
+		process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE)
+		while True:
+			output = os.read(process.stdout.fileno(),1024).decode('utf-8')
+			if output.strip() == '' and process.poll() is not None:
+				break
+			if output:
+				print(output.strip())
+				sys.stdout.flush()
+			time.sleep(1)
+		command = "umount -l {new_chroot}".format(**options)
+		subprocess.Popen([command],shell=True).communicate()
+
+
+	def run(self):
+		# Get unique identifier
+		self.get_unique_identifier()
+
+		# Create temp folder to mount original chroot
+		os.mkdir(os.path.join(self.CHROOT_BASE, self.new_identifier))
+		print("Created temp folder to chroot")
+
+		self.build_lmd_conf_file()
+		self.ltsp_update_image()
+		os.rmdir(os.path.join(self.CHROOT_BASE, self.new_identifier))
+		masterkey = ''
+		with open('/etc/n4d/key') as file_data:
+			masterkey = file_data.readlines()[0].strip()
+		self.n4d.pushToBootList(masterkey,'LlxBootManager', "ltsp_label{new_identifier}".format(new_identifier=self.new_identifier))
+		
+		self.n4d.write_tasks(masterkey,'SchedulerServer','local',{'PromoteImg':
+			{
+				'0':{
+					'dom':str(self.datetime.day),
+					'mon':str(self.datetime.month),
+					'h':str(self.datetime.hour),
+					'm':str(self.datetime.minute),
+					'cmd':'lmd-promote-image {new_identifier} {identifier}'.format(new_identifier=self.new_identifier,identifier=self.identifier),
+					'dow':'*',
+					'kind':'fixed',
+					'autoremove':True,
+					'name':'Promote image {new_identifier} to {identifier}'.format(new_identifier=self.new_identifier, identifier=self.identifier)
+					 }
+				}}
+		)
+		print("Finish update image. New image available")
+
+def main():
+	if len(sys.argv) >= 3:
+		p = UpdateLTSPImage(sys.argv[1], sys.argv[2])
+		p.run()
+	else:
+		print("!!! Error on arguments")
+		sys.exit(1)
+
+if __name__ == '__main__':
+	main()

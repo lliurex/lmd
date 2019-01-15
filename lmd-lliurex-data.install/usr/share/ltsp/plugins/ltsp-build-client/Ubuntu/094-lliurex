@@ -1,0 +1,36 @@
+case "$MODE" in
+        commandline)
+                add_option "lliurex-sourceslist" "`eval_gettext "add sources.list properly for lliurex systems"`" "advanced" "false"
+
+                ;;
+        configure)
+                if [ "true" = "$option_lliurex_sourceslist_value" ]; then
+                        LLIUREX_SOURCESLIST="true"
+
+                fi      
+
+                ;;
+        finalization)
+                if [ "true" = "$LLIUREX_SOURCESLIST" ]; then
+                        cp /etc/ltsp/sources/client.list $ROOT/etc/apt/sources.list
+                else
+                        cp /etc/apt/sources.list $ROOT/etc/apt/sources.list
+                        cp /etc/apt/sources.list.d/*.list $ROOT/etc/apt/sources.list.d/ || true
+                fi
+        
+                [ ! -d /opt/ltsp/$CHROOT/net/mirror/llx16 ] || umount -l /opt/ltsp/$CHROOT/net/mirror/llx16
+
+                # Working about nsswitch and friends
+                if [ -f /opt/ltsp/$CHROOT/etc/ldap.conf ] ; then
+                        rm -f /opt/ltsp/$CHROOT/etc/ldap.conf
+                        touch /opt/ltsp/$CHROOT/root/etc.ldap.conf
+                fi
+                if [ -f /opt/ltsp/$CHROOT/etc/ldap/ldap.conf ] ; then
+                        rm -f /opt/ltsp/$CHROOT/etc/ldap/ldap.conf
+                        touch /opt/ltsp/$CHROOT/root/etc.ldap.ldap.conf
+                fi
+                
+		;;
+
+esac
+

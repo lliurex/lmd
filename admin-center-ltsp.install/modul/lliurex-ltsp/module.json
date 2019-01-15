@@ -1,0 +1,40 @@
+{
+  "id": "lliurex-ltsp",
+  "version": "2.6",
+  "name": "LliureX LTSP",
+  "description": "ltsp.description.module",
+  "main":"main.html",
+  "help":"lliurex-ltsp.md",
+  "icon":"ltsp.png",
+  "banner":"ltsp_banner.png",
+  "components":
+  [
+    {
+      "menuEntry":"Client Images",
+      "id":"ltsp_images",
+      "main":"images.html",
+      "help":"ltsp-client-images.md",
+      "icon":"imageman.png"
+    },
+    {
+     "menuEntry":"ltsconf",
+     "id":"llx-ltsconf",
+     "main":"llx-ltsconf.html",
+     "icon":"options.png"
+    },
+    {
+     "menuEntry":"Exported Images",
+     "id":"llx-exported",
+     "main":"exported.html",
+     "icon":"exported.png",
+     "help":"ltsp-exported-images.md"
+    },
+    {
+     "menuEntry":"Client Management",
+     "id":"ltsp-client-management",
+     "main":"ltsp-client-management.html",
+     "icon":"clients.png",
+     "help":"ltsp-client-management.md"
+    }
+  ]
+}

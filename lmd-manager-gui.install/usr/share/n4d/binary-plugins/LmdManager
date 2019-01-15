@@ -1,0 +1,33 @@
+#!/bin/bash
+
+# Simple script to compare versions of packages
+# Capture parameters
+FUNC="$1"
+SRV_VERSION="$2"
+#SRV_REQUIRED_VERSION="$3"
+MANAGER_VERSION=`dpkg -l | grep lmd-manager-gui | grep ii | tr -s ' ' | cut -d' ' -f 3`
+
+RC=0
+
+case $FUNC in
+    "compareVersions")
+	dpkg --compare-versions $SRV_VERSION lt $MANAGER_VERSION || RC=1
+
+    	if [ $RC -eq 0 ]; then
+			echo $MANAGER_VERSION
+        	##echo "true"
+   	else
+	        echo "false"
+    	fi
+	exit 0
+
+	;;
+	*)
+	    echo "[CompareVersions] Function Not supported"
+	;;  
+
+esac
+
+
+
+exit 0 

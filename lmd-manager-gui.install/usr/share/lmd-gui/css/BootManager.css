@@ -1,0 +1,158 @@
+.SectionName{
+	font-size: 1.1em;
+	float: left;
+	clear: both;
+	margin: 10px 5px 10px 5px;
+	padding: 1px;
+	width: 770px;
+	/*background-image: -webkit-repeating-radial-gradient(center center, rgba(0,0,0,.4), rgba(0,0,0,.2) 1px, transparent 1px, transparent 100%);*/
+	background-color: #f5f5f5;
+	border-bottom: 1px solid;
+	-webkit-background-size: 3px 3px;
+}
+
+.SectionName:hover{
+	cursor: pointer;
+	background-color: #eeeeee;
+}
+
+.FormElement{
+	margin-left: 50px;
+	/*height: 30px;*/
+	height: auto;
+	text-align: left;
+	min-width: 180px;
+	font-size: 0.9em;
+	padding: 5px;
+	float: left;
+	font-weight: bold;
+
+	position:relative;
+}
+
+/*.FormElement:hover[custom_title]{
+	cursor: auto;
+}*/
+
+.FormElement:hover[custom_title]:after{
+    content: url(icons/help.png) "  " attr(custom_title);
+	z-index:1;
+	display:block;
+    /*border: 1px solid black;*/
+	border-left: 2px solid black;
+    /*background-color: #fff5dc;*/
+	/*background-color: rgba(255, 180, 30, 0.95);*/
+	background-color: #000000;
+	color: #ffffff !important;
+
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+	border-radius: 4px;
+
+	top: 20px;
+	left: 70px;
+
+	color: #000000;
+	position: absolute;
+	padding:5px;
+	border-radius:4px;
+	min-width: 200px;
+	max-width: 300px;
+	box-shadow:1px 1px 3px gray;
+
+}
+
+
+.FormLabel{
+	/*height: 30px;*/
+	height: auto;
+	width: 280px;
+	font-size: 0.9em;
+	padding: 5px;
+}
+
+.FormItem{
+	clear: both;
+	float: left;
+}
+
+.SaveConfigButton{
+	color: #ffffff;
+	clear: both;
+	float: left;
+	margin-left: 55px;
+	margin-bottom: 20px;
+	text-shadow: rgba(0, 0, 0, 0.247059) 0px -1px 0px;
+
+	border-radius: 4px;
+	height: 22px;
+	padding: 1px 5px 1px 5px;
+	background-image:-webkit-linear-gradient(top, #68c5ca, #328da2);
+	border: solid 1px #d2d2d2;
+
+}
+.campo{
+	margin-left: 10px;
+}
+.campo_coloreados{
+	background-color: rgba(200,200,200,0.6);
+	border-left: 2px solid #000000;
+	border-radius: 0px 5px 5px 0px;
+	margin-left :55px;
+	padding: 5px;
+}
+
+.campo_coloreados .FormItem{
+	margin:0px;
+}
+
+.delete_row_param{
+	color: #cccccc;
+	margin-left: 10px;
+}
+.delete_row_param:hover{
+	cursor: pointer;
+	color: #eaa00b;
+}
+
+.SecondaryOption{
+	float: left;
+	clear: both;
+	font-size: 1em;
+	text-align: right;
+}
+
+.ApplyBt{
+	border-radius: 4px;
+	height: 22px;
+	color: #ffffff;
+	padding: 1px 5px 1px 5px;
+	background-image:-webkit-linear-gradient(top, #68c5ca, #328da2);
+	border: solid 1px #d2d2d2;
+	margin-left: 5px;
+	text-shadow: rgba(0, 0, 0, 0.247059) 0px -1px 0px;
+	/*background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #049cdb), color-stop(100%, #0064cd) !important;*/
+
+
+}
+
+#new_param_bt{
+	clear: both;
+	float: left;
+	width: 480px;
+	border: #aaaaaa dashed 2px;
+	margin: 5px;
+	margin-left: 55px;
+	background: #eeeeee;
+	color: #aaaaaa;
+	font-size: 1.2em;
+	text-align: center;
+	border-radius: 3px;
+}
+
+#new_param_bt:hover{
+	cursor: pointer;
+	background: #ffd61f;
+	border-color: #eaa00b;
+	color: #eaa00b;
+
+}

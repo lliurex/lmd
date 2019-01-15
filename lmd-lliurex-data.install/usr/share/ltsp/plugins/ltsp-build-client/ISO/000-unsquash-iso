@@ -1,0 +1,52 @@
+#ROOT
+case "$MODE" in 
+	commandline)
+			add_option "isopath" "`eval_gettext "Set path for iso to uncompress"`" "advanced" "true"
+	;;
+	configure)
+		ISOPATH="$(echo $option_isopath_value)"
+	;;
+	before-install)
+	;;
+	install)
+		mkdir -p "/var/run/ltsp"
+		ISOTEMPPATH="$(mktemp -d -p /var/run/ltsp/)"
+		if [ -e "$ISOPATH" ]; then
+			mount -o loop $ISOPATH $ISOTEMPPATH
+			unsquashfs -d $ROOT -f "$ISOTEMPPATH/casper/filesystem.squashfs"
+			VMLINUZ=$(basename `readlink -f $ROOT/vmlinuz`)
+			INITRD=$(basename `readlink -f $ROOT/initrd.img`)
+
+			cp "$ISOTEMPPATH/casper/$VMLINUZ" $ROOT/boot/
+			ln -s "/boot/$VMLINUZ" $ROOT/boot/vmlinuz
+			cp "$ISOTEMPPATH/casper/$INITRD" $ROOT/boot/
+			ln -s "/boot/$INITRD" $ROOT/boot/initrd.img
+
+			umount $ISOTEMPPATH
+			set -e
+			mv $ROOT/etc/apt/sources.list $ROOT/etc/apt/sources.list.old
+			n4d-client -m is_mirror_available -c MirrorManager | grep 'True' && rc=0 || rc=1
+			set +e
+			if [ '$rc' = '0' ]; then
+				echo "deb http://mirror/llx16 xenial main restricted universe multiverse" >> $ROOT/etc/apt/sources.list
+				echo "deb http://mirror/llx16 xenial-updates main restricted universe multiverse" >> $ROOT/etc/apt/sources.list
+				echo "deb http://mirror/llx16 xenial-security main restricted universe multiverse" >> $ROOT/etc/apt/sources.list
+			else
+				echo "deb http://lliurex.net/xenial xenial main restricted universe multiverse" >> $ROOT/etc/apt/sources.list
+				echo "deb http://lliurex.net/xenial xenial-updates main restricted universe multiverse" >> $ROOT/etc/apt/sources.list
+				echo "deb http://lliurex.net/xenial xenial-security main restricted universe multiverse" >> $ROOT/etc/apt/sources.list
+			fi
+			chroot $ROOT apt-get $APT_GET_OPTS update
+		else
+			echo "Error: $ISOPATH not exists"
+		fi
+		[ -d $ISOTEMPPATH ] && rm -r $ISOTEMPPATH
+		[ -e $ISOPATH ] && [[ "$ISOPATH" =~ ^/opt/ltsp/isos/* ]] && rm $ISOPATH
+	;;
+	after-install)
+	;;
+	finalization)
+		chroot $ROOT apt-get $APT_GET_OPTS purge lliurex-meta-live
+		chroot $ROOT dpkg-reconfigure openssh-server
+	;;
+esac

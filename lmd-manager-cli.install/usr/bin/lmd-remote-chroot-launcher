@@ -1,0 +1,79 @@
+#!/usr/bin/env python
+
+import os
+import subprocess
+import threading
+
+import argparse
+
+from xmlrpclib import *
+
+
+'''
+USAGE:
+
+lmd-remote-chroot-launcher -host remote_ip -ip local_ip -chroot chroot_name -u username -p password -c command
+------- local_ip pot obtindre's automaticament???
+'''
+
+def get_first_display_free():
+	'''
+	Returns firs Display free from 42
+	'''
+	try:
+		display=42
+		while(os.path.isfile('/tmp/.X'+str(display)+'-lock')):
+			# There is lock file... is it in use?
+			print ("File "+'/tmp/.X'+str(display)+'-lock'+" exists")
+			f = open('/tmp/.X'+str(display)+'-lock', 'r')
+			for line in f:
+				if (os.path.exists("/proc/"+line.strip())):
+					print ("Any process is running on :"+str(display))
+					# check another display
+					display=display+1
+				else:
+					print("No process locking file, remove lock file")
+					os.remove('/tmp/.X'+str(display)+'-lock')
+					# Return removed display
+					return ":"+str(display)
+			return ":"+str(display)
+	except Exception as e:
+		print "Captured: "+str(e)
+		return {'status': False, 'msg':'[LTSPX11Environment] '+str(e)}
+	return ":42"
+
+parser = argparse.ArgumentParser(description='Execute X command into a chroot on a server.')
+parser.add_argument('-host', help='Server address')
+parser.add_argument('-chroot', help='chroot')
+parser.add_argument('-u', help='Server Usernane')
+parser.add_argument('-p', help='Server Password')
+parser.add_argument('-c', help='command to perform')
+parser.add_argument('-ip', help='Locap IP') ## IP
+
+args = parser.parse_args()
+host=args.host
+username=args.u
+password=args.p
+chroot=args.chroot
+
+ip=args.ip
+
+# Prepare environment
+
+my_env=dict(os.environ)
+print my_env;
+
+try:
+	print "<<<<<"+my_env['XAUTHORITY']
+except Exception:
+	# Xauthority is not defined...
+	my_env['XAUTHORITY']="~/.Xauthority"
+
+
+display=get_first_display_free();
+
+print display
+
+
+## Continue FROM ltspClientXServer.py...
+

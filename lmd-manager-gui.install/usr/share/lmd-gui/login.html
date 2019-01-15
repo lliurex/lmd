@@ -1,0 +1,44 @@
+<html>
+<!--  http://www.webresourcesdepot.com/free-jquery-ui-themes-collection/ -->
+<head>
+    <link rel="stylesheet" href="css/lmd_layout_ui.css">
+	<link href="lib/jquery-ui/css/bootstrap/jquery-ui-1.10.0.custom.css" rel="stylesheet">
+							  
+			
+	<script type="text/javascript" src="lib/jquery-2.1.0.min.js"></script>
+	<script type="text/javascript" src="lib/jquery-ui/js/jquery-ui-1.10.4.custom.js"></script>
+	<script type="text/javascript" src="lib/jquery.xmlrpc.js"></script>
+	<script type="text/javascript" src="js/konami.js"></script>
+	
+	
+	<!--OWNER-->
+	<script type="text/javascript" src="lib/i18n.js"></script>
+	<script type="text/javascript" src="i18n/loadlang.js"></script>
+	<script type="text/javascript" src="js/login.js"></script>
+	
+	
+	
+
+</head>
+<body class="login">
+
+<div id="login">
+	<div id="logintitle"></div>
+	<div id="loginform">
+		<div id="label_username"><script type="text/javascript">document.write(i18n.gettext("login.username"));</script></div>
+		<input type="text" id="input_username"></input>
+		<div id="label_password"><script>document.write(i18n.gettext("login.password"));</script></div>
+		<input type="password" id="input_password"></input>
+		
+		<div id="label_server"><script>document.write(i18n.gettext("login.server"));</script></div>
+		<input type="text" id="input_server" value="server"></input>
+		<div style="margin-top: 10px; float: right;">
+			<button id="LoginButton" class="ui-button-primary" value="login"></button>
+		</div>
+	</div></div>
+	<div id="msg_err"></div>
+</div>
+
+
+</body>
+</html>

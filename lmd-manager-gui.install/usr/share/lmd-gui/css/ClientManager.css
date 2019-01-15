@@ -1,0 +1,77 @@
+
+
+
+.ClientItem{
+	float: left;
+	position: relative;
+	margin: 7;
+	width: 115px;
+	height: 55px;
+	border: 1px solid #cccccc;
+	background-repeat: no-repeat;
+	background-position: center;
+	background: url('icons/icon_client.png');
+	overflow: hidden;
+	cursor: pointer;
+}
+
+.ClientItemNew{
+	float: left;
+	position: relative;
+	margin: 7px;
+	width: 115px;
+	height: 55px;
+	border: 1px solid #cccccc;
+	background-repeat: no-repeat;
+	background-position: center;
+	background: url('icons/icon_client_new.png');
+	overflow: hidden;
+	cursor: pointer;
+}
+
+
+.ClientIconText{
+	clear: both;
+	text-align: Left;
+	font-size: 1.1em;
+	color: #333333;
+	font-weight: 500;
+	/*position: relative !important;*/
+	position: absolute;
+	top: 0px !important;
+	margin: 0px !important;
+	height: 18px !important;
+}
+.ClientButton{
+	position: relative;
+	display: block;
+	float: left;
+	font-size: 0.8em;
+	color:#ffffff;
+	margin: 1px;
+	padding: 1px 1px 1px 1px;
+	border-radius: 0px;
+	width: 70px;
+	height: 35px;
+	border: 0px;
+	overflow: hidden;
+	text-shadow: none;
+}
+
+.ClientButton:hover{cursor: pointer;}
+
+.ClientButton > *{
+	margin: 0px 5px 0px 5px;
+}
+
+.blue{
+	background-image:-webkit-linear-gradient(top, #1b5fcd, #2573eb);
+	border: solid 1px #1b5fcd;}
+.blue:hover{background: #1b5fcd; }
+
+.bt_red{
+	background-image:-webkit-linear-gradient(top, #900b0b, #b30e0e) !important;
+	border: solid 1px #900b0b !important;
+	color: #ffffff;
+	border-radius: 2px;
+}

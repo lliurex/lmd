@@ -1,0 +1,193 @@
+<!--h1 class="topBanner" i18n>lmd.LliureX.LTSP.Image.Manager</h1-->
+<div class="topBanner"></div>
+
+
+<!--div id="LtspImageManagerContainer" class="jumbotron  col-lg-12"-->
+
+<div class="container">
+<div class="panel panel-default" style="padding: 0px;">
+<div class="panel-heading"><h2  i18n>lmd.Image.List</h2></div>
+<div id="LtspImageManagerContainer" class="panel-body">
+<!--p i18n>lmd.img.list.description</p-->
+
+<div id="llx-ltsp-imagelist_waiting" class="waiting_row"></div>
+<div id="llx-ltsp-imagelist">
+    
+</div>
+<div id="llx-ltsp-createImage-button" class="ltsp-image-name">
+    <div class="col-md-1" style="padding: 0"><img src="modules/lliurex-ltsp/src/css/img/new_image.png" style="padding:0px" class="col-md-12" ></img></div>
+    <span class="ltsp-image-name col-md-10" i18n>Create.New.LTSP.Image</span>
+</div>
+
+<div class="modal" id="llx-ltsp-new-image-assistant">
+  <div class="modal-dialog">
+    <div class="modal-content">
+        
+        <!-- Stage 0 -->
+        <!--div id="llx-ltsp-image-assistant-stage-0" style="display:none">
+          <div class="modal-header">
+            <button type="button" class="close llx-ltsp-image-assistant-close" data-dismiss="llx-ltsp-new-image-assistant" aria-hidden="true">×</button>
+            <h4 class="modal-title" i18n>Step 0. Minimal Image</h4>
+          </div>
+          <div class="modal-body">
+            <p  i18n>Minimal image available bla bla bla</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" id="llx-ltsp-deploy-minimal-image">Desplega la minima</button>
+            <button type="button" class="btn btn-primary" id="llx-ltsp-goto-image-assistant-stage-1">Endavant ></button>
+          </div>
+      </div-->
+        
+      <!-- Stage 1 -->
+      <div id="llx-ltsp-image-assistant-stage-1" style="display:none; overflow: hidden">
+          <div class="modal-header">
+            <button type="button" class="close llx-ltsp-image-assistant-close" data-dismiss="llx-ltsp-new-image-assistant" aria-hidden="true">×</button>
+            <h4 class="modal-title" i18n>lmd.image.assistant.step1</h4>
+            
+          </div>
+          <div class="modal-body">
+            <p  i18n>lmd.image.assistant.step1.desc</p>
+            
+            <div id="llx-ltsp-templatelist_waiting" class="waiting_row"></div>
+            <div id="llx-ltsp-assistant-image-templates">
+                
+                <!-- Client Template -->
+                <div id="ltsp_template_client" class="llx_ltsp_template_div" style="display:none" image_client_name="Client">
+                    <div style="background-image: url(modules/lliurex-ltsp/src/css/img/llx-client16.png);" class="llx_ltsp_template_img col-md-2"></div>
+                    <div class="llx_ltsp_template_namedesc col-md-10"><div class="llx_ltsp_template_name" i18n>ltsp_Client</div>
+                    <div class="llx_ltsp_template_desc" i18n>llx_ltsp_client_desc</div>
+                    </div>
+                </div>
+                
+                <!-- Infantil Template -->
+                <div id="ltsp_template_infantil" class="llx_ltsp_template_div" style="display:none" image_client_name="Infantil">
+                    <div style="background-image: url(modules/lliurex-ltsp/src/css/img/llx-infantil16.png);" class="llx_ltsp_template_img col-md-2"></div>
+                    <div class="llx_ltsp_template_namedesc col-md-10"><div class="llx_ltsp_template_name" i18n>ltsp_Infantil</div>
+                    <div class="llx_ltsp_template_desc" i18n>llx_ltsp_Infantil_desc</div>
+                    </div>
+                </div>
+                
+                <!-- Desktop Template -->
+                <div id="ltsp_template_desktop" class="llx_ltsp_template_div" style="display:none" image_client_name="Desktop">
+                    <div style="background-image: url(modules/lliurex-ltsp/src/css/img/llx-desktop16.png);" class="llx_ltsp_template_img col-md-2"></div>
+                    <div class="llx_ltsp_template_namedesc col-md-10"><div class="llx_ltsp_template_name" i18n>ltsp_Desktop</div>
+                    <div class="llx_ltsp_template_desc" i18n>llx_ltsp_Desktop_desc</div>
+                    </div>
+                </div>
+                
+                <!--
+                 <div templatefilename="lliurex-ltsp-desktop.conf" class="llx_ltsp_template_div col-md-5"
+                 image_client_name="Desktop" image_client_desc="LliureX Escriptori (32 bits)" image_client_arch="i386">
+                 
+                 <div style="background-image: url(&quot;modules/lliurex-ltsp/src/css/img/llx-desktop16.png&quot;);"
+                 class="llx_ltsp_template_img"></div><div class="llx_ltsp_template_namedesc">
+                 
+                 <div class="llx_ltsp_template_name">Desktop</div><div class="llx_ltsp_template_desc">
+                 LliureX Escriptori (32 bits)</div></div></div>
+                -->
+                
+                <!-- Minimal Image -->
+                <div image_client_desc="Minimal Thin Client Image" id="llx_ltsp_lliurex_minimal_image" image_client_name="LliureXMini" class="llx_ltsp_template_div col-md-6">
+                    <div class="llx_ltsp_template_img col-md-2" style="background-image: url(modules/lliurex-ltsp/src/css/img/llx-mini16.png);"></div>
+                    <div class="llx_ltsp_template_namedesc col-md-10"><div class="llx_ltsp_template_name" i18n>llx_minimal_thin_client_name</div><div class="llx_ltsp_template_desc" i18n>llx_minimal_thin_client_desc</div></div>
+                </div>
+                <!-- Image from ISO -->
+                <div image_client_desc="Image from ISO" id="llx_ltsp_lliurex_from_iso" image_client_name="LliureXISO" class="llx_ltsp_template_div col-md-6">
+                  <div class="llx_ltsp_template_img col-md-2" style="background-image: url(modules/lliurex-ltsp/src/css/img/llx-ISO16.png);"></div>
+                  <div class="llx_ltsp_template_namedesc col-md-10"><div class="llx_ltsp_template_name" i18n>lmd.img.list.fromiso.title</div><div class="llx_ltsp_template_desc" i18n>lmd.img.list.fromiso.description</div></div>
+              </div>
+          </div></div>
+          <div class="modal-footer">
+            <button type="button" class="btn" id="llx-ltsp-goto-image-assistant-stage-2" i18n>llx.ltsp.go.forward</button>
+            <!--button type="button" class="btn btn-primary">Desplega la minima</button-->
+          </div>
+          <div id="dialog-for-log"></div>
+    </div>
+      
+      
+      <!-- Stage 2 -->
+      <div id="llx-ltsp-image-assistant-stage-2" style="display:none; overflow: hidden">
+          <div class="modal-header">
+            <button type="button" class="close llx-ltsp-image-assistant-close" data-dismiss="llx-ltsp-new-image-assistant" aria-hidden="true">×</button>
+            <h4 class="modal-title" i18n>lmd.image.assistant.step2</h4>
+          </div>
+          <div class="modal-body">
+            <p  i18n>lmd.image.assistant.step2.desc</p>
+            <h4 id="warningisoassistant" i18n>lmd.image.assistant.isointernetorpoolrequired</h4>
+            <form class="form-horizontal">
+                <fieldset>
+                    
+                  <div class="form-group">
+                    <label for="llx_ltsp_new_image_name" class="col-md-2 control-label" i18n>lmd.image.assistant.Name</label>
+                    <div class="col-md-10">
+                      <input class="form-control" id="llx_ltsp_new_image_name" type="text">
+                    </div>
+                  </div>
+                  
+                  <div class="form-group">
+                    <label for="llx_ltsp_new_image_desc" class="col-md-2 control-label" i18n>lmd.image.assistant.Description</label>
+                    <div class="col-md-10">
+                      <textarea class="form-control" id="llx_ltsp_new_image_desc" type="text">lmd.image.assisant.Iso</textarea>
+                    </div>
+                  </div>
+                                    
+                    <div class="form-group" id="llx_ltsp_new_image_assistant_arch_selector">
+                        <label for="llx_ltsp_new_image_arch" class="col-md-2 control-label" i18n>lmd.image.assistant.Architecture</label>
+                        <div class="col-md-10">
+                            <select class="form-control" id="llx_ltsp_new_image_arch">
+                            </select>
+                            
+                          <!--textarea class="form-control" id="llx_ltsp_new_image_arch" type="text" readonly></textarea-->
+                        </div>
+                    </div>
+                  
+                  <div class="form-group" id="llx_ltsp_new_image_assistant_iso_selector">
+                      <label for="llx_ltsp_new_image_arch" class="col-md-2 control-label" i18n>lmd.image.assisant.Iso</label>
+                      <div class="col-md-10">
+                          <div class="form-control text-center">
+                              <label style="text-align:center" id="isouploadlabel" i18n>lmd.image.assistant.isolabel</label>
+                              <i class="material-icons" id="isouploadicon">file_upload</i>
+                          </div>
+                          
+                          <input type="file" class="form-control none" id="llx_ltsp_new_image_iso" />
+
+                      </div>
+                  </div>
+
+                  <!--div class="form-group" id="llx_ltsp_new_image_assistant_arch_selector">
+                    <label class="col-md-2 control-label" i18n>Architecture</label>
+              
+                    <div class="col-md-10">
+                      <div class="radio radio-primary">
+                        <label>
+                          <input name="optionsRadios_ltsp_arch" id="optionsRadios_ltsp_arch_i386" value="i386" type="radio">
+                          i386 (32 bit)
+                        </label>
+                      </div>
+                      <div class="radio radio-primary">
+                        <label>
+                          <input name="optionsRadios_ltsp_arch" id="optionsRadios_ltsp_amd64" value="amd64" type="radio">
+                          amd64 (64 bit)
+                        </label>
+                      </div>
+                    </div>
+                  </div-->
+                  
+                </fieldset>
+              </form>
+            
+            
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" i18n id="llx-ltsp-goback-image-assistant-stage-1">lmd.image.assistant.Back</button>
+            <button type="button" class="btn btn-primary" i18n id="llx-ltsp-create-new-image">lmd.image.assistant.Create</button>
+          </div>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+
+
+</div></div></div>
