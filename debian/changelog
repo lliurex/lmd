@@ -1,3 +1,9 @@
+lmd (2.8.7) bionic; urgency=high
+
+  * Missing dirs files
+
+ -- Hector Garcia Huerta <hectorgh@gmail.com>  Wed, 06 Feb 2019 13:18:06 +0100
+
 lmd (2.8.6) bionic; urgency=high
 
   * Changing session to plasma
