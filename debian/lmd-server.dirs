@@ -1,1 +1,3 @@
 /etc/ltsp/images
+/var/lib/tftpboot/ltsp/i386
+/var/www/exported
