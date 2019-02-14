@@ -5,10 +5,10 @@ class=LmdImageManager
 [METHODS]
 getImageList=anonymous
 getImage=anonymous
-setImage=admin,admins,adm
-setStatusImage=admin,admins,adm
-setNewTaskIdForImage=admin,admins,adm
-deleteImage=admin,admins,adm
+setImage=admin,admins,sudo
+setStatusImage=admin,admins,sudo
+setNewTaskIdForImage=admin,admins,sudo
+deleteImage=admin,admins,sudo
 check_image_editing=anonymous
-clean_image_editing=admin,admins,adm
+clean_image_editing=admin,admins,sudo
 check_mirror=anonymous

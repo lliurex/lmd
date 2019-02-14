@@ -7,5 +7,5 @@ getTemplateList=anonymous
 getTemplate=anonymous
 testMirror=anonymous
 checkTemplateExists=anonymous
-setTemplate=admin,admins,adm
-deleteTemplate=admin,admins,adm
+setTemplate=admin,admins,sudo
+deleteTemplate=admin,admins,sudo
