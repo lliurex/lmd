@@ -5,7 +5,7 @@ class=LmdClientManager
 [METHODS]
 getClientList=anonymous
 getClient=anonymous
-setClient=admin,admins,adm
-deleteClient=admin,admins,adm
+setClient=admin,admins,sudo
+deleteClient=admin,admins,sudo
 getArpTable=anonymous
 

@@ -4,6 +4,6 @@ path=LmdNotifier.py
 class=LmdNotifier
 [METHODS]
 getLog=anonymous
-addNotification=admin,admins,adm
-cleanLog=admin,admins,adm
+addNotification=admin,admins,sudo
+cleanLog=admin,admins,sudo
 
