@@ -1,3 +1,9 @@
+lmd (2.8.8) bionic; urgency=medium
+
+  * Adding sudo group to n4d plugin
+
+ -- Juan Ramon Pelegrina <juapesai@hotmail.com>  Thu, 14 Feb 2019 09:37:10 +0100
+
 lmd (2.8.7) bionic; urgency=high
 
   * Missing dirs files
