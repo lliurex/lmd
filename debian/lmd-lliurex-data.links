@@ -89,3 +89,5 @@
 /usr/share/ltsp/plugins/ltsp-build-client/Ubuntu/094-lliurex                      /usr/share/ltsp/plugins/ltsp-build-client/ISO/094-lliurex
 /usr/share/ltsp/plugins/ltsp-build-client/Ubuntu/095-rootpass                      /usr/share/ltsp/plugins/ltsp-build-client/ISO/095-rootpass
 /usr/share/ltsp/plugins/ltsp-build-client/Ubuntu/095-update-image                  /usr/share/ltsp/plugins/ltsp-build-client/ISO/095-update-image
+
+/usr/share/ltsp-build-client/Ubuntu	/usr/share/ltsp-build-client/neon
