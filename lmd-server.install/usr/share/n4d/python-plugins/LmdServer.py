@@ -486,7 +486,7 @@ class LmdServer:
 						'desc':'Minimal thin client -not fat- for Lliurex LTSP.',
 						'img':'llx-client16.png',
 						'ltsp_fatclient': 'false',
-						'ldm_session': 'startxfce4',
+						'ldm_session': 'plasma',
 						'fat_ram_threshold': 'default',
 						'lmd_extra_params':'XKBLAYOUT=es LDM_LANGUAGE="%s" LOCALE_DIR=%s'%(lng,language)}
 			metadata_string = unicode(json.dumps(metadata,indent=4,encoding="utf-8",ensure_ascii=False)).encode("utf-8")
@@ -506,6 +506,7 @@ class LmdServer:
 				f.write('[Default]\n')
 				f.write('LDM_LANGUAGE=es_ES.UTF-8\n')
 				f.write('LTSP_FATCLIENT=false\n')
+				f.write('DEFAULT_DISPLAY_MANAGER="/usr/sbin/ldm"\n')
 				f.close()
 				
 				# Step 3. Registering imgid for boot PXE menu
