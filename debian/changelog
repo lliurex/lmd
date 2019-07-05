@@ -1,8 +1,8 @@
 lmd (2.8.13) bionic; urgency=medium
 
-  * Fix iso builder
+  * Making sure ldm is used when configuring FAT_CLIENT=False 
 
- -- Raul Rodrigo Segura <raurodse@gmail.com>  Thu, 27 Jun 2019 14:50:23 +0200
+ -- Hector Garcia Huerta <hectorgh@gmail.com>  Fri, 05 Jul 2019 12:46:53 +0200
 
 lmd (2.8.12) bionic; urgency=medium
 
