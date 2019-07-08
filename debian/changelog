@@ -1,4 +1,4 @@
-lmd (2.8.14ubuntu1) bionic; urgency=medium
+lmd (2.8.15) bionic; urgency=medium
 
   * Fixed ltsp_fatclient if in LmdImageManager
 
