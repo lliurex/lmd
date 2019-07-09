@@ -123,6 +123,7 @@ class LmdImageManager:
 					f.write("FAT_RAM_THRESHOLD="+jsondata['fat_ram_threshold']+"\n")
 				if (jsondata['ltsp_fatclient']=="false"):
 					f.write('DEFAULT_DISPLAY_MANAGER="/usr/sbin/ldm"\n')
+					f.write('X_SMART_COLOR_DEPTH=false\n')
 				if (jsondata['use_local_apps']!="false"):
 					f.write("LOCAL_APPS_EXTRAMOUNTS=/home\n")
 					f.write("LOCAL_APPS=true\n")
