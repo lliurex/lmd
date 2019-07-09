@@ -1,3 +1,9 @@
+lmd (2.8.16) bionic; urgency=medium
+
+  * Disabled SMART COLOR DEPTH for thin clients
+
+ -- Hector Garcia Huerta <hectorgh@gmail.com>  Tue, 09 Jul 2019 14:31:44 +0200
+
 lmd (2.8.15) bionic; urgency=medium
 
   * Fixed ltsp_fatclient if in LmdImageManager
