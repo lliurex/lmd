@@ -31,15 +31,15 @@ Description: LMD - LTSP Management for Dummies. Cli tools.
  Thin Clients Management. This package
  offers CLI tools to manage LMD.
 
-Package: lmd-manager-gui
-Depends: ${misc:Depends}, nwjs0.12, lmd-manager-cli, n4d-remote-gui-plugin, llx-bootmanager-gui, n4d-lliurexberry, lmd-lliurex-data
-Conflicts: lliurex-ltsp-admin
-Replaces: lliurex-ltsp-admin
-Architecture: all
-Description: LMD - LTSP Management for Dummies. Gui tools.
- LMD gives support to Thin and Fat
- Thin Clients Management. This package
- offers GUI tools to manage LMD.
+#Package: lmd-manager-gui
+#Depends: ${misc:Depends}, nwjs0.12, lmd-manager-cli, n4d-remote-gui-plugin, llx-bootmanager-gui, n4d-lliurexberry, lmd-lliurex-data
+#Conflicts: lliurex-ltsp-admin
+#Replaces: lliurex-ltsp-admin
+#Architecture: all
+#Description: LMD - LTSP Management for Dummies. Gui tools.
+# LMD gives support to Thin and Fat
+# Thin Clients Management. This package
+# offers GUI tools to manage LMD.
 
 Package: lmd-lliurex-data
 Depends: ${misc:Depends}, lmd-server, lliurex-preseed-common (>= 0.17)
