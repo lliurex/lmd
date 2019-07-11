@@ -15,7 +15,7 @@ fi
 
 case $2 in
 "run_mate_terminal")
-  command="/usr/sbin/ltsp_edit_command.sh mate-terminal"
+  command="/usr/sbin/ltsp_edit_command.sh /usr/bin/konsole --fullscreen -e bash"
   ;;
 "run_synaptic")
   command="/usr/sbin/ltsp_edit_command.sh synaptic"
