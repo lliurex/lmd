@@ -79,7 +79,7 @@ ImageManager.prototype.deleteImage=function deleteImage(targetid){
 }*/
 
 
-ImageManager.prototype.editImageWithCheck=function editImageWithCheck(id, editCommand="/usr/sbin/mate-ltsp-desktop.sh", arch="i386"){
+ImageManager.prototype.editImageWithCheck=function editImageWithCheck(id, editCommand="/usr/sbin/mate-ltsp-desktop.sh", arch="amd64"){
     var self=this;
         
     var credentials="";
@@ -122,7 +122,7 @@ ImageManager.prototype.editImageWithCheck=function editImageWithCheck(id, editCo
 };
                 
                 
-ImageManager.prototype.editImage=function editImage(id, editCommand="/usr/sbin/mate-ltsp-desktop.sh", arch="i386"){
+ImageManager.prototype.editImage=function editImage(id, editCommand="/usr/sbin/mate-ltsp-desktop.sh", arch="amd64"){
     
   var self=this;
   // Stage 1: Prepare Connection
