@@ -1,3 +1,9 @@
+lmd (2.9) bionic; urgency=medium
+
+  * Update labels for sessions types
+
+ -- Juanma Navarro Mañez <juanma1980@gmail.com>  Thu, 11 Jul 2019 08:49:44 +0200
+
 lmd (2.8.16) bionic; urgency=medium
 
   * Disabled SMART COLOR DEPTH for thin clients
