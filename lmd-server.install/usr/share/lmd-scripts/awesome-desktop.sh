@@ -3,7 +3,7 @@
 # Testing parameters
 
 if [ $# -ne 1  ]; then
-   echo  "Default use: awesom-desktop.sh chroot_name"
+	echo  "Default use: $(basename $0) chroot_name"
    exit -1
 fi
 
