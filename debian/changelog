@@ -1,3 +1,10 @@
+lmd (2.10) bionic; urgency=medium
+
+  * Fix translations
+  * Load kwin for launch standalone commands (like lliurex-up, konsole...)
+
+ -- Juanma Navarro Mañez <juanma1980@gmail.com>  Thu, 11 Jul 2019 13:33:25 +0200
+
 lmd (2.9) bionic; urgency=medium
 
   * Update labels for sessions types
