@@ -1,3 +1,9 @@
+lmd (2.10.2) bionic; urgency=medium
+
+  * Add apparmor to rm system services in lts.conf
+
+ -- Juanma Navarro Mañez <juanma1980@gmail.com>  Wed, 17 Jul 2019 14:54:26 +0200
+
 lmd (2.10.1) bionic; urgency=medium
 
   * update xephyr background
