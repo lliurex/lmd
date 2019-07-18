@@ -1,4 +1,4 @@
-lmd (2.10.2) bionic; urgency=medium
+lmd (2.10.2-1) bionic; urgency=medium
 
   * Add apparmor to rm system services in lts.conf
 
