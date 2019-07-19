@@ -15,13 +15,13 @@ fi
 
 case $2 in
 "run_mate_terminal")
-  command="/usr/sbin/ltsp_edit_command.sh coproc kwin --replace;/usr/bin/konsole --fullscreen -e bash"
+  command="/usr/sbin/ltsp_edit_command.sh /usr/bin/konsole --fullscreen -e bash"
   ;;
 "run_synaptic")
-  command="/usr/sbin/ltsp_edit_command.sh coproc kwin --replace;synaptic"
+  command="/usr/sbin/ltsp_edit_command.sh synaptic"
   ;;
 "run_lliurex_up")
-  command="/usr/sbin/ltsp_edit_command.sh coproc kwin --replace;lliurex-up"
+  command="/usr/sbin/ltsp_edit_command.sh lliurex-up"
   ;;
 *)
   command=$2
