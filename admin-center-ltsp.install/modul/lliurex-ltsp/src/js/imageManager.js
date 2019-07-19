@@ -708,7 +708,7 @@ ImageManager.prototype.renderImage=function renderImage(imagefile){
 
             var picColumn=$(document.createElement("div")).addClass("col-md-1").css("padding","0");
             //var picItem=$(document.createElement("div")).addClass("llx-ltsp-image-picture");
-            var picItem=$(document.createElement("img")).attr("src", "modules/lliurex-ltsp/src/css/img/llx-client16.png").addClass("col-md-12").css("padding", "0");
+            var picItem=$(document.createElement("img")).attr("src", "modules/lliurex-ltsp/src/css/img/llx-client16.svg").addClass("col-md-12").css("padding", "0");
             picColumn.append(picItem);
             var imgName=$(document.createElement("div")).html(imageContent.name).addClass("ltsp-image-name");
             var imgDesc=$(document.createElement("div")).html(imageContent.desc).addClass("ltsp-image-desc");
