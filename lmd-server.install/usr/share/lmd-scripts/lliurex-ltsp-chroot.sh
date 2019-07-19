@@ -21,7 +21,7 @@ case $2 in
   command="/usr/sbin/ltsp_edit_command.sh coproc kwin --replace;synaptic"
   ;;
 "run_lliurex_up")
-  command="/usr/sbin/ltsp_edit_command.sh coproc kwin --replace;lliurex-up;"
+  command="/usr/sbin/ltsp_edit_command.sh coproc kwin --replace;lliurex-up"
   ;;
 *)
   command=$2
