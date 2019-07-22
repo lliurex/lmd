@@ -1,3 +1,9 @@
+lmd (2.11) bionic; urgency=medium
+
+  * Updated icons
+
+ -- Juanma Navarro Mañez <juanma1980@gmail.com>  Mon, 22 Jul 2019 09:08:34 +0200
+
 lmd (2.10.2-1) bionic; urgency=medium
 
   * Add apparmor to rm system services in lts.conf
