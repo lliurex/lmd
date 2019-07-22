@@ -5,8 +5,8 @@
   "description": "ltsp.description.module",
   "main":"main.html",
   "help":"lliurex-ltsp.md",
-  "icon":"ltsp.png",
-  "banner":"ltsp_banner.png",
+  "icon":"ltsp.svg",
+  "banner":"ltsp_banner.svg",
   "components":
   [
     {
