@@ -10,13 +10,13 @@ class UploadManager{
 	private $ext;
 	private $FILES;
 	
-	function __construct($FILESTOUPLOAD,$POST){
+	function __construct($FILESTOUPLOAD,$_POST){
 		$this->file_info = pathinfo($FILESTOUPLOAD[self::FORMISONAME]['name']);
 		$this->original_name = $this->file_info['filename'];
 		$this->ext = $this->file_info['extension'];
 		$this->FILES = $FILESTOUPLOAD;
-		$this->user = $this->RSADecrypt($POST['user']);
-		$this->password = $this->RSADecrypt($POST['password']);
+		$this->user = $this->RSADecrypt($_POST['user']);
+		$this->password = $this->RSADecrypt($_POST['password']);
 	}
 
 	private function get_valid_name(){
