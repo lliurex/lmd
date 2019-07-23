@@ -14,26 +14,26 @@
       "id":"ltsp_images",
       "main":"images.html",
       "help":"ltsp-client-images.md",
-      "icon":"imageman.png"
+      "icon":"imageman.svg"
     },
     {
      "menuEntry":"ltsconf",
      "id":"llx-ltsconf",
      "main":"llx-ltsconf.html",
-     "icon":"options.png"
+     "icon":"options.svg"
     },
     {
      "menuEntry":"Exported Images",
      "id":"llx-exported",
      "main":"exported.html",
-     "icon":"exported.png",
+     "icon":"exported.svg",
      "help":"ltsp-exported-images.md"
     },
     {
      "menuEntry":"Client Management",
      "id":"ltsp-client-management",
      "main":"ltsp-client-management.html",
-     "icon":"clients.png",
+     "icon":"clients.svg",
      "help":"ltsp-client-management.md"
     }
   ]
