@@ -1,3 +1,9 @@
+lmd (2.11.3) bionic; urgency=medium
+
+  * Adding SMART template
+
+ -- Hector Garcia Huerta <hectorgh@gmail.com>  Mon, 23 Sep 2019 16:40:18 +0200
+
 lmd (2.11.2) bionic; urgency=medium
 
   * fix module.json
