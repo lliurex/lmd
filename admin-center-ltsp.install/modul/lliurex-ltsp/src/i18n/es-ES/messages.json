@@ -95,6 +95,8 @@
     "lmd.Image.Exports":["Imágenes exportadas"],
     "ltsp_Client":["Cliente"],
     "llx_ltsp_client_desc":["Cliente de modelo de aula LliureX"],
+    "ltsp_Client_SMART":["Cliente con soporte de SMART"],
+    "llx_ltsp_client_desc":["Cliente de modelo de aula LliureX con soporte de pizarras SMART"],
     "ltsp_Infantil":["Infantil"],
     "llx_ltsp_Infantil_desc":["LliureX Infantil"],
     "ltsp_Desktop":["Escritorio"],
