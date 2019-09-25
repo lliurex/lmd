@@ -1286,6 +1286,10 @@ ImageManager.prototype.getAvailableTemplates=function getAvailableTemplates(){
             if (templatelist.indexOf("lliurex-ltsp-client-amd64.conf")!=-1 && self.mirrorReady &&  self.mirror64bit) {
                 $("#ltsp_template_client").attr("image_client_arch_64", "true");
                 $("#ltsp_template_client").show(); }
+		
+	    if (templatelist.indexOf("lliurex-ltsp-client-smart-amd64.conf")!=-1 && self.mirrorReady &&  self.mirror64bit) {
+                $("#ltsp_template_client").attr("image_client_arch_64", "true");
+                $("#ltsp_template_client").show(); }
                 
             if (templatelist.indexOf("lliurex-ltsp-infantil.conf")!=-1 && self.mirrorReady &&  self.mirror32bit) {
                 $("#ltsp_template_infantil").attr("image_client_arch_32", "true");
@@ -1317,6 +1321,23 @@ ImageManager.prototype.getAvailableTemplates=function getAvailableTemplates(){
                 else $("#llx_ltsp_new_image_arch").val("amd64");
                 
                 });
+
+            $("#ltsp_template_client_smart").bind("click", function(){
+                $(".llx_ltsp_template_div").removeClass("llx_ltsp_template_div_selected");
+                $("#ltsp_template_client_smart").addClass("llx_ltsp_template_div_selected");
+                $("#llx-ltsp-goto-image-assistant-stage-2").addClass("btn-primary");
+                
+                $("#llx_ltsp_new_image_name").val("ClientSMART");
+                $("#llx_ltsp_new_image_desc").val($("#ltsp_template_client_smart").find(".llx_ltsp_template_desc").html());
+                
+                if($("#ltsp_template_client_smart").attr("image_client_arch_32")=="true")
+                    $("#llx_ltsp_new_image_arch").val("i386");
+                else $("#llx_ltsp_new_image_arch").val("amd64");
+                
+                });
+
+		
+		
             
             // Binding select infantil
             $("#ltsp_template_infantil").bind("click", function(){
@@ -1640,7 +1661,7 @@ ImageManager.prototype.bindEvents=function bindEvents(){
     
     $("#llx-ltsp-goto-image-assistant-stage-2").on("click", function(){
         
-        var available_type_images = ["ltsp_template_client", "ltsp_template_infantil", "llx_ltsp_lliurex_minimal_image", "llx_ltsp_lliurex_from_iso", "ltsp_template_desktop"];
+        var available_type_images = ["ltsp_template_client", "ltsp_template_client_smart", "ltsp_template_infantil", "llx_ltsp_lliurex_minimal_image", "llx_ltsp_lliurex_from_iso", "ltsp_template_desktop"];
         
         var itemSelected=$(".llx_ltsp_template_div_selected");
         var id_image_selected = $(itemSelected).attr("id");
@@ -1690,6 +1711,10 @@ ImageManager.prototype.bindEvents=function bindEvents(){
             "ltsp_template_client":{
                 "i386":"lliurex-ltsp-client.conf",
                 "amd64":"lliurex-ltsp-client-amd64.conf",
+            },
+            "ltsp_template_client_smart":{
+                "i386":"lliurex-ltsp-client-smart.conf",
+                "amd64":"lliurex-ltsp-client-smart-amd64.conf",
             },
             "ltsp_template_desktop":{
                 "i386":"lliurex-ltsp-desktop.conf",
