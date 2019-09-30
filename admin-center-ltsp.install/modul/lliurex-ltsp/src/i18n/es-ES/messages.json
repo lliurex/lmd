@@ -96,7 +96,7 @@
     "ltsp_Client":["Cliente"],
     "llx_ltsp_client_desc":["Cliente de modelo de aula LliureX"],
     "ltsp_Client_SMART":["Cliente con soporte de SMART"],
-    "llx_ltsp_client_desc":["Cliente de modelo de aula LliureX con soporte de pizarras SMART"],
+    "llx_ltsp_client_smart_desc":["Client LliureX con soporte de SMART. Necesita lliurex-smart-ltsp-server instalado en el servidor y 'nbd-lliurex-smart install' ejecutado."],
     "ltsp_Infantil":["Infantil"],
     "llx_ltsp_Infantil_desc":["LliureX Infantil"],
     "ltsp_Desktop":["Escritorio"],
