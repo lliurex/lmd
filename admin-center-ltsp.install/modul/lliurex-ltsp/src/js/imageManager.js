@@ -30,7 +30,7 @@ function ImageManager(){
 ImageManager.prototype.deleteImage=function deleteImage(targetid){
     var self=this;
     $(".llx-ltsp-image-file[target_id="+targetid+"]").css("background","#ffe0b2");
-    Utils.waitwin.ShowModalInfo("Removing image", "Removin image client", WAITWIN_WAITING);
+    Utils.waitwin.ShowModalInfo("Removing image", "Removing image client", WAITWIN_WAITING);
     
     // Perform n4d call to delete image
     var self=this;
