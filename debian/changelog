@@ -1,10 +1,10 @@
-lmd (2.11.6) bionic; urgency=medium
+lmd (2.12.1) bionic; urgency=medium
 
   * Fixed SMART template messages
 
  -- Hector Garcia Huerta <hectorgh@gmail.com>  Mon, 30 Sep 2019 16:35:55 +0200
 
-lmd (2.11.5) bionic; urgency=medium
+lmd (2.12) bionic; urgency=medium
 
   * Adding SMART template
 
