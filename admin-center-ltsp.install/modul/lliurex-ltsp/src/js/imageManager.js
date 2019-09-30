@@ -1288,8 +1288,8 @@ ImageManager.prototype.getAvailableTemplates=function getAvailableTemplates(){
                 $("#ltsp_template_client").show(); }
 		
 	    if (templatelist.indexOf("lliurex-ltsp-client-smart-amd64.conf")!=-1 && self.mirrorReady &&  self.mirror64bit) {
-                $("#ltsp_template_client").attr("image_client_arch_64", "true");
-                $("#ltsp_template_client").show(); }
+                $("#ltsp_template_client_smart").attr("image_client_arch_64", "true");
+                $("#ltsp_template_client_smart").show(); }
                 
             if (templatelist.indexOf("lliurex-ltsp-infantil.conf")!=-1 && self.mirrorReady &&  self.mirror32bit) {
                 $("#ltsp_template_infantil").attr("image_client_arch_32", "true");
