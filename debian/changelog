@@ -1,3 +1,9 @@
+lmd (2.13) bionic; urgency=medium
+
+  * Restored autologin support. It changes back to LDM if autologin is enabled
+
+ -- Hector Garcia Huerta <hectorgh@gmail.com>  Tue, 17 Dec 2019 12:06:39 +0100
+
 lmd (2.12.1) bionic; urgency=medium
 
   * Fixed SMART template messages
