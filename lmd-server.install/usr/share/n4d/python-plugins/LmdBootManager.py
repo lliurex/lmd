@@ -225,7 +225,7 @@ class LmdBootManager:
 		        with open(fname) as infile:
 		            for line in infile:
 		                outfile.write(line)		
-                
+
 		return {"status":"true", "msg":"all ok"}
 
 	
@@ -244,14 +244,20 @@ class LmdBootManager:
 						data = json.load(json_data)
 						json_data.close()
 						cfgfile.write("\n["+data["mac"]+"]\n");
+						ldm_set=False
 						if ("autologin" in data) and ("user" in data) and ("pass" in data):
 							if (data["autologin"].lower()=="true"):
 								cfgfile.write("LDM_AUTOLOGIN = True\n");
 								cfgfile.write("LDM_USERNAME = "+data["user"]+"\n");
 								cfgfile.write("LDM_PASSWORD = "+data["pass"]+"\n");
+								cfgfile.write('DEFAULT_DISPLAY_MANAGER = "/usr/sbin/ldm"\n');
+								ldm_set=True
 						
 						if ("forceThin" in data) and (data["forceThin"].lower()=="true"):
 							cfgfile.write("LTSP_FATCLIENT = False\n");
+							if not ldm_set:
+								cfgfile.write('DEFAULT_DISPLAY_MANAGER = "/usr/sbin/ldm"\n');
+								ldm_set=True
 							
 						if ("extraOptions" in data) and (data["extraOptions"]!=""):
 							optList=data["extraOptions"].split("\n");
