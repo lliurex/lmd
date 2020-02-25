@@ -89,7 +89,7 @@ class LmdClientManager:
 			ip=macarray[0]
 			mac=macarray[3]
 			if (macarray[5].replace('\n', '')==iface):
-				print "adding"
+				print("adding")
 				arptable.append({"ip":ip, "mac":mac});
 			
 		return arptable[0:];

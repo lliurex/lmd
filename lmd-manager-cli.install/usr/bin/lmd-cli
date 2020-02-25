@@ -1,10 +1,10 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import socket
 import subprocess
 import threading
 
-from xmlrpclib import *
+from xmlrpc.client import *
 
 
 '''
@@ -23,10 +23,10 @@ def listen_log(s,port):
 		try:
 			data, addr = s.recvfrom(1024)
 			if data:
-				print data[:-1]
+				print(data[:-1])
 					#subprocess.Popen(["echo '"+data[:-1]+"' >> "+output], shell=True)
 		except Exception as e:
-			print "EXCEPTION "+str(e)
+			print("EXCEPTION "+str(e))
 			
 parser = argparse.ArgumentParser(description='Execute command in server.')
 parser.add_argument('-host', help='Server address')
@@ -89,14 +89,14 @@ param_list.append(port)
 if params!=None:
 	param_list.append(' '.join(args.a))
 
-print param_list
+print(param_list)
 
 # Performing command
 server = ServerProxy ("https://"+host+":9779")
-print "method is "+method
-print "args: "+str(param_list)
+print("method is "+method)
+print("args: "+str(param_list))
 ret=getattr(server,method)(*param_list)
-print ret
+print(ret)
 
 
 		

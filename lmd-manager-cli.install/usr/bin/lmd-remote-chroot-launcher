@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import os
 import subprocess
@@ -6,7 +6,7 @@ import threading
 
 import argparse
 
-from xmlrpclib import *
+from xmlrpc.client import *
 
 
 '''
@@ -24,11 +24,11 @@ def get_first_display_free():
 		display=42
 		while(os.path.isfile('/tmp/.X'+str(display)+'-lock')):
 			# There is lock file... is it in use?
-			print ("File "+'/tmp/.X'+str(display)+'-lock'+" exists")
+			print(("File "+'/tmp/.X'+str(display)+'-lock'+" exists"))
 			f = open('/tmp/.X'+str(display)+'-lock', 'r')
 			for line in f:
 				if (os.path.exists("/proc/"+line.strip())):
-					print ("Any process is running on :"+str(display))
+					print(("Any process is running on :"+str(display)))
 					# check another display
 					display=display+1
 				else:
@@ -38,7 +38,7 @@ def get_first_display_free():
 					return ":"+str(display)
 			return ":"+str(display)
 	except Exception as e:
-		print "Captured: "+str(e)
+		print("Captured: "+str(e))
 		return {'status': False, 'msg':'[LTSPX11Environment] '+str(e)}
 	return ":42"
 
@@ -61,10 +61,10 @@ ip=args.ip
 # Prepare environment
 
 my_env=dict(os.environ)
-print my_env;
+print(my_env);
 
 try:
-	print "<<<<<"+my_env['XAUTHORITY']
+	print("<<<<<"+my_env['XAUTHORITY'])
 except Exception:
 	# Xauthority is not defined...
 	my_env['XAUTHORITY']="~/.Xauthority"
@@ -72,7 +72,7 @@ except Exception:
 
 display=get_first_display_free();
 
-print display
+print(display)
 
 
 ## Continue FROM ltspClientXServer.py...
