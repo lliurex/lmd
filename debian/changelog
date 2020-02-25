@@ -1,3 +1,10 @@
+lmd (2.14) bionic; urgency=medium
+
+  * Non-maintainer upload.
+  * Migration to python3 
+
+ -- Daniel Duran Vecino <daduve@gmail.com>  Tue, 25 Feb 2020 12:42:32 +0100
+
 lmd (2.13) bionic; urgency=medium
 
   * Restored autologin support. It changes back to LDM if autologin is enabled
