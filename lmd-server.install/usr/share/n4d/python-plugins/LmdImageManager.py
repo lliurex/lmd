@@ -76,7 +76,7 @@ class LmdImageManager:
 			return json.dumps(data)
 			#return data;
 		except Exception as e:
-			print "[LmdImageManager]: getImage Exception "+str(e)
+			print("[LmdImageManager]: getImage Exception "+str(e))
 			return str(e);
 
 		# END def getListTemplate(self, image)
@@ -260,7 +260,7 @@ class LmdImageManager:
 		try:
 			# Test if exists chroot
 			if not os.path.isdir(chroot_dir):
-				print "NO DIR CHROOT: "+chroot_dir
+				print("NO DIR CHROOT: "+chroot_dir)
 				return {'status': True, 'msg':'[LmdImageManager] Directory not exists'}
 			else:
 				

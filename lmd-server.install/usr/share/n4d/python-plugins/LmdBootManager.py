@@ -189,13 +189,13 @@ class LmdBootManager:
 			cp.optionxform=str
 			cp.read(conf_file)
 			aux = cp._sections
-			print "**",aux,"$$$"
-			for x in aux.keys():
+			print("**",aux,"$$$")
+			for x in list(aux.keys()):
 				for y in aux[x]:
 					if aux[x][y][0] == '"' and aux[x][y][-1] == '"':
 						aux[x][y] = aux[x][y][1:-1]
 
-			print "@@",aux,"##"
+			print("@@",aux,"##")
 			return json.dumps(aux)
 			pass
 			#return json.dumps(cp.items('default'));
@@ -265,7 +265,7 @@ class LmdBootManager:
 								cfgfile.write(opt+"\n");
 							
 			except Exception as e:
-				print "[LMDBootManager] Exception "+str(e)
+				print("[LMDBootManager] Exception "+str(e))
 			
 			cfgfile.close()
 			
@@ -396,7 +396,7 @@ class LmdBootManager:
 				# if file exists, read it
 				f3=open("/etc/hosts.allow", 'r')				
 				for line in f3.readlines():
-					print line
+					print(line)
 					if (line=="nbdswapd: ALL: keepalive\n"):
 						needs_nbdswap_line=False
 				f3.close();
@@ -410,7 +410,7 @@ class LmdBootManager:
 			return {"status":True, "msg":"finished"}
 		
 		except Exception as e:
-			print "exc,"+str(e)
+			print("exc,"+str(e))
 			return {"status":False, "msg":str(e)}
 		
 	def getDefaultBootImage(self):

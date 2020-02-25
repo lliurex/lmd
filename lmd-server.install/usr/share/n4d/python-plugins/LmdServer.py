@@ -183,7 +183,7 @@ class LmdServer:
 			
 			pass
 		except Exception as e:
-			print "Except: "+str(e)
+			print ("Except: "+str(e))
 			return e
 		
 	
@@ -200,7 +200,7 @@ class LmdServer:
 			server.umount_chroot((username,password),'LmdImageManager',path)
 			
 			# Let's rebuild image
-			print "[LmdServer] Refreshing image for "+str(imgid)
+			print ("[LmdServer] Refreshing image for "+str(imgid))
 
 			# Trying to solve the non-zenity problem
 			# 
@@ -216,7 +216,7 @@ class LmdServer:
 				
 			pass
 		except Exception as e:
-			print "Except: "+str(e)
+			print ("Except: "+str(e))
 			return {"False": True, "msg": str(e)}
 
 	
@@ -264,7 +264,7 @@ class LmdServer:
 			if ret["status"]==True: ## Task has launched ok
 				
 				
-				print "[LmdServer] Refreshing image for "+str(imgid)
+				print ("[LmdServer] Refreshing image for "+str(imgid))
 				
 				# we does not have to push to boot list! Bug fixed!
 				#objects['LlxBootManager'].pushToBootList("ltsp_label"+str(imgid));
@@ -282,7 +282,7 @@ class LmdServer:
 			
 			
 		except Exception as e:
-			print "Except: "+str(e)
+			print ("Except: "+str(e))
 			return {"False": True, "msg": str(e)}
 		
 	
@@ -293,7 +293,7 @@ class LmdServer:
 			# creates an image from an specified template
 		
 			# Check if template exists
-			print "[LmdServer] Export_image from "+imgid
+			print ("[LmdServer] Export_image from "+imgid)
 			
 			name_file = str(imgid) + "_" + time.strftime("%Hh%Mm%Ss_%d%m%Y") + '.tgz'
 
@@ -303,7 +303,7 @@ class LmdServer:
 			return {"status": True, "msg": str(result)}
 			pass
 		except Exception as e:
-			print "Except: "+str(e)
+			print ("Except: "+str(e))
 			return {"status": False, "msg": str(e)}
 
 	def import_image(self, ip, port, imgid, path, srv_ip='127.0.0.1'):
@@ -317,7 +317,7 @@ class LmdServer:
 			#if(ip==srv_ip)
 			print ("COMPARING: "+lliurex.net.get_ip_from_host(ip)+ "and "+ n4d_server_ip);
 			if(lliurex.net.get_ip_from_host(ip)==n4d_server_ip or ip==srv_ip):
-				print "[LmdServer] Import_image from ",path, " to ", imgid
+				print ("[LmdServer] Import_image from ",path, " to ", imgid)
 
 				tar = tarfile.open(path)
 				l = tar.getnames()
@@ -352,10 +352,10 @@ class LmdServer:
 				return {"status": True, "msg": str(result)}
 				pass
 			else:
-				print "[LmdServer] ERROR. Trying to import image from out of server";
+				print ("[LmdServer] ERROR. Trying to import image from out of server")
 				return {"status": False, "msg": "Not in server"}
 		except Exception as e:
-			print "Except: "+str(e)
+			print ("Except: "+str(e))
 			return {"status": False, "msg": str(e)}
 
 
@@ -387,7 +387,7 @@ class LmdServer:
 			return {"status": True, "msg": "Saved"}
 		
 		except Exception as e:
-			print "Except: "+str(e)
+			print ("Except: "+str(e))
 			return {"status": False, "msg": str(e)}
 		
 	
@@ -427,7 +427,7 @@ class LmdServer:
 				else:
 					return {'status':False, 'msg':'EXCEPTION'}
 		except Exception as e:
-			print "Except: "+str(e)
+			print ("Except: "+str(e))
 			return {"status": False, "msg": str(e)}
 		
 		return {"status": True, "msg": "Done"}
@@ -450,7 +450,7 @@ class LmdServer:
 				else:
 					return {'status':False, 'msg':'EXCEPTION'}
 		except Exception as e:
-			print "Except: "+str(e)
+			print ("Except: "+str(e))
 			return {"status": False, "msg": str(e)}
 		
 		return {"status": True, "msg": "Done"}
@@ -497,7 +497,7 @@ class LmdServer:
 			if result==0:
 				# Step 2. Writing lts.conf for mini-light-client
 				
-				print "[LMDServer] Writing lts.conf for mini-light-client"
+				print ("[LMDServer] Writing lts.conf for mini-light-client")
 				
 				if not os.path.exists('/var/lib/tftpboot/ltsp/mini-light-client'):
 					os.makedirs('/var/lib/tftpboot/ltsp/mini-light-client')
@@ -537,7 +537,7 @@ class LmdServer:
 				pass
 			
 		except Exception as e:
-			print "Except: "+str(e)
+			print ("Except: "+str(e))
 			return {"status": False, "msg": str(e)}
 	
 
@@ -576,7 +576,7 @@ class LmdServer:
 				self.set_default_boot(imgid)
 				
 				# Writing lts.conf
-				print "[LMDServer] Writing lts.conf for mini-light-client"
+				print ("[LMDServer] Writing lts.conf for mini-light-client")
 				if not os.path.exists('/var/lib/tftpboot/ltsp/mini-light-client'):
 					os.makedirs('/var/lib/tftpboot/ltsp/mini-light-client')
 				f=open('/var/lib/tftpboot/ltsp/mini-light-client/lts.conf', 'w')
@@ -614,7 +614,7 @@ class LmdServer:
 		
 			
 		except Exception as e:
-			print "Except: "+str(e)
+			print ("Except: "+str(e))
 			return {"status": False, "msg": str(e)}
 	
 
@@ -688,7 +688,7 @@ class LmdServer:
 			# Increase last_job_id
 			self.last_job_id=self.last_job_id+1
 			# Multicast process to all listeners
-			print "[LmdServer] WAITING ...:"+str(datetime.datetime.now())
+			print ("[LmdServer] WAITING ...:"+str(datetime.datetime.now()))
 			ret=job['process'].poll()
 			
 			while ret is None:
@@ -703,8 +703,8 @@ class LmdServer:
 				job['status']="cancelled"
 			else: # return code 1 when install fails
 				job['msg']="broken"
-			print "[LmdServer] END WAIT AT"+str(datetime.datetime.now())
-			print "[LmdServer] FINISHING!!!, return code: "+str(ret)
+			print ("[LmdServer] END WAIT AT"+str(datetime.datetime.now()))
+			print ("[LmdServer] FINISHING!!!, return code: "+str(ret))
 				
 			# Force umount (to avoid morrir destruction in mirrononnet)
 			proc=subprocess.call(["/usr/share/lmd-scripts/umount-chroot.sh"])
@@ -718,12 +718,12 @@ class LmdServer:
 			# Append result of job and release mutex. Now all inform_me return finish
 			self.locks[job['job_id']]['result'] = str(ret)
 			self.locks[job['job_id']]['lock'].release()
-			print  str(ret)
+			print  (str(ret))
 			return str(ret)
 		
 		except Exception as e:
 			job['status']="Error"
-			print '[LmdServer]',e
+			print ('[LmdServer]',e)
 			if (ret is None):
 				job['msg']="Err code None (running)"
 			elif (ret<0):
@@ -778,7 +778,7 @@ class LmdServer:
 		
 			# Add listener to job
 			job['listeners'].append(listener)
-			print "[LmdServer] add_listener_to_job: adding "+str(listener)+"to listeners for job "+str(job['job_id'])
+			print ("[LmdServer] add_listener_to_job: adding "+str(listener)+"to listeners for job "+str(job['job_id']))
 			
 			# Sending status of job
 			listener['socket'].send("<b>Start listening on "+str(listener['port'])+"</b>")			
@@ -849,7 +849,7 @@ class LmdServer:
 				current_job['process'].stdin.write(str(info)+"\n")
 			#current_job['process'].write(info);
 		except Exception as e:
-			print ("ERROR writing to process: "+str(e));
+			print ("ERROR writing to process: "+str(e))
 		
 		
 
@@ -876,9 +876,9 @@ class LmdServer:
 			if job_id == None:
 				job_id = self.global_listeners[tuple_ip_port]
 			# Get job identified by job_id
-			print self.joblist
-			print tuple_ip_port
-			print jobid
+			print (self.joblist)
+			print (tuple_ip_port)
+			print (jobid)
 			current_job_index=map(itemgetter('job_id'), self.joblist).index(job_id)
 			current_job=self.joblist[current_job_index]
 			# Get listener identified by (ip:port)
@@ -914,28 +914,28 @@ class LmdServer:
 			tuple_ip_port = (str(ip),str(port))
 			print (tuple_ip_port)
 			if job_id == None:
-				print self.global_listeners
+				print (self.global_listeners)
 				job_id = self.global_listeners[tuple_ip_port]
-				print str(job_id)
+				print (str(job_id))
 				
 			# Get job identified by job_id
 			current_job_index=map(itemgetter('job_id'), self.joblist).index(job_id)
-			print current_job_index
+			print (current_job_index)
 			current_job=self.joblist[current_job_index]
-			print current_job
+			print (current_job)
 			# Get listener identified by (ip:port)
 			try:
 				current_listener_index=map(itemgetter('ip','port'), current_job['listeners']).index((ip,int (port, base=10)))
-				print current_listener_index
+				print (current_listener_index)
 			except:
 				#print "*** jobid: ***"
 				#print port
-				print "*** port: ***"
-				print port
-				print "*** current_job: ***"
-				print current_job['listeners']
-				print "*** joblist: ***"
-				print self.getJobList();
+				print ("*** port: ***")
+				print (port)
+				print ("*** current_job: ***")
+				print (current_job['listeners'])
+				print ("*** joblist: ***")
+				print (self.getJobList())
 				current_listener_index=None
 				for listener in current_job['listeners']:
 					self.remove_listener(str(ip),str(port), job_id);
@@ -944,10 +944,10 @@ class LmdServer:
 			os.killpg(current_job['process'].pid,signal.SIGKILL)
 			
 			# Removes target
-			print "Removing target "+ str (current_job['target']) 
+			print ("Removing target "+ str (current_job['target']))
 			r=objects['LmdImageManager'].deleteImage(current_job['target']);
-			print str(r);
-			print "Removied target"
+			print (str(r))
+			print ("Removied target")
 			
 			current_job['status']='broken'
 			
@@ -1036,12 +1036,12 @@ class LmdServer:
 								self.thread_jobs[job['job_id']].daemon = True
 								self.thread_jobs[job['job_id']].start()
 						except Exception as e:
-							print e
+							print (e)
 				if counter == 0:
 					break
 				time.sleep(1)
 		except Exception as e:
-			print "[LmdServer] EXCEPTION in Multicast: "+str(e)
+			print ("[LmdServer] EXCEPTION in Multicast: "+str(e))
 			
 	def send_info_by_socket(self,job):
 		try:
@@ -1057,19 +1057,19 @@ class LmdServer:
 							try:
 								listener['socket'].send(line)
 							except Exception as e:
-								print "[LmdServer] EXCEPTION in Multicast internal loop: "+str(e)
+								print ("[LmdServer] EXCEPTION in Multicast internal loop: "+str(e))
 							continue
 					line=pipe.readline()
 					job['seek'] = pipe.tell()
 			except Exception as e:
-				print "[LMDServer] Exception wghile reading pipe "+str(e)
+				print ("[LMDServer] Exception wghile reading pipe "+str(e))
 				pass
 			
 			if self.thread_jobs.has_key(job['job_id']):
 				self.thread_jobs.pop(job['job_id'])
 				
 		except Exception as e:
-				print "[LMDServer] Exception wghile reading pipe "+str(e)
+				print ("[LMDServer] Exception wghile reading pipe "+str(e))
 				pass
 	def getLastJobId(self):
 		return self.last_job_id
@@ -1159,7 +1159,7 @@ class LmdServer:
 			# Add image description
 			#imagelist=imagelist_string.replace("[","").replace("]","").replace(" ","").replace("'", "").replace(","," ");
 			#print imagelist_string;
-			print imagelist;
+			print (imagelist)
 			#print imagelist.split(" ");
 			for i in imagelist:
 				metadata = {'id':i,
@@ -1177,7 +1177,7 @@ class LmdServer:
 				self.set_default_boot(imgid)
 			return {"status": True}
 		except Exception as e:
-			print "Exception", e
+			print ("Exception", e)
 			return {"status": False, 'msg':str(e)}
 
 
@@ -1186,7 +1186,7 @@ class LmdServer:
 		try:
 		
 			for img in imagelist:
-				print img
+				print (img)
 				path_chroot=os.path.join("/opt/ltsp/", img)
 				path_tftpboot=os.path.join("/var/lib/tftpboot/ltsp/", img)
 				path_img=os.path.join("/opt/ltsp/images/", img+".img")
@@ -1209,7 +1209,7 @@ class LmdServer:
 			return {"status": True, 'msg':'Finished'}
 
 		except Exception as e:
-			print "Exception", e
+			print ("Exception", e)
 			return {"status": False, 'msg':str(e)}
 
 	def LmdServerVersion(self):

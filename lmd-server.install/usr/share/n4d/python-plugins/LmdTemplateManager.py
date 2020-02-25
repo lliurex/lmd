@@ -1,10 +1,10 @@
 import json
-import StringIO
+import io
 import os
 import os.path
-import ConfigParser
+import configparser
 import shlex
-import urllib2
+import urllib.request, urllib.error, urllib.parse
 
 class LmdTemplateManager:
 	
@@ -36,7 +36,7 @@ class LmdTemplateManager:
 				return False
 		else:
 			try:
-				content = urllib2.urlopen(release_file).read()
+				content = urllib.request.urlopen(release_file).read()
 			except Exception as e:
 				return False
 
@@ -62,9 +62,9 @@ class LmdTemplateManager:
 	def deleteTemplate(self, filename):
 		try:
 			fullfilename=os.path.join("/etc/ltsp/templates", filename)
-			print "Deleting: ", fullfilename
+			print("Deleting: ", fullfilename)
 			if(os.path.exists(fullfilename)):
-				print "exists"
+				print("exists")
 				os.remove(fullfilename)
 				return True
 			return False
@@ -86,7 +86,7 @@ class LmdTemplateManager:
 		#dist=json_template['dist']
 			
 			
-			config = StringIO.StringIO()
+			config = io.StringIO()
 			config.write('[meta_inf]\n')
 			config.write('name="'+template+'"\n')
 			
@@ -98,10 +98,10 @@ class LmdTemplateManager:
 			config.write('[default]\n')
 			config.write(open(str(self.templatepath)+"/"+str(template)).read())
 			config.seek(0, os.SEEK_SET)
-			cp = ConfigParser.ConfigParser()
+			cp = configparser.ConfigParser()
 			cp.readfp(config)
 			aux = cp._sections
-			for x in aux.keys():
+			for x in list(aux.keys()):
 				for y in aux[x]:
 					if len(aux[x][y])>0 and aux[x][y][0] == '"' and aux[x][y][-1] == '"':
 						aux[x][y] = aux[x][y][1:-1]
@@ -110,8 +110,8 @@ class LmdTemplateManager:
 			json_template=aux['default']
 			mirror=json_template['mirror']
 			dist=json_template['dist']
-			print "Mirror is"+mirror
-			print "Dist is: "+dist			
+			print("Mirror is"+mirror)
+			print("Dist is: "+dist)			
 			aux["meta_inf"]["available"]=self.testMirror(mirror, dist)
 
 			return json.dumps(aux,encoding="utf-8",ensure_ascii=False)
@@ -136,18 +136,18 @@ class LmdTemplateManager:
 		the "config" (JSON format) content.
 		'''
 		try:
-			print "config is:", config;
-			print type(config)
+			print("config is:", config);
+			print(type(config))
 			f = open(str(self.templatepath)+"/"+str(template), 'w')
 			f.write("# LMD Customuzation file for LTSP\n\n")
 			
 			conf=json.loads(config)
 						
-			print conf['default']
-			print "is...",type(conf['default'])
-			print len(conf['default'])
+			print(conf['default'])
+			print("is...",type(conf['default']))
+			print(len(conf['default']))
 			i=0
-			for (key, value) in conf['default'].items():
+			for (key, value) in list(conf['default'].items()):
 				if (key.upper()=="__NAME__"):
 					continue
 				# Removing " from value and ignore comments
@@ -156,7 +156,7 @@ class LmdTemplateManager:
 			return True
 		except Exception as e:
 			
-			print "Exception: "+str(e)
+			print("Exception: "+str(e))
 			return "Exception: "+str(e)
 	
 	# def setTemplate(self, template, config)

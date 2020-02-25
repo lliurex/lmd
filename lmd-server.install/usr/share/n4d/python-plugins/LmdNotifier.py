@@ -28,7 +28,7 @@ class LmdNotifier:
 			os.remove(self.log)
 			open(self.log, 'a').close()
 		except Exception as e:
-			print("[LmdNotifier]"+str(e))
+			print(("[LmdNotifier]"+str(e)))
 		
 		pass
 
@@ -55,5 +55,5 @@ class LmdNotifier:
 				json_data.close()
 		
 		except Exception as e:
-			print("[LmdNotifier]"+str(e))
+			print(("[LmdNotifier]"+str(e)))
 		pass
