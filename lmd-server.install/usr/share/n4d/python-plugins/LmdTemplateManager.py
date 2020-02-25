@@ -1,10 +1,10 @@
 import json
-import io
+import StringIO
 import os
 import os.path
-import configparser
+import ConfigParser
 import shlex
-import urllib.request, urllib.error, urllib.parse
+import urllib2 
 
 class LmdTemplateManager:
 	
@@ -36,7 +36,7 @@ class LmdTemplateManager:
 				return False
 		else:
 			try:
-				content = urllib.request.urlopen(release_file).read()
+				content = urllib2.urlopen(release_file).read()
 			except Exception as e:
 				return False
 
@@ -86,7 +86,7 @@ class LmdTemplateManager:
 		#dist=json_template['dist']
 			
 			
-			config = io.StringIO()
+			config = StringIO.StringIO()
 			config.write('[meta_inf]\n')
 			config.write('name="'+template+'"\n')
 			
@@ -98,7 +98,7 @@ class LmdTemplateManager:
 			config.write('[default]\n')
 			config.write(open(str(self.templatepath)+"/"+str(template)).read())
 			config.seek(0, os.SEEK_SET)
-			cp = configparser.ConfigParser()
+			cp = ConfigParser.ConfigParser()
 			cp.readfp(config)
 			aux = cp._sections
 			for x in list(aux.keys()):
