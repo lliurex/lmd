@@ -1,0 +1,5 @@
+#!/bin/bash
+QDBUS=$(which qdbus)
+if [ -n "$QDBUS" -a -n "$VNCDESKTOP" ]; then
+    $QDBUS org.kde.KWin /Compositor suspend
+fi

@@ -66,3 +66,11 @@ Description: LMD - LTSP Module for admin-center.
  offers a module for Admin Center to
  manage LTSP.
 
+Package: vnc-disable-composite
+Depends: ${misc:Depends}
+Architecture: all
+Description: Plasma disabler composite during vnc session.
+ Xdg autostart script that disables composition 
+ on vnc sessions invoking dbus method.
+
+

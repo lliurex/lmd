@@ -122,66 +122,224 @@ ImageManager.prototype.editImageWithCheck=function editImageWithCheck(id, editCo
 };
                 
                 
+// ImageManager.prototype.editImage=function editImage(id, editCommand="/usr/sbin/mate-ltsp-desktop.sh", arch="amd64"){
+    
+//   var self=this;
+//   // Stage 1: Prepare Connection
+//   var screenWidth=1043;
+//   var screenHeight=787;
+//   var credentials=[sessionStorage.username , sessionStorage.password];
+//   var n4dclass="RemoteWebGui";
+//   var n4dmethod="create_connection";
+//   //var arglist=[sessionStorage.username,  "-ac -terminate -screen "+screenWidth+"x"+screenHeight+" -dpi 96 "];
+//   var arglist=[sessionStorage.username,  "-ac -screen "+screenWidth+"x"+screenHeight+" -dpi 96 "];
+
+//   var port;
+//   var display;
+  
+  
+//   Utils.waitwin.ShowModalInfo(self._("ltsp_loading_image"), self._("ltsp_loading_image_description"), WAITWIN_LOADING);
+//   Utils.n4d(credentials, n4dclass, n4dmethod, arglist, function(response){
+//     // Connection is prepared
+//     port=response.msg.port;
+//     display=response.msg.display;
+
+//   console.log("::::"+port+" "+display);
+    
+//     //console.log("Port: "+port+" Display: "+display);
+//     Utils.waitwin.SetStatus(self._("ltsp_connection_stablished"), self._("ltsp_connection_stablished_description")+sessionStorage.server+":"+port, WAITWIN_WAITING);
+    
+//     // Clearing intervar for refresh
+//     clearInterval(self.timer);
+//     self.timer=null;
+    
+//     // Stage 2: Launch app into Window (wait 5 seconds)
+//     //console.log("launching app");
+//     var credentials=[sessionStorage.username , sessionStorage.password];
+//     var n4dclass="RemoteWebGui";
+//     var n4dmethod="run_into_connection";
+
+//     var arglist=[];
+//     //arglist.push("/usr/share/lmd-scripts/awesome-desktop.sh "+id);
+//     //arglist.push("/usr/share/lmd-scripts/mate-ltsp-desktop.sh "+id);
+//     //arglist.push("ltsp-chroot -p -m -a "+id+" "+editCommand);
+//     arglist.push("/usr/share/lmd-scripts/lliurex-ltsp-chroot.sh "+id+" "+editCommand+" "+arch);
+//     //arglist.push(editCommand+" "+id);
+//     arglist.push(display);
+
+
+//     Utils.n4d(credentials, n4dclass, n4dmethod, arglist, function(response){
+//         console.log("Received response from run into connection:");
+//         console.log(response);
+        
+//         self.prepareXephyrWindow(screenWidth, screenHeight, port, id);
+        
+//     });  // 0 is timeout for curl; 0 means sync call...
+
+//   },0);
+    
+    
+
+// }
+
 ImageManager.prototype.editImage=function editImage(id, editCommand="/usr/sbin/mate-ltsp-desktop.sh", arch="amd64"){
     
-  var self=this;
-  // Stage 1: Prepare Connection
-  var screenWidth=1043;
-  var screenHeight=787;
-  var credentials=[sessionStorage.username , sessionStorage.password];
-  var n4dclass="RemoteWebGui";
-  var n4dmethod="create_connection";
-  //var arglist=[sessionStorage.username,  "-ac -terminate -screen "+screenWidth+"x"+screenHeight+" -dpi 96 "];
-  var arglist=[sessionStorage.username,  "-ac -screen "+screenWidth+"x"+screenHeight+" -dpi 96 "];
-
-  var port;
-  var display;
-  
-  
-  Utils.waitwin.ShowModalInfo(self._("ltsp_loading_image"), self._("ltsp_loading_image_description"), WAITWIN_LOADING);
-  Utils.n4d(credentials, n4dclass, n4dmethod, arglist, function(response){
-    // Connection is prepared
-    port=response.msg.port;
-    display=response.msg.display;
-
-  console.log("::::"+port+" "+display);
-    
-    //console.log("Port: "+port+" Display: "+display);
-    Utils.waitwin.SetStatus(self._("ltsp_connection_stablished"), self._("ltsp_connection_stablished_description")+sessionStorage.server+":"+port, WAITWIN_WAITING);
-    
-    // Clearing intervar for refresh
-    clearInterval(self.timer);
-    self.timer=null;
-    
-    // Stage 2: Launch app into Window (wait 5 seconds)
-    //console.log("launching app");
+    var self=this;
+    // Stage 1: Prepare Connection
+    var screenWidth=1043;
+    var screenHeight=787;
     var credentials=[sessionStorage.username , sessionStorage.password];
     var n4dclass="RemoteWebGui";
-    var n4dmethod="run_into_connection";
-
-    var arglist=[];
-    //arglist.push("/usr/share/lmd-scripts/awesome-desktop.sh "+id);
-    //arglist.push("/usr/share/lmd-scripts/mate-ltsp-desktop.sh "+id);
-    //arglist.push("ltsp-chroot -p -m -a "+id+" "+editCommand);
-    arglist.push("/usr/share/lmd-scripts/lliurex-ltsp-chroot.sh "+id+" "+editCommand+" "+arch);
-    //arglist.push(editCommand+" "+id);
-    arglist.push(display);
-
-
+    var n4dmethod="create_connection_vnc";
+    var arglist=[id,""]
+    var port;
+    var process;
+    
+    Utils.waitwin.ShowModalInfo(self._("ltsp_loading_image"), self._("ltsp_loading_image_description"), WAITWIN_LOADING);
     Utils.n4d(credentials, n4dclass, n4dmethod, arglist, function(response){
-        console.log("Received response from run into connection:");
-        console.log(response);
-        
-        self.prepareXephyrWindow(screenWidth, screenHeight, port, id);
-        
-    });  // 0 is timeout for curl; 0 means sync call...
+      // Connection is prepared
+      port=response.msg.port;
+      process=response.msg.process;
+  
+      console.log("::::"+port+" "+process);
+      
+      //console.log("Port: "+port+" Display: "+display);
+      Utils.waitwin.SetStatus(self._("ltsp_connection_stablished"), self._("ltsp_connection_stablished_description")+sessionStorage.server+":"+port, WAITWIN_WAITING);
+      
+      // Clearing intervar for refresh
+      clearInterval(self.timer);
+      self.timer=null;
+      
+      // Stage 2: Launch app into Window (wait 5 seconds)
+      //console.log("launching app");
+      var credentials=[sessionStorage.username , sessionStorage.password];
+      var n4dclass="RemoteWebGui";
+      var n4dmethod="run_into_connection_vnc";
+  
+      var arglist=[];
+      //arglist.push("/usr/share/lmd-scripts/awesome-desktop.sh "+id);
+      //arglist.push("/usr/share/lmd-scripts/mate-ltsp-desktop.sh "+id);
+      //arglist.push("ltsp-chroot -p -m -a "+id+" "+editCommand);
+      //arglist.push("/usr/share/lmd-scripts/lliurex-ltsp-chroot.sh "+id+" "+editCommand+" "+arch);
+      //arglist.push(editCommand+" "+id);
+      //arglist.push(display);
+      arglist.push('cmd')
+      arglist.push(port)
 
-  },0);
+  
+      Utils.n4d(credentials, n4dclass, n4dmethod, arglist, function(response){
+          console.log("Received response from run into connection:");
+          console.log(response);
+          
+          self.prepareVncWindow(screenWidth, screenHeight, port, id);
+          
+      });  // 0 is timeout for curl; 0 means sync call...
+  
+    },0);
+      
+      
+  
+  }
+  ImageManager.prototype.prepareVncWindow=function prepareXephyrWindow2(screenWidth, screenHeight, port, id=null, imagefile=null){
+    // Prepare Xephyr Window
+    // imagefile only used if we want to refresh image status before...
+    var self=this;
+    var margin_left=0-(screenWidth/2);
+    var margin_top=0-(screenHeight/2);
+    var divXPRA=$(document.createElement("div")).attr("id", "divXPRA").css("width",screenWidth).css("height", screenHeight).css("margin-left", margin_left).css("margin-top", margin_top);
+    var divXPRAHdr=$(document.createElement("div")).attr("id", "divXPRAHdr").css("margin-top", "-30");
+    var divXPRAContent=$(document.createElement("div")).attr("id", "divXPRAContent");
+    var divXPRAContentInner=$(document.createElement("div")).attr("id", "divXPRAContentInner");
+    $(divXPRAContentInner).css("overflow-y", "hidden").css("position", "absolute");
+
+    var divXPRAContentCloseBt=$(document.createElement("div")).attr("id", "divXPRAContentObjCloseBt");
+    // Adding close buton to header
+    $(divXPRAHdr).append(divXPRAContentCloseBt);
     
+    var obj=$(document.createElement("object")).addClass("emb");
+    $(obj).css("width", screenWidth).css("height", screenHeight);
+    //$(obj).attr("id", "divXPRAContentObj").attr("data", "http://"+sessionStorage.server+":"+port);
+    //$(obj).attr("id", "divXPRAContentObj").attr("type","text/html").attr("data", "http://"+sessionStorage.server+":"+port+'/vnc.html?resize=scale&autoconnect=1&compression=0&quality=9');
+    $(obj).attr("id", "divXPRAContentObj").attr("type","text/html").attr("data", '/novnc/vnc.html?host='+sessionStorage.server+'&port='+port+'&reconnect=1&resize=scale&autoconnect=1&compression=0&quality=9');
+    $(divXPRAContentInner).html(obj);
+    $(divXPRAContent).append(divXPRAContentInner);
+        
+    $(divXPRA).append(divXPRAHdr, divXPRAContent);
+                      
+    $(divXPRAContentCloseBt).on("click", function(){
+        console.log("Detected window close");
+        //Utils.waitwin.RemoveModalInfo();
+        Utils.waitwin.SetStatus(self._("ltsp_closing_connection"),self._("ltsp_closing_connection_description"), WAITWIN_LOADING);
+        
+        // New window is closed... cleaning connection
+        var credentials=[sessionStorage.username , sessionStorage.password];
+        var n4dclass="RemoteWebGui";
+        var n4dmethod="close_connection_vnc";
+        var arglist=[port];
+        //arglist.push(port);
+        console.log("Calling close_connection "+port);
+        try{
+        Utils.n4d(credentials, n4dclass, n4dmethod, arglist, function(response){
+          console.log("Response for close_connection:" + response);
+          if (response!=-1) {
+            console.log("Closing window...");
+            
+            // Close div
+            $("#divXPRA").remove();
+            
+            console.log(imagefile+"****");
+            
+            // Refresh image status now
+            if (imagefile){
+                console.log(imagefile);
+                self.imageList=[];
+                $("#llx-ltsp-imagelist").empty();
+                self.timer=setTimeout(function(){
+                    self.getImageList();
+                }, 1000); // Timer
+                
+            }
+            
+            
+                
+            
+            
+            // Reset interval for refresh imagelist
+            if (self.timer===null) {
+                self.timer=setInterval(function(){
+                    self.getImageList();
+                }, 20000); // Timer
+            }
+            
+            // Remove Modal Wait Window
+                            
+            Utils.waitwin.RemoveModalInfo();
+            message="Connection closed sucessful!";
+            Utils.msg(message, MSG_INFO);
+            //var text=self._("lmd.ask.for.regenerate.after.update");
+            var text=self._("lmd.ask.for.regenerate.after.update");
+            self.dialogRegenerateImage(text,id);
+        } else {
+            console.log("Closing window with error");
+            message="Closing window with error";
+            Utils.msg(message, MSG_ERROR);
+          }
+        });
+    } catch (e){console.log("EXCEPTION");console.log(e);}
     
-
-}
-
+    });
+    $("body").append(divXPRA);
+    $(function(){
+        $("#divXPRAContentObj").on("load",function(){
+                var content=$(this).contents()
+                setTimeout(function(){
+                    content.find("#noVNC-control-bar").remove()
+                    content.find("#noVNC_screen_pad").remove()
+                },3000)
+                
+        })
+    })
+};
 
 ImageManager.prototype.prepareXephyrWindow=function prepareXephyrWindow(screenWidth, screenHeight, port, id=null, imagefile=null){
         // Prepare Xephyr Window
@@ -801,13 +959,13 @@ ImageManager.prototype.renderImage=function renderImage(imagefile){
             });
             $(editOptionTerminal).on("click", function(){
 		//alert("mate-terminal");
-                self.editImageWithCheck($(this).attr("target_id"), "run_mate_terminal", $(this).attr("arch"));
+                self.editImageWithCheck($(this).attr("target_id"), "terminal", $(this).attr("arch"));
             });
             $(editOptionMATE).on("click", function(){
-                self.editImageWithCheck($(this).attr("target_id"), "/usr/sbin/mate-ltsp-desktop.sh", $(this).attr("arch"));
+                self.editImageWithCheck($(this).attr("target_id"), "desktop", $(this).attr("arch"));
             });
             $(editOptionAwesome).on("click", function(){
-                self.editImageWithCheck($(this).attr("target_id"), "/usr/sbin/awesome-desktop.sh", $(this).attr("arch"));
+                self.editImageWithCheck($(this).attr("target_id"), "minimal", $(this).attr("arch"));
             });
             
                
