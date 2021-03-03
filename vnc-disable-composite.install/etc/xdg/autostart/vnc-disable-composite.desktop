@@ -1,0 +1,12 @@
+[Desktop Entry]
+Version=1.0
+Encoding=UTF-8
+Name=LliureX disabler for plasma compositor on vnc sessions
+Comment=Disables desktop effects on vnc sessions
+Comment[qcv]=Alleugera els efectes d'escritori quan es utilitzada una sessió vnc
+Comment[es]=Aligera los efectos de escritorio cuando es utilizada una sesión de vnc
+Exec=/usr/bin/vnc-disable-composite
+Terminal=false
+Type=Application
+Categories=
+GenericName=
