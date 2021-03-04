@@ -1,0 +1,64 @@
+#!/usr/bin/env python3
+import os
+import json
+import subprocess
+import random
+
+CONFIGSDIR='/etc/ltsp/images'
+CHROOTSDIR='/opt/ltsp'
+TEMPLATESDIR='/etc/ltsp/templates'
+
+current_configs=[ img for img in os.listdir(CONFIGSDIR) if img.endswith('.json') ]
+current_chroots=[]
+needed_into_chroot=['usr','boot','bin','sbin']
+valid_chroots={}
+needed_keys={
+    "fat_ram_threshold": "default", 
+    "lmd_extra_params": "", 
+    "arch": None, 
+    "id": None, 
+    "desc": None, 
+    "name": None, 
+    "img": "test.png", 
+    "ldm_session": "default", 
+    "taskid": None, 
+    "template": None, 
+    "ltsp_fatclient": "undefined"
+}
+for chroot in os.listdir(CHROOTSDIR):
+    found=True
+    for need in needed_into_chroot:
+        try:
+            name="{}/{}/{}".format(CHROOTSDIR,chroot,need)
+            if not os.listdir(name):
+                raise Exception("{} not found".format(name))
+        except Exception as e:
+            # print('{}/{} not valid'.format(CHROOTSDIR,chroot))
+            found=False
+            break
+    if found:
+        valid_chroots.setdefault(chroot,{})
+        for key,value in needed_keys.items():
+            valid_chroots[chroot][key]=value
+
+for chroot in valid_chroots:
+    valid_chroots[chroot]['arch'] = 'amd64' if 'x86-64' in subprocess.check_output(['/usr/bin/file','/opt/ltsp/{}/bin/ls'.format(chroot)]).decode('utf8') else 'i386'
+    valid_chroots[chroot]['id'] = '{}'.format(chroot)
+    valid_chroots[chroot]['desc'] = '{} (imported {})'.format(chroot,valid_chroots[chroot]['arch'])
+    valid_chroots[chroot]['name'] = '{}'.format(chroot)
+    valid_chroots[chroot]['taskid'] = '{}'.format(random.randint(1,100000000))
+    meta=None
+    try:
+        line=subprocess.check_output(['/bin/grep','Package: lliurex-meta','{}/{}/var/lib/dpkg/status'.format(CHROOTSDIR,chroot)]).decode('utf8')
+        parts=line.split()
+        if len(parts) == 2:
+            meta = parts[1]
+        if meta:
+            if meta == 'lliurex-meta-client':
+                meta = 'lliurex-ltsp-client-amd64.conf'
+            else: 
+                meta = 'lliurex-ltsp-desktop-amd64.conf'
+    except:
+        pass
+    valid_chroots[chroot]['template'] = '{}'.format(meta)
+    print("####\n#### {}\n####\n{}".format(CONFIGSDIR+'/'+chroot+'.json',json.dumps(valid_chroots[chroot],indent=4)))
