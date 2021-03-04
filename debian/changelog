@@ -1,3 +1,9 @@
+lmd (2.15.1) bionic-updates; urgency=medium
+
+  * Fix vnc remote desktop selection method
+
+ -- M.Angel Juan <m.angel.juan@gmail.com>  Thu, 04 Mar 2021 13:17:08 +0100
+
 lmd (2.15) bionic-updates; urgency=medium
 
   * Vnc image edition

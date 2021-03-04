@@ -191,7 +191,7 @@ ImageManager.prototype.editImage=function editImage(id, editCommand="/usr/sbin/m
     var credentials=[sessionStorage.username , sessionStorage.password];
     var n4dclass="RemoteWebGui";
     var n4dmethod="create_connection_vnc";
-    var arglist=[id,""]
+    var arglist=[id,editImage]
     var port;
     var process;
     
