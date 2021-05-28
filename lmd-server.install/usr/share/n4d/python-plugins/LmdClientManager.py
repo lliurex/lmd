@@ -1,95 +1,75 @@
 import json
-import os
+import re
+from pathlib import Path
 
+import n4d.responses
+from n4d.server import Core
 
 class LmdClientManager:
-	
-		
-	def __init__(self):
-		self.clientpath="/etc/ltsp/bootopts/clients/"
-		
-		pass
-	#def __init__
-	
-	def getClientList(self):
-		'''
-		Reads the file list of clients from /etc/ltsp/bootopts/clients
-		Returna a JSON List.
-		'''
-		
-		clientlist=[]
-		
-		for i in os.listdir(self.clientpath):
-			if '.json' in i:
-				clientlist.append(str(i))
-				
-		return json.dumps(clientlist)
-			
-	
+        
+        CANT_PARSE_JSON = -10
+                
+        def __init__(self):
+            self.clientpath = Path("/etc/ltsp/bootopts/clients")
+            self.core = Core.get_core()
+                
+                pass
+        #def __init__
+        
+        def getClientList(self):
+            '''
+            Reads the file list of clients from /etc/ltsp/bootopts/clients
+            Returna a JSON List.
+            '''
+            
+            return n4d.responses.build_successful_call_response( json.dump(i.name for i in self.clientpath.glob("**/*.json")]) )
+                        
+        
 
-	def getClient(self, client):
-		'''
-		Returns the metadata from certain client
-		'''
-		try:
-			json_data=open(self.clientpath+client)
-			data = json.load(json_data)
-			json_data.close()
-			return json.dumps(data)
-			#return data;
-		except Exception as e:
-			return {"status":False};
-
-		
-		
-	def setClient(self, client, data):
-		'''
-		Saves metadata from *data to client
-		data is unicoded string
-		client is a mac
-		'''
-		client=client.replace(":", "")
-				
-		path_to_write = os.path.join(self.clientpath,client + ".json")
-		f = open(path_to_write,'w')
-		f.writelines(data)
-		f.close()
-		
-	
-	def deleteClient(self, client):
-		'''
-		N4d Method to delete a client
-		'''
-		import shutil;
-		
-		try:
-			client=client.replace(":", "")
-			json_file = os.path.join("/etc/ltsp/bootopts/clients",client + ".json")
-						
-			# Remove .json file
-			if (os.path.isfile(json_file)):
-				os.remove(json_file);
-			
-			return {"status":True, "msg":"Client Removed"}
-		except Exception as e:
-			return {"status":False, "msg":str(e)}
-		
-	def getArpTable(self):
-		
-		f=open("/proc/net/arp")
-		lines=f.readlines()
-		f.close()
-		
-		arptable=[];
-
-		iface=objects["VariablesManager"].get_variable("INTERNAL_INTERFACE")
-		
-		for line in lines:
-			macarray=re.sub(' +',' ',line).split(" ");
-			ip=macarray[0]
-			mac=macarray[3]
-			if (macarray[5].replace('\n', '')==iface):
-				print("adding")
-				arptable.append({"ip":ip, "mac":mac});
-			
-		return arptable[0:];
+        def getClient(self, client):
+            '''
+            Returns the metadata from certain client
+            '''
+            try:
+                with self.clientpath.joinpath(client).open('r') as fd:
+                    return n4d.responses.build_successful_call_response(json.dumps(json.load(fd)) )
+            except Exception as e:
+                    return n4d.responses.build_failed_call_response(LmdClientManager.CANT_PARSE_JSON)
+                
+                
+        def setClient(self, client, data):
+            '''
+            Saves metadata from *data to client
+            data is unicoded string
+            client is a mac
+            '''
+            client=client.replace(":", "") + ".json"
+            
+            with self.clientpath.joinpath(client).open('w') as fd:
+                fd.writelines(data)
+                
+        
+        def deleteClient(self, client):
+            '''
+            N4d Method to delete a client
+            '''
+            client=client.replace(":", "") + ".json"
+            json_file = self.clientpath.joinpath( client )
+            if json_file.exists():
+                json_file.unlink()
+                        
+            return n4d.responses.build_successful_call_response(True)
+        
+        def getArpTable(self):
+            
+            with open('/proc/net/arp','r') as fd:
+                lines = fd.readlines()
+                
+            arptable=[];
+            iface = self.core.get_variable("INTERNAL_INTERFACE")
+            spliter = re.compile(r"(\S+)\s+(\S+)\s+(\S+)\s+(\S+)\s+(\S+)\s+(\S+)")
+            for line in lines:
+                result = spliter.match(line.strip())
+                if result is not None and result.groups()[5] == iface :
+                    arptable.append({"ip":result.groups()[0], "mac":result.groups()[3]});
+            return n4d.responses.build_successful_call_response(arptable)
