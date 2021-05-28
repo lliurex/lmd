@@ -1,9 +1,0 @@
-[SETUP]
-type=python
-path=LmdNotifier.py
-class=LmdNotifier
-[METHODS]
-getLog=anonymous
-addNotification=admin,admins,sudo
-cleanLog=admin,admins,sudo
-

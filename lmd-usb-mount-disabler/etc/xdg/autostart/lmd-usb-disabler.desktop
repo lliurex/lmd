@@ -1,7 +1,0 @@
-[Desktop Entry]
-Encoding=UTF-8
-Name=LMD USB mount disabler
-Comment=Disable automount usb devices on connect
-Exec=/usr/bin/lmd-usb-mount-disabler
-Terminal=false
-Type=Application
