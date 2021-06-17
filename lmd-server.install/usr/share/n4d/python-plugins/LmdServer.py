@@ -33,22 +33,16 @@ class LmdServer:
 
     ''' ERROR LIST '''
 
-    
+    FILE_NOT_EXISTS = -50
+    SERVER_BUSY = -40
 
     def __init__(self):
 
         self.core = Core.get_core()
-
-        self.last_job_id=0
-        self.joblist=[]
-        self.global_listeners = {}
-        self.thread_jobs = {}
-        self.locks = {}
+        
         self.logfolder = Path("/run/lmdserver")
         self.ltsp_path = Path("/opt/ltsp")
-        
-        # Threading Multicast process to all listeners
-        self.multicast_thread = threading.Thread()
+        self.template_path = Path("/etc/ltsp/templates")
         self.clean_logfolder_environment()
        
     #def __init__
@@ -80,68 +74,44 @@ class LmdServer:
         return n4d.responses.build_successful_call_response({"status": False})
 
                 
-        def create_imageWS(self, imgid, name, template, description='', bgimg='', arch='i386', env='', extraopts=''):
-                try:
-                        # creates an image from an specified template
-                
-                        # Check if template exists
-                        path="/etc/ltsp/templates/"+template
-                        if(os.path.isfile(path)):
-                                cancelcommand = ''
-                                extraLliurexOpts="--apt-keys /usr/share/keyrings/lliurex-archive-keyring.gpg --accept-unsigned-packages --purge-chroot --lliurex-sourceslist"  + extraopts
-                                # if template exists, create an image
-                                print("[LmdServer] Create_imageWS from "+path)
-                                command="ltsp-build-client --config "+path+" "+extraLliurexOpts+" --chroot "+imgid+"; systemctl restart nbd-server; ltsp-set-domain-search-ltsconf"
-                                
-                                if env != '' :
-                                        command = env + " " + command
-                                
-                                if extraLliurexOpts.find('--isopath') > 0:
-                                        cancelcommand = "lmd-from-iso-clean " + extraLliurexOpts
-                                        command = command + "; lmd-fix-architecture " + imgid
-                                
-                                ret=objects['TaskMan'].newTask(command, cancelcommand)
-                                                                
-                                if ret["status"]==True: ## Task has launched ok
-                                        metadata = {'id':imgid, 'name' : name,
-                                                        'desc' : description ,
-                                                        "template" : template,
-                                                        'img': bgimg,
-                                                        'arch': arch,
-                                                        'taskid': ret["msg"],
-                                                        'ltsp_fatclient': 'undefined',
-                                                        'ldm_session': 'default',
-                                                        'fat_ram_threshold': 'default',
-                                                        'lmd_extra_params':'' }
-                                        metadata_string = unicode(json.dumps(metadata,indent=4,encoding="utf-8",ensure_ascii=False)).encode("utf-8")
-                                        objects['LmdImageManager'].setImage(imgid,metadata_string)
-                                        self.set_default_boot(imgid)
+    def create_imageWS(self, imgid, name, template, description='', bgimg='', arch='i386', env='', extraopts=''): template_file = self.template_path.joinpath(template)
+        if template_file.exists():
+            if "--isopath" in extraopts:
+                command = "ltsp-build-client --chroot {imgid} " + extraopts
+            else:
+                command = "ltsp-build-client --config {template_file} --chroot {imgid}".format(template_file=template_file, imgid=imgid)
 
-                                        # Registering imgid for boot PXE MEnu
-                                        label="ltsp_label"+str(imgid)
-                                        objects['LlxBootManager'].pushToBootList(label)
-                                        
-                                        # set this new image as the default boot option if hdd is the current option
-                                        boot_order=objects['LlxBootManager'].getBootOrder()
-                                        if len(boot_order)>0 and boot_order[0]=="bootfromhd":
-                                                new_boot_order=objects['LlxBootManager'].prependBootList(label)
-                                
-                                        return {"status": True, "msg": ret["msg"]}
+            cancelcommand = "ltsp-build-client clean"
+            taskman = self.core.get_plugin("TaskMan")
+            lmd_image_manager = self.core.get_plugin("LmdImageManager")
+            llx_boot_manager = self.core.get_plugin("LlxBootManager")
+            result = taskman.newTask(command, cancelcommand)
+            if result["status"]:
+                metadata = {'id':imgid, 'name' : name,
+                            'desc' : description ,
+                            "template" : template,
+                            'img': bgimg,
+                            'arch': arch,
+                            'taskid': ret["msg"],
+                            'ltsp_fatclient': 'undefined',
+                            'ldm_session': 'default',
+                            'fat_ram_threshold': 'default',
+                            'lmd_extra_params':'' }
 
-                                else:
-                                        if ret["msg"]=="SERVER_BUSY":
-                                                return {'status':False, 'msg':'SERVER_BUSY'}
-                                        else:
-                                                return {'status':False, 'msg':'EXCEPTION'}
-                                
-                        else:
-                                return {'status':False, 'msg':'TEMPLATE_NOT:EXISTS'}
-                        
-                        pass
-                except Exception as e:
-                        print("Except: "+str(e))
-                        return e
-        
+                metadata_string = unicode( json.dumps( metadata, indent=4, encoding="utf-8", ensure_ascii=False ) ).encode( "utf-8" )
+                lmd_image_manager.setImage( imgid, metadata_string )
+                self.set_default_boot( imgid )
+                label="ltsp_label"+str(imgid)
+                llx_boot_manager.pushToBootList(label)
+                boot_order = llx_boot_manager.getBootOrder()
+                if boot_order['status']:
+                    if len(boot_order['result']) > 0 and boot_order["result"][0] == "bootfromhd":
+                        llx_boot_manager.prependBootList(label)
+                return n4d.responses.build_successful_call_response(result["result"])
+            else:
+                return n4d.responses.build_failed_call_response(LmdServer.SERVER_BUSY)
+        else:
+            return n4d.responses.build_failed_call_response(LmdServer.FILE_NOT_EXISTS)
         
         def refresh_imageWS(self, imgid, delay = ''):
                 
@@ -208,38 +178,37 @@ class LmdServer:
                         return {"False": True, "msg": str(e)}
                 
         
-        def CreateImgJSON(self, imgid, newLabel, newid, description, path):
-                #self.CreateImgJSON(targetid, newLabel, newid, newDesc, new_json_descriptor_file);
-                try:
-                        
-                        # Removing previous .json into image
-                        files=os.listdir('/opt/ltsp/'+imgid );
-                        for i in files:
-                                f,ext=os.path.splitext(i)
-                                if (ext==".json"):
-                                        os.remove('/opt/ltsp/' +imgid+"/"+i);
+    def CreateImgJSON(self, imgid, newLabel, newid, description, path):
+        try:
+            
+            # Removing previous .json into image
+            files=os.listdir('/opt/ltsp/'+imgid );
+            for i in files:
+                f,ext=os.path.splitext(i)
+                if (ext==".json"):
+                    os.remove('/opt/ltsp/' +imgid+"/"+i);
 
-                        # Create and copy new json
-                        json_file = open('/etc/ltsp/images/' + imgid + '.json','r')
-                        jsonClient=json.loads(json_file.read());
-                        json_file.close();              
-                        #print jsonClient;
-                        jsonClient['name']=newLabel;
-                        jsonClient['id']=newid;
-                        jsonClient['desc']=description;
-                        
-                        json_file = open(path,'w')
-                        metadata_string = unicode(json.dumps(jsonClient,indent=4,encoding="utf-8",ensure_ascii=False)).encode("utf-8")
-                        json_file.write(metadata_string);
-                        json_file.close();
-                        
-                        return {"status": True, "msg": "Saved"}
-                
-                except Exception as e:
-                        print ("Except: "+str(e))
-                        return {"status": False, "msg": str(e)}
-                
+            # Create and copy new json
+            json_file = open('/etc/ltsp/images/' + imgid + '.json','r')
+            jsonClient=json.loads(json_file.read());
+            json_file.close();              
+            #print jsonClient;
+            jsonClient['name']=newLabel;
+            jsonClient['id']=newid;
+            jsonClient['desc']=description;
+            
+            json_file = open(path,'w')
+            metadata_string = unicode(json.dumps(jsonClient,indent=4,encoding="utf-8",ensure_ascii=False)).encode("utf-8")
+            json_file.write(metadata_string);
+            json_file.close();
+            
+            return {"status": True, "msg": "Saved"}
         
+        except Exception as e:
+            print ("Except: "+str(e))
+            return {"status": False, "msg": str(e)}
+        
+    
         def CloneOrExportWS(self, targetid, newid, newLabel, newDesc, is_export):
                 '''
                 Export or Clone an image via web

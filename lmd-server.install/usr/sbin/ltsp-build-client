@@ -1,0 +1,85 @@
+#!/usr/bin/env python3
+import argparse
+from subprocess import check_output
+from pathlib import Path
+from shutil import rmtree, move
+from sh import isomaker
+from sh import ltsp
+
+#LTSP_CHROOT_PATH = PATH("/opt/ltsp")
+LTSP_CHROOT_PATH = Path("/srv/ltsp")
+BUILD_FOLDER = LTSP_CHROOT_PATH.joinpath("_build_folder")
+
+def logger(line):
+    print(line)
+
+
+def get_values(filepath):
+    environment = check_output("""env""", shell=True, executable='/bin/bash').decode().split("\n")
+    output = check_output("set -a;source {filepath}; env; set +a".format(filepath=filepath), shell=True, executable='/bin/bash').decode().split("\n")                        
+                                                                                                  
+    total = list(set(output).difference(set(environment)))
+    result = {}
+
+    for x in total:
+        key, value = x.split("=",1)
+        result[key] = convert_values(value)
+    return result
+
+def convert_values(value):
+    if value.lower() == "true":
+        return True
+    elif value.lower() == "false":
+        return False
+    try:
+        return float(value)
+    except:
+        return value
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--config")
+    parser.add_argument("--chroot")
+    parser.add_argument("--isopath")
+    args = parser.parse_args()
+
+    custom_packages_file = ""
+    print("config",args.config)
+    print("chroot",args.chroot)
+
+
+
+    if args.isopath is not None:
+        # se hace el proceso de hacerlo mediante iso
+        pass
+    else:
+        config_path = Path(args.config)
+        config_content = get_values(config_path)
+        flavour = config_content["flavour"]
+        BUILD_FOLDER.mkdir(parents=True,exist_ok=True)
+        if config_content["CUSTOM_PACKAGES"] is not None:
+            custom_packages_file = BUILD_FOLDER.joinpath("custom_packages")
+            with custom_packages_file.open("w",encoding="utf-8") as fd:
+                for x in config_content["CUSTOM_PACKAGES"].split(" "):
+                    fd.write(x + "\n")
+
+        
+        p = isomaker("chroot",config_content["DIST"],flavour,m=config_content["MIRROR"],b=BUILD_FOLDER,n=custom_packages_file,_bg=True,_out=logger)
+        p.wait()
+        
+        move(str(BUILD_FOLDER.joinpath("chroot")),LTSP_CHROOT_PATH.joinpath(args.chroot))
+        
+        rmtree(str(BUILD_FOLDER))
+        
+        p=ltsp("image",args.chroot, _bg=True, _out=logger)
+        p.wait()
+        
+        ltsp("initrd")
+
+
+
+
+
+if __name__ == "__main__":
+    main()
+
