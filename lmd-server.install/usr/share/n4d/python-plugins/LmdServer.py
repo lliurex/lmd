@@ -1,25 +1,7 @@
-import socket
 import subprocess
-import sys
-
-import time
-import datetime
-
-import os
-import signal
-import re
-
-import shutil
-import tempfile
-
-import tarfile
-import apt_pkg
-
-import lliurex.net
 
 # New list imports
 
-import threading
 import json
 from shutil import rmtree
 
@@ -43,6 +25,7 @@ class LmdServer:
         self.logfolder = Path("/run/lmdserver")
         self.ltsp_path = Path("/opt/ltsp")
         self.template_path = Path("/etc/ltsp/templates")
+        self.image_path = Path("/etc/ltsp/images")
         self.clean_logfolder_environment()
        
     #def __init__
@@ -75,43 +58,43 @@ class LmdServer:
 
                 
     def create_imageWS(self, imgid, name, template, description='', bgimg='', arch='i386', env='', extraopts=''): template_file = self.template_path.joinpath(template)
-        if template_file.exists():
-            if "--isopath" in extraopts:
-                command = "ltsp-build-client --chroot {imgid} " + extraopts
-            else:
-                command = "ltsp-build-client --config {template_file} --chroot {imgid}".format(template_file=template_file, imgid=imgid)
-
-            cancelcommand = "ltsp-build-client clean"
-            taskman = self.core.get_plugin("TaskMan")
-            lmd_image_manager = self.core.get_plugin("LmdImageManager")
-            llx_boot_manager = self.core.get_plugin("LlxBootManager")
-            result = taskman.newTask(command, cancelcommand)
-            if result["status"]:
-                metadata = {'id':imgid, 'name' : name,
-                            'desc' : description ,
-                            "template" : template,
-                            'img': bgimg,
-                            'arch': arch,
-                            'taskid': ret["msg"],
-                            'ltsp_fatclient': 'undefined',
-                            'ldm_session': 'default',
-                            'fat_ram_threshold': 'default',
-                            'lmd_extra_params':'' }
-
-                metadata_string = unicode( json.dumps( metadata, indent=4, encoding="utf-8", ensure_ascii=False ) ).encode( "utf-8" )
-                lmd_image_manager.setImage( imgid, metadata_string )
-                self.set_default_boot( imgid )
-                label="ltsp_label"+str(imgid)
-                llx_boot_manager.pushToBootList(label)
-                boot_order = llx_boot_manager.getBootOrder()
-                if boot_order['status']:
-                    if len(boot_order['result']) > 0 and boot_order["result"][0] == "bootfromhd":
-                        llx_boot_manager.prependBootList(label)
-                return n4d.responses.build_successful_call_response(result["result"])
-            else:
-                return n4d.responses.build_failed_call_response(LmdServer.SERVER_BUSY)
-        else:
+        if not template_file.exists():
             return n4d.responses.build_failed_call_response(LmdServer.FILE_NOT_EXISTS)
+        
+        if "--isopath" in extraopts:
+            command = "ltsp-build-client --chroot {imgid} " + extraopts
+        else:
+            command = "ltsp-build-client --config {template_file} --chroot {imgid} -f".format(template_file=template_file, imgid=imgid)
+
+        cancelcommand = "ltsp-build-client --clean"
+        taskman = self.core.get_plugin("TaskMan")
+        lmd_image_manager = self.core.get_plugin("LmdImageManager")
+        llx_boot_manager = self.core.get_plugin("LlxBootManager")
+        result = taskman.newTask(command, cancelcommand)
+        if result["status"]:
+            metadata = {'id':imgid, 'name' : name,
+                        'desc' : description ,
+                        "template" : template,
+                        'img': bgimg,
+                        'arch': arch,
+                        'taskid': result["result"]["msg"],
+                        'ltsp_fatclient': 'undefined',
+                        'ldm_session': 'default',
+                        'fat_ram_threshold': 'default',
+                        'lmd_extra_params':'' }
+
+            metadata_string = unicode( json.dumps( metadata, indent=4, encoding="utf-8", ensure_ascii=False ) ).encode( "utf-8" )
+            lmd_image_manager.setImage( imgid, metadata_string )
+            self.set_default_boot( imgid )
+            label="ltsp_label"+str(imgid)
+            llx_boot_manager.pushToBootList(label)
+            boot_order = llx_boot_manager.getBootOrder()
+            if boot_order['status']:
+                if len(boot_order['result']) > 0 and boot_order["result"][0] == "bootfromhd":
+                    llx_boot_manager.prependBootList(label)
+            return n4d.responses.build_successful_call_response(result["result"])
+        else:
+            return n4d.responses.build_failed_call_response(LmdServer.SERVER_BUSY)
         
         def refresh_imageWS(self, imgid, delay = ''):
                 
@@ -178,37 +161,32 @@ class LmdServer:
                         return {"False": True, "msg": str(e)}
                 
         
-    def CreateImgJSON(self, imgid, newLabel, newid, description, path):
-        try:
-            
-            # Removing previous .json into image
-            files=os.listdir('/opt/ltsp/'+imgid );
-            for i in files:
-                f,ext=os.path.splitext(i)
-                if (ext==".json"):
-                    os.remove('/opt/ltsp/' +imgid+"/"+i);
+    def CreateImgJSON(self, imgid, newLabel, newid, description, json_path):
+        
+        if not self.ltsp_path.joinpath(imgid).exists():
+            return n4d.responses.build_failed_call_response(LmdServer.FILE_NOT_EXISTS)
 
-            # Create and copy new json
-            json_file = open('/etc/ltsp/images/' + imgid + '.json','r')
-            jsonClient=json.loads(json_file.read());
-            json_file.close();              
-            #print jsonClient;
-            jsonClient['name']=newLabel;
-            jsonClient['id']=newid;
-            jsonClient['desc']=description;
-            
-            json_file = open(path,'w')
-            metadata_string = unicode(json.dumps(jsonClient,indent=4,encoding="utf-8",ensure_ascii=False)).encode("utf-8")
-            json_file.write(metadata_string);
-            json_file.close();
-            
-            return {"status": True, "msg": "Saved"}
+        for i in self.ltsp_path.joinpath(imgid).iterdir():
+            if i.suffix == ".json":
+                i.unlink()
+
+        with self.image_path.joinpath(imgid + ".json").open("r") as fd:
+            jsonClient = json.load(fd)
         
-        except Exception as e:
-            print ("Except: "+str(e))
-            return {"status": False, "msg": str(e)}
+        jsonClient['name']=newLabel;
+        jsonClient['id']=newid;
+        jsonClient['desc']=description;
         
+        new_json_path = Path(json_path)
+        new_json_path.parent.mkdir(parents=True,exist_ok=True)
+       
+        with Path(path).open("w",encoding="utf-8") as fd:
+            fd.write(json.dumps(jsonClient,indent=4,encoding='utf-8',ensure_ascii=False))
+        return n4d.responses.build_successful_call_response(True)
     
+
+
+
         def CloneOrExportWS(self, targetid, newid, newLabel, newDesc, is_export):
                 '''
                 Export or Clone an image via web
@@ -251,44 +229,25 @@ class LmdServer:
                 return {"status": True, "msg": "Done"}
         
         
-        def ImportImageWS(self, filename):
-                
-                command="lmd-import-from-admin-center.sh "+filename;
-                        
-                try:
-                        ret=objects['TaskMan'].newTask(command);
-                        if ret["status"]==True: ## Task has launched ok
-                                # Returns true and ret.msg, that is job id
-                                return {"status": True, "msg": ret["msg"]}
-                                pass
-                        
-                        else:
-                                if ret["msg"]=="SERVER_BUSY":
-                                        return {'status':False, 'msg':'SERVER_BUSY'}
-                                else:
-                                        return {'status':False, 'msg':'EXCEPTION'}
-                except Exception as e:
-                        print ("Except: "+str(e))
-                        return {"status": False, "msg": str(e)}
-                
-                return {"status": True, "msg": "Done"}
-                
-                pass
-        
-        def getExportedList(self):
-                exported_path="/var/www/exported";
-                
-                try:
-                        list=os.listdir(exported_path)
-                        return {"status":True, "msg":list}
-                        pass
-                except Exception as e:
-                        return {"status":False, "msg": str(e)}
-                        pass
-                        
+    def ImportImageWS(self, filename):
+            
+        command="lmd-import-from-admin-center.sh {filename}".format(filename=filename)
+        taskman = self.core.get_plugin("TaskMan")
+        result = taskman.newTask(command)
+        if result["status"]:
+            return n4d.responses.build_successful_call_response(result["result"])
+        else:
+            return n4d.responses.build_failed_call_response(LmdServer.SERVER_BUSY)
 
-        def deploy_minimal_clientWS(self):
-            return n4d.responses.build_successful_call_response(False)
+    
+    def getExportedList(self):
+        exported_path = Path("/var/www/exported")
+        if not exported_path.exists():
+            return n4d.responses.build_failed_call_response(LmdServer.FILE_NOT_EXISTS)
+        return n4d.responses.build_successful_call_response([str(x) for x in exported_path.iterdir()])
 
-        def chek_minimal_client(self):
-            return n4d.responses.build_successful_call_response(True)
+    def deploy_minimal_clientWS(self):
+        return n4d.responses.build_successful_call_response(False)
+
+    def chek_minimal_client(self):
+        return n4d.responses.build_successful_call_response(True)
