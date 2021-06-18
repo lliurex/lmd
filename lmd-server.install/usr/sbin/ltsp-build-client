@@ -5,9 +5,9 @@ from pathlib import Path
 from shutil import rmtree, move
 from sh import isomaker
 from sh import ltsp
+from sys import exit
 
-#LTSP_CHROOT_PATH = PATH("/opt/ltsp")
-LTSP_CHROOT_PATH = Path("/srv/ltsp")
+LTSP_CHROOT_PATH = PATH("/opt/ltsp")
 BUILD_FOLDER = LTSP_CHROOT_PATH.joinpath("_build_folder")
 
 def logger(line):
@@ -41,13 +41,15 @@ def main():
     parser.add_argument("--config")
     parser.add_argument("--chroot")
     parser.add_argument("--isopath")
+    parser.add_argument("--clean",action="store_true")
+    parser.add_argument("-f","--force",action="store_true")
     args = parser.parse_args()
 
     custom_packages_file = ""
-    print("config",args.config)
-    print("chroot",args.chroot)
 
-
+    if args.clean and BUILD_FOLDER.exists():
+        isomaker("clean",b=BUILD_FOLDER)
+        exit(0)
 
     if args.isopath is not None:
         # se hace el proceso de hacerlo mediante iso
@@ -55,19 +57,26 @@ def main():
     else:
         config_path = Path(args.config)
         config_content = get_values(config_path)
-        flavour = config_content["flavour"]
+        flavour = config_content["FLAVOUR"]
         BUILD_FOLDER.mkdir(parents=True,exist_ok=True)
+        p = isomaker("clean",b=BUILD_FOLDER,_bg=True, _out=logger)
+        p.wait()
         if config_content["CUSTOM_PACKAGES"] is not None:
             custom_packages_file = BUILD_FOLDER.joinpath("custom_packages")
             with custom_packages_file.open("w",encoding="utf-8") as fd:
                 for x in config_content["CUSTOM_PACKAGES"].split(" "):
                     fd.write(x + "\n")
 
-        
-        p = isomaker("chroot",config_content["DIST"],flavour,m=config_content["MIRROR"],b=BUILD_FOLDER,n=custom_packages_file,_bg=True,_out=logger)
+        p = isomaker("chroot",config_content["DIST"],flavour,m=config_content["MIRROR"],b=BUILD_FOLDER,n=custom_packages_file,l=True,_bg=True,_out=logger)
         p.wait()
-        
-        move(str(BUILD_FOLDER.joinpath("chroot")),LTSP_CHROOT_PATH.joinpath(args.chroot))
+        dest_path = LTSP_CHROOT_PATH.joinpath(args.chroot)
+        if dest_path.exists():
+            if args.force:
+                rmtree(str(dest_path))
+            else:
+                exit(1)
+
+        move(str(BUILD_FOLDER.joinpath("chroot")),dest_path)
         
         rmtree(str(BUILD_FOLDER))
         
@@ -76,10 +85,5 @@ def main():
         
         ltsp("initrd")
 
-
-
-
-
 if __name__ == "__main__":
     main()
-
