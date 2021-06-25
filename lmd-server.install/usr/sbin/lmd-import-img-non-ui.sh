@@ -92,16 +92,13 @@ mv /tmp/extracted_image/opt/ltsp/${extracted_image}  /opt/ltsp/${new_imagename}
 mv /opt/ltsp/${new_imagename}/${extracted_filename}  /etc/ltsp/images/
 
 # Update kernels and regenerate image
-ltsp-update-kernels ${new_imagename}
-ltsp-update-sshkeys
-ltsp-update-image ${new_imagename}
-ltsp-set-domain-search-ltsconf
+ltsp image ${new_imagename}
+ltsp kernel ${new_imagename}
+ltsp initrd 
+#ltsp-set-domain-search-ltsconf
 
 # Setting image into bootMenu
-n4d-client -c LlxBootManager -m pushToBootList -u ${USER} -p ${PASS} -a ltp_label${new_imagename}
- 
-# Restarting NBD
-invoke-rc.d nbd-server restart
+n4d-client -u ${USER} -p ${PASS} call LlxBootManager.pushToBootList "[ltp_label${new_imagename}]"
 
 echo "DONE.."
 exit 0

@@ -95,72 +95,21 @@ class LmdServer:
             return n4d.responses.build_successful_call_response(result["result"])
         else:
             return n4d.responses.build_failed_call_response(LmdServer.SERVER_BUSY)
-        
-        def refresh_imageWS(self, imgid, delay = ''):
-                
-                try:
-                        
-                        # umount anything
-                        path="/opt/ltsp/"+imgid                                         
-                        objects['LmdImageManager'].umount_chroot(path);
+    def refresh_imageWS(self, imgid, delay = ""):
+        lmd_image_manager = self.core.get_plugin("LmdImageManager")
+        taskman = self.core.get_plugin("TaskMan")
 
-                        # read json
+        img_path = self.ltsp_path.join(imgid)
+        lmd_image_manager.umount_chroot(img_path)
 
-                        json_file = open('/etc/ltsp/images/' + imgid + '.json','r')
-                        jsonClient=json.loads(json_file.read())
-                        json_file.close()
+        command = "ltsp kernel ${imgid}".format(imgid=imgid)
+        ret = taskman.newTask(command)
+        if ret["status"]:
+            lmd_image_manager.setNewTaskIdForImage(imgid, ret["result"])
+            return n4d.responses.build_successful_call_response(ret["result"])
+        else:
+            return n4d.responses.build_failed_call_response(LmdServer.SERVER_BUSY)
 
-                        arch="linux32"
-                        
-                        # Ask for arch in image description
-                        if ('arch' in jsonClient):
-                                arch="linux64"
-                                if jsonClient['arch']=="i386":
-                                        arch="linux32"
-                        else:
-                                # If arch does not exists, let's ask it to chroot
-                                cmd="ltsp chroot -p -m -a "+imgid+" uname -m"
-                                proc=subprocess.Popen("uname -m", stdout=subprocess.PIPE, shell=True)
-                                (out, err) = proc.communicate()
-                                machine2arch = {'AMD64': 'linux64', 'x86_64': 'linux64'}
-                                arch=machine2arch.get(out.strip("\n"), "linux32")
-                                                        
-                        command=arch + " ltsp-chroot -p -m -a "+imgid+" dpkg-reconfigure libgl1-mesa-dri ;  "
-                        command=command + arch + " ltsp-chroot -p -m -a "+imgid+" /usr/share/ltsp/update-kernels && "
-                        if delay != '' :
-                                command = command + " lmd-update-image-delay " + imgid + " '" + delay +"'"
-                        else:
-                                command = command + arch + " ltsp-update-image " + imgid
-                        command = command + "; systemctl restart nbd-server; ltsp-set-domain-search-ltsconf"
-                                
-                        # Let's rebuild image
-                        
-                        ret=objects['TaskMan'].newTask(command)
-                        if ret["status"]==True: ## Task has launched ok
-                                
-                                
-                                print ("[LmdServer] Refreshing image for "+str(imgid))
-                                
-                                # we does not have to push to boot list! Bug fixed!
-                                #objects['LlxBootManager'].pushToBootList("ltsp_label"+str(imgid));
-                                
-                                # Setting new taskid to the image, so we know that it is refreshing
-                                objects['LmdImageManager'].setNewTaskIdForImage(imgid, ret["msg"]);
-                                return {"status": True, "msg": ret["msg"]} # Returns task id!!
-                                
-        
-                        else:
-                                if ret["msg"]=="SERVER_BUSY":
-                                        return {'status':False, 'msg':'SERVER_BUSY'}
-                                else:
-                                        return {'status':False, 'msg':'EXCEPTION'}
-                        
-                        
-                except Exception as e:
-                        print ("Except: "+str(e))
-                        return {"False": True, "msg": str(e)}
-                
-        
     def CreateImgJSON(self, imgid, newLabel, newid, description, json_path):
         
         if not self.ltsp_path.joinpath(imgid).exists():
@@ -177,58 +126,34 @@ class LmdServer:
         jsonClient['id']=newid;
         jsonClient['desc']=description;
         
-        new_json_path = Path(json_path)
-        new_json_path.parent.mkdir(parents=True,exist_ok=True)
+        if not isinstance(json_path,Path):
+            json_path = Path(json_path)
+        json_path.parent.mkdir(parents=True,exist_ok=True)
        
-        with Path(path).open("w",encoding="utf-8") as fd:
+        with json_path.open("w",encoding="utf-8") as fd:
             fd.write(json.dumps(jsonClient,indent=4,encoding='utf-8',ensure_ascii=False))
         return n4d.responses.build_successful_call_response(True)
     
 
-
-
-        def CloneOrExportWS(self, targetid, newid, newLabel, newDesc, is_export):
-                '''
-                Export or Clone an image via web
-                # New Version of import/export
-                # Last Modification: 23/09/2016
-                '''
-                
-                new_json_descriptor_file="/tmp/"+newid+".json";
-                original_path_image="/opt/ltsp/"+targetid;
-                self.CreateImgJSON(targetid, newLabel, newid, newDesc, new_json_descriptor_file);
-                
-                if str(is_export)=="True": #Export to a tar.gz with lmdimg extension
-                        #command="lmd-export-img.sh "+targetid+" "+newLabel+" "+newDesc;
-                        
-                        command="lmd-export-img.sh "+new_json_descriptor_file+" "+original_path_image+" "+newid+".lmdimg"
-                else:
-                        #command="lmd-clone-img.sh "+targetid+" "+newLabel+" "+newDesc;
-                        
-                        command="echo "+targetid+" "+original_path_image+" "+newid;
-                        command="lmd-clone-img.sh "+new_json_descriptor_file+" "+original_path_image+" "+newid;
-                        
-                
-                try:
-                        ret=objects['TaskMan'].newTask(command);
-                        if ret["status"]==True: ## Task has launched ok
-                                # Returns true and ret.msg, that is job id
-                                print ("**********************************************");
-                                return {"status": True, "msg": ret["msg"]}
-                                pass
-                        
-                        else:
-                                if ret["msg"]=="SERVER_BUSY":
-                                        return {'status':False, 'msg':'SERVER_BUSY'}
-                                else:
-                                        return {'status':False, 'msg':'EXCEPTION'}
-                except Exception as e:
-                        print ("Except: "+str(e))
-                        return {"status": False, "msg": str(e)}
-                
-                return {"status": True, "msg": "Done"}
+    def CloneOrExportWS( self,targetid, newid, newLabel, newDesc, is_export ):
+        new_json_descriptor_file = "/tmp/{newid}.json".format(newid)
+        original_path_image = self.image_path.joinpat(targetid)
+        self.CreateImgJSON(targetid, newLabel, newid, newDesc, new_json_descriptor_file);
+        taskman = self.core.get_plugin("TaskMan")
         
+        if str(is_export)=="True": #Export to a tar.gz with lmdimg extension
+                command="lmd-export-img.sh "+new_json_descriptor_file+" "+original_path_image+" "+newid+".lmdimg"
+        else:
+                command="lmd-clone-img.sh "+new_json_descriptor_file+" "+original_path_image+" "+newid;
         
+        ret = taskman.newTask(command)
+
+        if ret["status"]:
+            lmd_image_manager.setNewTaskIdForImage(imgid, ret["result"])
+            return n4d.responses.build_successful_call_response(ret["result"])
+        else:
+            return n4d.responses.build_failed_call_response(LmdServer.SERVER_BUSY)
+
     def ImportImageWS(self, filename):
             
         command="lmd-import-from-admin-center.sh {filename}".format(filename=filename)

@@ -36,14 +36,12 @@ mv /opt/ltsp/${new_imagename}/${extracted_filename}  /etc/ltsp/images/
 
 echo "Updating kernels..."
 # Update kernels and regenerate image
-ltsp-update-kernels ${new_imagename}
-ltsp-update-sshkeys
-ltsp-update-image ${new_imagename}
-ltsp-set-domain-search-ltsconf
+ltsp image ${new_imagename}
+ltsp kernel ${new_imagename}
+ltsp initrd
+#ltsp-set-domain-search-ltsconf
  
 # Restarting NBD
-"echo Restarting nbd"
-invoke-rc.d nbd-server restart
 
 # Setting image into bootMenu
 #echo "Setting image into bootMenu"

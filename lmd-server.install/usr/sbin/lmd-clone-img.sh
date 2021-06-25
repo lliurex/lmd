@@ -14,14 +14,11 @@ new_imagename=${3}
 rsync -avx $original_path/* /opt/ltsp/${new_imagename}
 cp ${tmp_descriptor} /etc/ltsp/images/
 
-ltsp-update-kernels ${new_imagename}
-ltsp-update-sshkeys
-ltsp-update-image ${new_imagename}
-ltsp-set-domain-search-ltsconf
+ltsp image ${new_imagename}
+ltsp kernel ${new_imagename}
+ltsp initrd
+#ltsp-set-domain-search-ltsconf
  
-# Restarting NBD
-invoke-rc.d nbd-server restart
-
 echo "<br/>Image has been cloned.<br/>"
 echo "<br/><b>You can set clients to boot it with Boot Manager in Admin Center.</b><br/><br/>"
 echo "<b>Finished with status 0</b>"
