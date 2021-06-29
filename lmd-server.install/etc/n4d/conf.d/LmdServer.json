@@ -1,0 +1,60 @@
+{
+    "SETUP": {
+        "type": "python",
+        "path": "LmdServer.py",
+        "class": "LmdServer"
+    },
+    "METHODS": {
+        "set_default_boot": {
+            "allowed_groups": [
+                "sudo",
+                "admins"
+            ]
+        },
+        "check_chroot_exists": {
+            "allowed_groups": [
+		"anonymous"
+            ]
+        },
+        "create_imageWS": {
+            "allowed_groups": [
+                "sudo",
+                "admins"
+            ]
+        },
+        "CreateImgJSON": {
+            "allowed_groups": [
+                "sudo",
+                "admins"
+            ]
+        },
+        "CloneOrExportWS": {
+            "allowed_groups": [
+                "sudo",
+                "admins"
+            ]
+        },
+        "ImportImageWS": {
+            "allowed_groups": [
+                "sudo",
+                "admins"
+            ]
+        },
+        "getExportedList": {
+            "allowed_groups": [
+		"anonymous"
+            ]
+        },
+        "deploy_minimal_clientWS": {
+            "allowed_groups": [
+                "sudo",
+                "admins"
+            ]
+        },
+        "chek_minimal_client": {
+            "allowed_groups": [
+		"anonymous"
+            ]
+        }
+    }
+}

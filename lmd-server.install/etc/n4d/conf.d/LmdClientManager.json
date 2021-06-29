@@ -1,0 +1,36 @@
+{
+    "SETUP": {
+        "type": "python",
+        "path": "LmdClientManager.py",
+        "class": "LmdClientManager"
+    },
+    "METHODS": {
+        "getClientList": {
+            "allowed_groups": [
+                "anonymous"
+            ]
+        },
+        "getClient": {
+            "allowed_groups": [
+                "anonymous"
+            ]
+        },
+        "setClient": {
+            "allowed_groups": [
+                "sudo",
+                "admins"
+            ]
+        },
+        "deleteClient": {
+            "allowed_groups": [
+                "sudo",
+                "admins"
+            ]
+        },
+        "getArpTable": {
+            "allowed_groups": [
+                "anonymous"
+            ]
+        }
+    }
+}

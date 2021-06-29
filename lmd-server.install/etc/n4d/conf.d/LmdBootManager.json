@@ -1,0 +1,48 @@
+{
+    "SETUP": {
+        "type": "python",
+        "path": "LmdBootManager.py",
+        "class": "LmdBootManager"
+    },
+    "METHODS": {
+        "getLtsConf": {
+            "allowed_groups": [
+                "anonymous"
+            ]
+        },
+        "setLtsClientsConf": {
+            "allowed_groups": [
+                "sudo",
+                "admins"
+            ]
+        },
+        "setLtsConf": {
+            "allowed_groups": [
+                "sudo",
+                "admins"
+            ]
+        },
+        "ReadNBDSwapSize": {
+            "allowed_groups": [
+                "anonymous"
+            ]
+        },
+        "SaveNBDSwapSize": {
+            "allowed_groups": [
+                "sudo",
+                "admins"
+            ]
+        },
+        "getDefaultBootImage": {
+            "allowed_groups": [
+                "anonymous"
+            ]
+        },
+        "setDefaultBootImage": {
+            "allowed_groups": [
+                "sudo",
+                "admins"
+            ]
+        }
+    }
+}

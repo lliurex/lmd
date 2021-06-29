@@ -1,0 +1,70 @@
+{
+    "SETUP": {
+        "type": "python",
+        "path": "LmdImageManager.py",
+        "class": "LmdImageManager"
+    },
+    "METHODS": {
+        "getImageList": {
+            "allowed_groups": [
+                "anonymous"
+            ]
+        },
+        "getImage": {
+            "allowed_groups": [
+                "anonymous"
+            ]
+        },
+        "setImage": {
+            "allowed_groups": [
+                "sudo",
+                "admins"
+            ]
+        },
+        "setStatusImage": {
+            "allowed_groups": [
+                "sudo",
+                "admins"
+            ]
+        },
+        "setNewTaskIdForImage": {
+            "allowed_groups": [
+                "sudo",
+                "admins"
+            ]
+        },
+        "deleteImage": {
+            "allowed_groups": [
+                "sudo",
+                "admins"
+            ]
+        },
+        "umount_chroot": {
+            "allowed_groups": [
+                "sudo",
+                "admins"
+            ]
+        },
+        "check_image_editing": {
+            "allowed_groups": [
+                "anonymous"
+            ]
+        },
+        "clean_image_editing": {
+            "allowed_groups": [
+                "sudo",
+                "admins"
+            ]
+        },
+        "check_mirror": {
+            "allowed_groups": [
+                "anonymous"
+            ]
+        },
+        "check_mirror_with_vars": {
+            "allowed_groups": [
+                "anonymous"
+            ]
+        }
+    }
+}

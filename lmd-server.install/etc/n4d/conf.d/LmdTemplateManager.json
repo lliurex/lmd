@@ -1,0 +1,41 @@
+{
+    "SETUP": {
+        "type": "python",
+        "path": "LmdTemplateManager.py",
+        "class": "LmdTemplateManager"
+    },
+    "METHODS": {
+        "testMirror": {
+            "allowed_groups": [
+		"anonymous"
+            ]
+        },
+        "getTemplateList": {
+            "allowed_groups": [
+		"anonymous"
+            ]
+        },
+        "deleteTemplate": {
+            "allowed_groups": [
+                "sudo",
+                "admins"
+            ]
+        },
+        "checkTemplateExists": {
+            "allowed_groups": [
+		"anonymous"
+            ]
+        },
+        "setTemplate": {
+            "allowed_groups": [
+                "sudo",
+                "admins"
+            ]
+        },
+        "getTemplate": {
+            "allowed_groups": [
+		"anonymous"
+            ]
+        }
+    }
+}
