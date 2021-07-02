@@ -1,0 +1,53 @@
+Source: lmd
+Section: misc
+Priority: optional
+Maintainer: LliureX Team <lliurex@gva.es>
+Build-Depends: debhelper (>= 7)
+Standards-Version: 3.9.7
+
+Package: lmd
+Depends: lmd-server, lmd-manager-cli, lmd-lliurex-data
+Architecture: all
+Description: LMD Metapackage
+ This package contains all dependencies to prepare 
+ an LTPS/LMD server.
+
+Package: lmd-server
+Depends: ${misc:Depends}, dnsmasq, ltsp, ltsp-binaries, php-cli, apache2, libapache2-mod-php7.4, llx-netinstall , n4d-lliurex-base , llx-bootmanager , util-linux, python3-apt, n4d-taskscheduler-server, n4d-taskscheduler-client
+Architecture: all
+Description: LMD - LTSP Management for Dummies.
+ This package gives support to Thin and Fat
+ Thin Clients Management.
+
+Package: lmd-manager-cli
+Depends: ${misc:Depends}, n4d-remote-gui-plugin (>=0.3), python3
+Architecture: all
+Description: LMD - LTSP Management for Dummies. Cli tools.
+ LMD gives support to Thin and Fat
+ Thin Clients Management. This package
+ offers CLI tools to manage LMD.
+
+Package: lmd-lliurex-data
+Depends: ${misc:Depends}, lmd-server
+Architecture: all
+Description: LMD - LTSP links and data for LliureX.
+ This package contains all cool data, links
+ and templates to working with LMD in LliureX.
+
+Package: admin-center-ltsp
+Depends: ${misc:Depends}, admin-center
+Architecture: all
+Description: LMD - LTSP Module for admin-center.
+ LTSP gives support to Thin and Fat
+ Thin Clients Management. This package
+ offers a module for Admin Center to
+ manage LTSP.
+
+Package: vnc-disable-composite
+Depends: ${misc:Depends}
+Architecture: all
+Description: Plasma disabler composite during vnc session.
+ Xdg autostart script that disables composition 
+ on vnc sessions invoking dbus method.
+
+

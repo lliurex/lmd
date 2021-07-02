@@ -1,0 +1,4 @@
+/etc/ltsp/images
+/etc/ltsp/bootopts/clients
+/var/lib/tftpboot/ltsp/i386
+/var/www/exported
