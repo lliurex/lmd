@@ -6,7 +6,7 @@ from sh import mount, umount, lliurex_version
 from pathlib import Path
 
 import n4d.responses
-from n4d.server import Core
+from n4d.server.core import Core
 
 class LmdImageManager:
     
@@ -36,7 +36,7 @@ class LmdImageManager:
         # if 1 but not exist 2 or/and 3 -> show with error
         #
 
-        return n4d.responses.build_successful_call_response( json.dump(i.name for i in self.configimagepath.glob("**/*.json")]) )
+        return n4d.responses.build_successful_call_response( json.dump([i.name for i in self.configimagepath.glob("**/*.json")]) )
                                
                     
         # END def GetListImages(self)
@@ -129,35 +129,32 @@ class LmdImageManager:
         '''
         N4d Method to delete an image identified by img_id
         '''
+        # Umount anything mounted under image
+        chroot = self.chrootpath.joinpath(img_id)
+        test_chroot =  self.umount_chroot(chroot)
+        if not test_chroot["status"] :
+            return test_chroot
         
-        try:
-                        
-            # Umount anything mounted under image
-            chroot = self.chrootpath.joinpath(img_id)
-            test_chroot =  self.umount_chroot(chroot)
-            if not test_chroot["status"] :
-                return test_chroot
-            
-            # Remove chroot
-            if chroot.is_dir():
-                rmtree(chroot)
-            
-            # Removing .img
-            x = self.imagepath.join(img_id + ".img")
-            if x.is_file():
-                x.unlink()
-            
-            x = self.tftppath.joinpath(img_id)
-            # Remove /var/lib/tftpboot/...
-            if x.is_folder():
-                rmtree(x);
-           
-            x = self.configimagepath.joinpath(img_id+".json")
-            # Remove .json file
-            if x.is_file():
-                x.unlink()  
-            
-            return n4d.responses.build_successful_call_response(True)
+        # Remove chroot
+        if chroot.is_dir():
+            rmtree(chroot)
+        
+        # Removing .img
+        x = self.imagepath.join(img_id + ".img")
+        if x.is_file():
+            x.unlink()
+        
+        x = self.tftppath.joinpath(img_id)
+        # Remove /var/lib/tftpboot/...
+        if x.is_folder():
+            rmtree(x);
+        
+        x = self.configimagepath.joinpath(img_id+".json")
+        # Remove .json file
+        if x.is_file():
+            x.unlink()  
+        
+        return n4d.responses.build_successful_call_response(True)
         
     #def setImage(self, image, data):
         

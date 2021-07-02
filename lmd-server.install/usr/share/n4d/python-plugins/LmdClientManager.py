@@ -3,7 +3,7 @@ import re
 from pathlib import Path
 
 import n4d.responses
-from n4d.server import Core
+from n4d.server.core import Core
 
 class LmdClientManager:
         
@@ -13,7 +13,7 @@ class LmdClientManager:
             self.clientpath = Path("/etc/ltsp/bootopts/clients")
             self.core = Core.get_core()
                 
-                pass
+            pass
         #def __init__
         
         def getClientList(self):
@@ -22,7 +22,7 @@ class LmdClientManager:
             Returna a JSON List.
             '''
             
-            return n4d.responses.build_successful_call_response( json.dump(i.name for i in self.clientpath.glob("**/*.json")]) )
+            return n4d.responses.build_successful_call_response( json.dump([i.name for i in self.clientpath.glob("**/*.json")]) )
                         
         
 
@@ -65,7 +65,7 @@ class LmdClientManager:
             with open('/proc/net/arp','r') as fd:
                 lines = fd.readlines()
                 
-            arptable=[];
+            arptable=[]
             iface = self.core.get_variable("INTERNAL_INTERFACE")
             spliter = re.compile(r"(\S+)\s+(\S+)\s+(\S+)\s+(\S+)\s+(\S+)\s+(\S+)")
             for line in lines:

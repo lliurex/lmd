@@ -8,7 +8,7 @@ from shutil import rmtree
 from pathlib import Path
 
 import n4d.responses
-from n4d.server import Core
+from n4d.server.core import Core
 
 
 class LmdServer:
@@ -57,7 +57,8 @@ class LmdServer:
         return n4d.responses.build_successful_call_response({"status": False})
 
                 
-    def create_imageWS(self, imgid, name, template, description='', bgimg='', arch='i386', env='', extraopts=''): template_file = self.template_path.joinpath(template)
+    def create_imageWS(self, imgid, name, template, description='', bgimg='', arch='i386', env='', extraopts=''): 
+        template_file = self.template_path.joinpath(template)
         if not template_file.exists():
             return n4d.responses.build_failed_call_response(LmdServer.FILE_NOT_EXISTS)
         
