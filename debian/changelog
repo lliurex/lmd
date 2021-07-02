@@ -1,3 +1,9 @@
+lmd (2.20.1) focal; urgency=medium
+
+  * Remove useless dependencies
+
+ -- Raul Rodrigo Segura <raurodse@gmail.com>  Fri, 02 Jul 2021 23:36:26 +0200
+
 lmd (2.20) focal; urgency=medium
 
   * First focal version 

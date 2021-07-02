@@ -20,7 +20,7 @@ Description: LMD - LTSP Management for Dummies.
  Thin Clients Management.
 
 Package: lmd-manager-cli
-Depends: ${misc:Depends}, n4d-remote-gui-plugin (>=0.3), python3
+Depends: ${misc:Depends}
 Architecture: all
 Description: LMD - LTSP Management for Dummies. Cli tools.
  LMD gives support to Thin and Fat
