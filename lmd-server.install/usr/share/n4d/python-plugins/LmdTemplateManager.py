@@ -1,11 +1,11 @@
 from pathlib import Path
 from io import StringIO
 import json
-from configparser import ConfigParse
+from configparser import ConfigParser
 
 import json
 import shlex
-import urllib2 
+from urllib.request import urlopen
 
 class LmdTemplateManager:
    
@@ -31,7 +31,7 @@ class LmdTemplateManager:
                 result = False
         else:
             try:
-                content = urllib2.urlopen(release_file).read()
+                content = urlopen(release_file).read()
             except Exception as e:
                 result = False
 
@@ -62,7 +62,7 @@ class LmdTemplateManager:
         return n4d.responses.build_successful_call_response(result)
 
     def checkTemplateExists(self, template):
-        return n4d.responses.build_successful_call_response(self.templatepath.joinpath(template).exists()
+        return n4d.responses.build_successful_call_response(self.templatepath.joinpath(template).exists())
 
     def setTemplate(self, template, config):
         '''
