@@ -22,7 +22,7 @@ class LmdClientManager:
             Returna a JSON List.
             '''
             
-            return n4d.responses.build_successful_call_response( json.dump([i.name for i in self.clientpath.glob("**/*.json")]) )
+            return n4d.responses.build_successful_call_response( json.dumps([i.name for i in self.clientpath.glob("**/*.json")]) )
                         
         
 

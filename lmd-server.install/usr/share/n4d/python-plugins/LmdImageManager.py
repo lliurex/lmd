@@ -36,7 +36,7 @@ class LmdImageManager:
         # if 1 but not exist 2 or/and 3 -> show with error
         #
 
-        return n4d.responses.build_successful_call_response( json.dump([i.name for i in self.configimagepath.glob("**/*.json")]) )
+        return n4d.responses.build_successful_call_response( json.dumps([i.name for i in self.configimagepath.glob("**/*.json")]) )
                                
                     
         # END def GetListImages(self)
