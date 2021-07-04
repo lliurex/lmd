@@ -7,7 +7,7 @@ from sh import isomaker
 from sh import ltsp
 from sys import exit
 
-LTSP_CHROOT_PATH = PATH("/opt/ltsp")
+LTSP_CHROOT_PATH = Path("/opt/ltsp")
 BUILD_FOLDER = LTSP_CHROOT_PATH.joinpath("_build_folder")
 
 def logger(line):
