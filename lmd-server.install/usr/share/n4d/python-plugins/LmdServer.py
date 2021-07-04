@@ -51,7 +51,7 @@ class LmdServer:
         '''
         if self.ltsp_path.joinpath(name).exists():
             return n4d.responses.build_successful_call_response({"status": True, "error": 'chroot_exists'})
-        if self.ltsp_path.joinpath("images",name+".img"):
+        if self.ltsp_path.joinpath("images",name+".img").exists():
             return n4d.responses.build_successful_call_response({"status": True, "error": 'image_exists'})
             
         return n4d.responses.build_successful_call_response({"status": False})
@@ -78,7 +78,7 @@ class LmdServer:
                         "template" : template,
                         'img': bgimg,
                         'arch': arch,
-                        'taskid': result["result"]["msg"],
+                        'taskid': result["result"],
                         'ltsp_fatclient': 'undefined',
                         'ldm_session': 'default',
                         'fat_ram_threshold': 'default',

@@ -7,6 +7,8 @@ import json
 import shlex
 from urllib.request import urlopen
 
+import n4d.responses
+
 class LmdTemplateManager:
    
     CONFIG_FAILED = -40
@@ -47,7 +49,7 @@ class LmdTemplateManager:
         
         for i in self.templatepath.iterdir():
             if i.suffix == ".conf" :
-                templatelist.append(str(i))
+                templatelist.append(str(i.name))
                     
         return n4d.responses.build_successful_call_response(json.dumps(templatelist))
                 

@@ -203,7 +203,7 @@ class LmdImageManager:
         '''
         try:
             lliurex_version(x="mirror")
-            return n4d.responses.build_successful_call_response({"llx21":{"ARCHITECTURES":["i386","amd64"]}})
+            return n4d.responses.build_successful_call_response({"status":True,"msg":{"llx16":{"ARCHITECTURES":["i386","amd64"]}}})
         except sh.ErrorReturnCode_1:
             return n4d.responses.build_failed_call_response(LmdImageManager.MIRROR_NOT_EXISTS)
     
