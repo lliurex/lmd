@@ -56,7 +56,6 @@ class LmdImageManager:
         '''
         
         task_manager = self.core.get_plugin("TaskMan")
-        remote_web_gui = self.core.get_plugin("RemoteWebGui")
 
         try:
 
@@ -75,11 +74,6 @@ class LmdImageManager:
             if ret["status"] == True :
                 data["task_status"] = ret["taskStatus"]
 
-            '''DEPRECATED 31/5/21
-            xpraConnections = remote_web_gui.getXpraConnections(image.replace(".json", ""));
-            data["xpraConnections"]=xpraConnections;
-            '''
-                
             return n4d.responses.build_successful_call_response(json.dumps(data))
 
         except Exception as e:

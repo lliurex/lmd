@@ -72,13 +72,13 @@ class LmdServer:
         lmd_image_manager = self.core.get_plugin("LmdImageManager")
         llx_boot_manager = self.core.get_plugin("LlxBootManager")
         result = taskman.newTask(command, cancelcommand)
-        if result["status"]:
+        if result["status"] == n4d.responses.CALL_SUCCESSFUL :
             metadata = {'id':imgid, 'name' : name,
                         'desc' : description ,
                         "template" : template,
                         'img': bgimg,
                         'arch': arch,
-                        'taskid': result["result"],
+                        'taskid': result["return"],
                         'ltsp_fatclient': 'undefined',
                         'ldm_session': 'default',
                         'fat_ram_threshold': 'default',
@@ -90,10 +90,10 @@ class LmdServer:
             label="ltsp_label"+str(imgid)
             llx_boot_manager.pushToBootList(label)
             boot_order = llx_boot_manager.getBootOrder()
-            if boot_order['status']:
-                if len(boot_order['result']) > 0 and boot_order["result"][0] == "bootfromhd":
+            if boot_order['status'] == n4d.responses.CALL_SUCCESSFUL:
+                if len(boot_order['return']) > 0 and boot_order["return"][0] == "bootfromhd":
                     llx_boot_manager.prependBootList(label)
-            return n4d.responses.build_successful_call_response(result["result"])
+            return n4d.responses.build_successful_call_response(result["return"])
         else:
             return n4d.responses.build_failed_call_response(LmdServer.SERVER_BUSY)
     def refresh_imageWS(self, imgid, delay = ""):
@@ -105,9 +105,9 @@ class LmdServer:
 
         command = "ltsp kernel ${imgid}".format(imgid=imgid)
         ret = taskman.newTask(command)
-        if ret["status"]:
-            lmd_image_manager.setNewTaskIdForImage(imgid, ret["result"])
-            return n4d.responses.build_successful_call_response(ret["result"])
+        if ret["status"] == n4d.responses.CALL_SUCCESSFUL:
+            lmd_image_manager.setNewTaskIdForImage(imgid, ret["return"])
+            return n4d.responses.build_successful_call_response(ret["return"])
         else:
             return n4d.responses.build_failed_call_response(LmdServer.SERVER_BUSY)
 
@@ -149,9 +149,9 @@ class LmdServer:
         
         ret = taskman.newTask(command)
 
-        if ret["status"]:
-            lmd_image_manager.setNewTaskIdForImage(imgid, ret["result"])
-            return n4d.responses.build_successful_call_response(ret["result"])
+        if ret["status"] == n4d.responses.CALL_SUCCESSFUL:
+            lmd_image_manager.setNewTaskIdForImage(imgid, ret["return"])
+            return n4d.responses.build_successful_call_response(ret["return"])
         else:
             return n4d.responses.build_failed_call_response(LmdServer.SERVER_BUSY)
 
@@ -160,8 +160,8 @@ class LmdServer:
         command="lmd-import-from-admin-center.sh {filename}".format(filename=filename)
         taskman = self.core.get_plugin("TaskMan")
         result = taskman.newTask(command)
-        if result["status"]:
-            return n4d.responses.build_successful_call_response(result["result"])
+        if result["status"] == n4d.responses.CALL_SUCCESSFUL:
+            return n4d.responses.build_successful_call_response(result["return"])
         else:
             return n4d.responses.build_failed_call_response(LmdServer.SERVER_BUSY)
 
