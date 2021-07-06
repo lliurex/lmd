@@ -41,7 +41,7 @@ function add_entry($label, $kernel, $init,$kernel_extra_params){
 	MENU LABEL {$label}
 	KERNEL pxe-ltsp/{$label}/{$kernel}
 	INITRD pxe-ltsp/ltsp.img,pxe-ltsp/{$label}/{$init}
-	APPEND root=/dev/nfs nfsroot={$server}:/srv/ltsp/{$label}/ {$kernel_extra_params}
+	APPEND root=/dev/nfs nfsroot={$server}:/opt/ltsp/{$label}/ {$kernel_extra_params}
 	\n
 	\n
 	";
