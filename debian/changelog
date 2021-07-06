@@ -1,3 +1,9 @@
+lmd (2.23.1) focal; urgency=medium
+
+  * Execute ltsp image and wait
+
+ -- Raul Rodrigo Segura <raurodse@gmail.com>  Tue, 06 Jul 2021 18:01:31 +0200
+
 lmd (2.23) focal; urgency=medium
 
   * fix menu ipxe
