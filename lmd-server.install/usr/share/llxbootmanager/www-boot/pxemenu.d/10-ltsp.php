@@ -27,7 +27,7 @@ function getName($dir){
 
 
 
-function add_entry($label, $kernel, $init, $append, $kernel_extra_params){
+function add_entry($label, $kernel, $init,$kernel_extra_params){
 	$server = $_SERVER['SERVER_ADDR'];
 	global $MenuEntryList;
 	$MenuEntry=new stdClass();
@@ -41,7 +41,7 @@ function add_entry($label, $kernel, $init, $append, $kernel_extra_params){
 	MENU LABEL {$label}
 	KERNEL pxe-ltsp/{$label}/{$kernel}
 	INITRD pxe-ltsp/ltsp.img,pxe-ltsp/{$label}/{$init}
-	APPEND root=/dev/nfs nfsroot={$server}:/srv/ltsp/{$label}/ {$kernel_extra_params}
+	APPEND root=/dev/nfs nfsroot={$server}:/opt/ltsp/{$label}/ {$kernel_extra_params}
 	\n
 	\n
 	";
@@ -67,7 +67,7 @@ while ($dir = readdir($dir_desc)){
 				$name = $dir;
 				$kernel_extra_params = "";
 			}
-			add_entry( $name, "vmlinux", "initrdimg",$kernel_extra_params);
+			add_entry( $name, "vmlinuz", "initrd.img",$kernel_extra_params);
 		}
 	}
 }
