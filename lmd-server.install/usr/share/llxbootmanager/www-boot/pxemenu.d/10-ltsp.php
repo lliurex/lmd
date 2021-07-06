@@ -27,11 +27,11 @@ function getName($dir){
 
 
 
-public function add_entry($label, $kernel, $init, $append, $kernel_extra_params){
+function add_entry($label, $kernel, $init, $append, $kernel_extra_params){
 	$server = $_SERVER['SERVER_ADDR'];
 	global $MenuEntryList;
 	$MenuEntry=new stdClass();
-	$MenuEntry->id="ltsp_label".$label);
+	$MenuEntry->id="ltsp_label".$label;
 	$MenuEntry->label= "menu label ${label}";
 	//$MenuEntry->label=$this->label;
 	$MenuEntry->menuString="
