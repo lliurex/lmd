@@ -67,7 +67,7 @@ def main():
                 for x in config_content["CUSTOM_PACKAGES"].split(" "):
                     fd.write(x + "\n")
 
-        p = isomaker("chroot",config_content["DIST"],flavour,m=config_content["MIRROR"],b=BUILD_FOLDER,n=custom_packages_file,l=True,_bg=True,_out=logger)
+        p = isomaker("chroot",config_content["DIST"],flavour,m=config_content["MIRROR"],b=BUILD_FOLDER,n=custom_packages_file,l=True,_bg=True,_out=logger,_err=logger)
         p.wait()
         dest_path = LTSP_CHROOT_PATH.joinpath(args.chroot)
         if dest_path.exists():

@@ -1,7 +1,3 @@
-import subprocess
-
-# New list imports
-
 import json
 from shutil import rmtree
 
@@ -40,7 +36,7 @@ class LmdServer:
         lmd_boot_manager = self.core.get_plugin("LmdBootManager")
         
         result = lmd_boot_manager.getDefaultBootImage()
-        if result['result']["default_boot"] == "":
+        if result['return']["default_boot"] == "":
             lmd_boot_manager.setDefaultBootImage(imgid)
 
 
@@ -51,7 +47,7 @@ class LmdServer:
         '''
         if self.ltsp_path.joinpath(name).exists():
             return n4d.responses.build_successful_call_response({"status": True, "error": 'chroot_exists'})
-        if self.ltsp_path.joinpath("images",name+".img"):
+        if self.ltsp_path.joinpath("images",name+".img").exists():
             return n4d.responses.build_successful_call_response({"status": True, "error": 'image_exists'})
             
         return n4d.responses.build_successful_call_response({"status": False})
@@ -66,34 +62,34 @@ class LmdServer:
             command = "ltsp-build-client --chroot {imgid} " + extraopts
         else:
             command = "ltsp-build-client --config {template_file} --chroot {imgid} -f".format(template_file=template_file, imgid=imgid)
-
+# New list imports
         cancelcommand = "ltsp-build-client --clean"
         taskman = self.core.get_plugin("TaskMan")
         lmd_image_manager = self.core.get_plugin("LmdImageManager")
         llx_boot_manager = self.core.get_plugin("LlxBootManager")
         result = taskman.newTask(command, cancelcommand)
-        if result["status"]:
+        if result["status"] == n4d.responses.CALL_SUCCESSFUL :
             metadata = {'id':imgid, 'name' : name,
                         'desc' : description ,
                         "template" : template,
                         'img': bgimg,
                         'arch': arch,
-                        'taskid': result["result"]["msg"],
+                        'taskid': result["return"],
                         'ltsp_fatclient': 'undefined',
                         'ldm_session': 'default',
                         'fat_ram_threshold': 'default',
                         'lmd_extra_params':'' }
 
-            metadata_string = unicode( json.dumps( metadata, indent=4, encoding="utf-8", ensure_ascii=False ) ).encode( "utf-8" )
+            metadata_string = json.dumps( metadata, indent=4, ensure_ascii=False )
             lmd_image_manager.setImage( imgid, metadata_string )
             self.set_default_boot( imgid )
             label="ltsp_label"+str(imgid)
             llx_boot_manager.pushToBootList(label)
             boot_order = llx_boot_manager.getBootOrder()
-            if boot_order['status']:
-                if len(boot_order['result']) > 0 and boot_order["result"][0] == "bootfromhd":
+            if boot_order['status'] == n4d.responses.CALL_SUCCESSFUL:
+                if len(boot_order['return']) > 0 and boot_order["return"][0] == "bootfromhd":
                     llx_boot_manager.prependBootList(label)
-            return n4d.responses.build_successful_call_response(result["result"])
+            return n4d.responses.build_successful_call_response(result["return"])
         else:
             return n4d.responses.build_failed_call_response(LmdServer.SERVER_BUSY)
     def refresh_imageWS(self, imgid, delay = ""):
@@ -105,9 +101,9 @@ class LmdServer:
 
         command = "ltsp kernel ${imgid}".format(imgid=imgid)
         ret = taskman.newTask(command)
-        if ret["status"]:
-            lmd_image_manager.setNewTaskIdForImage(imgid, ret["result"])
-            return n4d.responses.build_successful_call_response(ret["result"])
+        if ret["status"] == n4d.responses.CALL_SUCCESSFUL:
+            lmd_image_manager.setNewTaskIdForImage(imgid, ret["return"])
+            return n4d.responses.build_successful_call_response(ret["return"])
         else:
             return n4d.responses.build_failed_call_response(LmdServer.SERVER_BUSY)
 
@@ -137,10 +133,11 @@ class LmdServer:
     
 
     def CloneOrExportWS( self,targetid, newid, newLabel, newDesc, is_export ):
-        new_json_descriptor_file = "/tmp/{newid}.json".format(newid)
+        new_json_descriptor_file = "/tmp/{newid}.json".format(newid=newid)
         original_path_image = self.image_path.joinpat(targetid)
-        self.CreateImgJSON(targetid, newLabel, newid, newDesc, new_json_descriptor_file);
+        self.CreateImgJSON(targetid, newLabel, newid, newDesc, new_json_descriptor_file)
         taskman = self.core.get_plugin("TaskMan")
+        lmd_image_manager = self.core.get_plugin("LmdImageManager")
         
         if str(is_export)=="True": #Export to a tar.gz with lmdimg extension
                 command="lmd-export-img.sh "+new_json_descriptor_file+" "+original_path_image+" "+newid+".lmdimg"
@@ -149,9 +146,9 @@ class LmdServer:
         
         ret = taskman.newTask(command)
 
-        if ret["status"]:
-            lmd_image_manager.setNewTaskIdForImage(imgid, ret["result"])
-            return n4d.responses.build_successful_call_response(ret["result"])
+        if ret["status"] == n4d.responses.CALL_SUCCESSFUL:
+            lmd_image_manager.setNewTaskIdForImage(newid, ret["return"])
+            return n4d.responses.build_successful_call_response(ret["return"])
         else:
             return n4d.responses.build_failed_call_response(LmdServer.SERVER_BUSY)
 
@@ -160,8 +157,8 @@ class LmdServer:
         command="lmd-import-from-admin-center.sh {filename}".format(filename=filename)
         taskman = self.core.get_plugin("TaskMan")
         result = taskman.newTask(command)
-        if result["status"]:
-            return n4d.responses.build_successful_call_response(result["result"])
+        if result["status"] == n4d.responses.CALL_SUCCESSFUL:
+            return n4d.responses.build_successful_call_response(result["return"])
         else:
             return n4d.responses.build_failed_call_response(LmdServer.SERVER_BUSY)
 

@@ -1,6 +1,5 @@
 import json
 import os
-import crypt
 
 from pathlib import Path
 import n4d.responses
@@ -16,7 +15,7 @@ class LmdBootManager:
         self.tftpboot_path = Path("/var/lib/tftpboot/ltsp")
         self.timemenufile = self.imagepath.joinpath("menutimeout.json")
         self.defaultboot = self.imagepath.joinpath("defaultboot.json")
-        self.defaultboot_template = '{"default_boot":"{image}"}'
+        self.defaultboot_template = '{{"default_boot":"{image}"}}'
         self.imagepath.mkdir(parents=True, exist_ok=True) 
 
     #def __init__
@@ -132,11 +131,11 @@ class LmdBootManager:
                 try:
                     data = json.load(fd)
                 except Exception:
-                    data = json.load(self.defaultboot_template.format(image=""))
+                    data = json.loads(self.defaultboot_template.format(image=""))
             return n4d.responses.build_successful_call_response(data)
         else:
-            data = json.load(self.defaultboot_template.format(image=""))
-            return n4d.responses.build_successful_call_response()
+            data = json.loads(self.defaultboot_template.format(image=""))
+            return n4d.responses.build_successful_call_response(data)
             
     def setDefaultBootImage(self, image):
         with self.defaultboot.open("w",encoding="utf-8") as fd:
