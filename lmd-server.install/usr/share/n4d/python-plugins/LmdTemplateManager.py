@@ -3,10 +3,8 @@ from io import StringIO
 import json
 from configparser import ConfigParser
 
-import json
-import shlex
 from urllib.request import urlopen
-
+import os
 import n4d.responses
 
 class LmdTemplateManager:
@@ -34,7 +32,7 @@ class LmdTemplateManager:
         else:
             try:
                 content = urlopen(release_file).read()
-            except Exception as e:
+            except Exception:
                 result = False
 
         return n4d.responses.build_successful_call_response(result)
@@ -106,7 +104,7 @@ class LmdTemplateManager:
 
         try:
             cp.readfp(config)
-        except Exception as e:
+        except Exception:
             return n4d.responses.build_failed_call_response(LmdTemplateManager.CONFIG_FAILED)
         
         aux = cp._sections

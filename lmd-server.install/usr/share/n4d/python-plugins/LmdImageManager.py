@@ -1,5 +1,6 @@
 import json
 import sh
+import re
 
 from shutil import rmtree
 from sh import mount, umount, lliurex_version
@@ -73,10 +74,11 @@ class LmdImageManager:
             data["task_status"] = "DONE"
             if ret["status"] == True :
                 data["task_status"] = ret["taskStatus"]
+            data["xpraConnections"] = ""
 
             return n4d.responses.build_successful_call_response(json.dumps(data))
 
-        except Exception as e:
+        except Exception:
             return n4d.responses.build_failed_call_response(LmdImageManager.GET_IMAGE_ERROR)
 
 
@@ -126,7 +128,7 @@ class LmdImageManager:
         # Umount anything mounted under image
         chroot = self.chrootpath.joinpath(img_id)
         test_chroot =  self.umount_chroot(chroot)
-        if not test_chroot["status"] :
+        if test_chroot["status"] != n4d.responses.CALL_SUCCESSFUL :
             return test_chroot
         
         # Remove chroot
@@ -134,13 +136,13 @@ class LmdImageManager:
             rmtree(chroot)
         
         # Removing .img
-        x = self.imagepath.join(img_id + ".img")
+        x = self.imagepath.joinpath(img_id + ".img")
         if x.is_file():
             x.unlink()
         
         x = self.tftppath.joinpath(img_id)
         # Remove /var/lib/tftpboot/...
-        if x.is_folder():
+        if x.is_dir():
             rmtree(x);
         
         x = self.configimagepath.joinpath(img_id+".json")
@@ -161,7 +163,7 @@ class LmdImageManager:
 
         # Test if exists chroot
         if not chroot_dir.is_dir():
-            print("NO DIR CHROOT: "+chroot_dir)
+            print("NO DIR CHROOT: "+str(chroot_dir))
             return n4d.responses.build_successful_call_response(True)
         else:
             devices_mounted = [ z[2] for z in re.findall(r"(\S+)\s+(\S+)\s+(\S+)\s+(\S+)\s+(\S+)\s+(\S+)\n", mount().stdout.decode('utf-8')) ]
@@ -207,7 +209,7 @@ class LmdImageManager:
         lliurex_mirror = self.core.get_variable("LLIUREXMIRROR")
         
         if lliurex_mirror["llx21"]["status_mirror"] != "Ok":
-            return n4d.responses.build_failed_call_response(MIRROR_NOT_EXISTS)
+            return n4d.responses.build_failed_call_response(LmdImageManager.MIRROR_NOT_EXISTS)
 
         mirror_manager = self.core.get_plugin("MirrorManager")
         return mirror_manager.get_all_configs()

@@ -1,7 +1,3 @@
-import subprocess
-
-# New list imports
-
 import json
 from shutil import rmtree
 
@@ -40,7 +36,7 @@ class LmdServer:
         lmd_boot_manager = self.core.get_plugin("LmdBootManager")
         
         result = lmd_boot_manager.getDefaultBootImage()
-        if result['result']["default_boot"] == "":
+        if result['return']["default_boot"] == "":
             lmd_boot_manager.setDefaultBootImage(imgid)
 
 
@@ -66,7 +62,7 @@ class LmdServer:
             command = "ltsp-build-client --chroot {imgid} " + extraopts
         else:
             command = "ltsp-build-client --config {template_file} --chroot {imgid} -f".format(template_file=template_file, imgid=imgid)
-
+# New list imports
         cancelcommand = "ltsp-build-client --clean"
         taskman = self.core.get_plugin("TaskMan")
         lmd_image_manager = self.core.get_plugin("LmdImageManager")
@@ -84,7 +80,7 @@ class LmdServer:
                         'fat_ram_threshold': 'default',
                         'lmd_extra_params':'' }
 
-            metadata_string = unicode( json.dumps( metadata, indent=4, encoding="utf-8", ensure_ascii=False ) ).encode( "utf-8" )
+            metadata_string = json.dumps( metadata, indent=4, ensure_ascii=False )
             lmd_image_manager.setImage( imgid, metadata_string )
             self.set_default_boot( imgid )
             label="ltsp_label"+str(imgid)
@@ -137,10 +133,11 @@ class LmdServer:
     
 
     def CloneOrExportWS( self,targetid, newid, newLabel, newDesc, is_export ):
-        new_json_descriptor_file = "/tmp/{newid}.json".format(newid)
+        new_json_descriptor_file = "/tmp/{newid}.json".format(newid=newid)
         original_path_image = self.image_path.joinpat(targetid)
-        self.CreateImgJSON(targetid, newLabel, newid, newDesc, new_json_descriptor_file);
+        self.CreateImgJSON(targetid, newLabel, newid, newDesc, new_json_descriptor_file)
         taskman = self.core.get_plugin("TaskMan")
+        lmd_image_manager = self.core.get_plugin("LmdImageManager")
         
         if str(is_export)=="True": #Export to a tar.gz with lmdimg extension
                 command="lmd-export-img.sh "+new_json_descriptor_file+" "+original_path_image+" "+newid+".lmdimg"
@@ -150,7 +147,7 @@ class LmdServer:
         ret = taskman.newTask(command)
 
         if ret["status"] == n4d.responses.CALL_SUCCESSFUL:
-            lmd_image_manager.setNewTaskIdForImage(imgid, ret["return"])
+            lmd_image_manager.setNewTaskIdForImage(newid, ret["return"])
             return n4d.responses.build_successful_call_response(ret["return"])
         else:
             return n4d.responses.build_failed_call_response(LmdServer.SERVER_BUSY)

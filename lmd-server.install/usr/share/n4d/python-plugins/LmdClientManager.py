@@ -33,7 +33,7 @@ class LmdClientManager:
             try:
                 with self.clientpath.joinpath(client).open('r') as fd:
                     return n4d.responses.build_successful_call_response(json.dumps(json.load(fd)) )
-            except Exception as e:
+            except Exception:
                     return n4d.responses.build_failed_call_response(LmdClientManager.CANT_PARSE_JSON)
                 
                 
