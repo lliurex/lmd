@@ -81,6 +81,7 @@ def main():
         rmtree(str(BUILD_FOLDER))
         
         p=ltsp("image",args.chroot, _bg=True, _out=logger)
+        p.wait()
         p=ltsp("nfs", _bg=True, _out=logger)
         p.wait()
         
