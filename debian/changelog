@@ -1,3 +1,10 @@
+lmd (2.23) focal; urgency=medium
+
+  * fix menu ipxe
+  * Build nfs exports 
+
+ -- Raul Rodrigo Segura <raurodse@gmail.com>  Tue, 06 Jul 2021 17:27:30 +0200
+
 lmd (2.22) focal; urgency=medium
 
   * Update templates
