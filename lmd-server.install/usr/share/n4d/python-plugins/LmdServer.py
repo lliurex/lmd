@@ -89,7 +89,7 @@ class LmdServer:
             if boot_order['status'] == n4d.responses.CALL_SUCCESSFUL:
                 if len(boot_order['return']) > 0 and boot_order["return"][0] == "bootfromhd":
                     llx_boot_manager.prependBootList(label)
-            return n4d.responses.build_successful_call_response(result["return"])
+            return n4d.responses.build_successful_call_response({"status":True,"msg":result["return"]})
         else:
             return n4d.responses.build_failed_call_response(LmdServer.SERVER_BUSY)
     def refresh_imageWS(self, imgid, delay = ""):
