@@ -32,11 +32,11 @@ case "$1" in
 
 	
 	#invoke-rc.d apache2 reload || true
-	n4d-modules enable-plugin /etc/n4d/conf.d/LmdServer || true
-	n4d-modules enable-plugin /etc/n4d/conf.d/LmdImageManager || true
-	n4d-modules enable-plugin /etc/n4d/conf.d/LmdTemplateManager || true
-	n4d-modules enable-plugin /etc/n4d/conf.d/LmdBootManager || true
-	n4d-modules enable-plugin /etc/n4d/conf.d/LmdClientManager || true
+	n4d-modules enable-plugin /etc/n4d/conf.d/LmdServer.json || true
+	n4d-modules enable-plugin /etc/n4d/conf.d/LmdImageManager.json || true
+	n4d-modules enable-plugin /etc/n4d/conf.d/LmdTemplateManager.json || true
+	n4d-modules enable-plugin /etc/n4d/conf.d/LmdBootManager.json || true
+	n4d-modules enable-plugin /etc/n4d/conf.d/LmdClientManager.json || true
 	set +e
 	if [ -e '/var/lib/tftpboot/ltsp/lts.conf' ]; then
                 rc=$(grep "LDM_LANGUAGE" /var/lib/tftpboot/ltsp/lts.conf; echo $?)
