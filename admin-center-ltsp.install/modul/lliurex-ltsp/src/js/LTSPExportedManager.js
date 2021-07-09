@@ -86,24 +86,18 @@ LTSPExportedManager.prototype.importExportedImage=function importExportedImage(f
 
 LTSPExportedManager.prototype.getExportedList=function getExportedList(){
     var self=this;
-      var credentials="";
+    var credentials="";
     var n4dclass="LmdServer";
     var n4dmethod="getExportedList";
     var arglist=[];
     
     Utils.n4d(credentials, n4dclass, n4dmethod, arglist, function(response){
-        console.log(response.status+" "+response.response);
         $("#Llx_ltsp_images_exported").empty();
-        if ((response.status)&&(response.msg)){
-            console.log(response.msg);
-            for (var i in response.msg){
-                var item=self.createExportedItem(response.msg[i]);
-                $("#Llx_ltsp_images_exported").append(item);
-            }
-            
-        } else alert(response.msg);
-        
-        },0);
+        for (var i in response){
+		var item=self.createExportedItem(response[i]);
+		$("#Llx_ltsp_images_exported").append(item);
+        }
+    },0);
     
 }
 
