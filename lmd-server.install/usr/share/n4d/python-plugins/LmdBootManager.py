@@ -90,36 +90,34 @@ class LmdBootManager:
 
 
     def setLtsConf(self, config):
-        #Raul este si que hay que migrarlo a python3
         # Writes json config in $tftpboot/ltsp/i386/lts.conf
         try:
-            conf_file="/var/lib/tftpboot/ltsp/i386/lts.default.conf"
-            cfgfile = open(conf_file,'w')
+            lts_default = self.tftpboot_path.join("i386","lts.default.conf")
+
+            if lts_default.exists():
+                with lts_default.open("w",encoding="utf-8") as cfgfile:
+                    #cp = ConfigParser.ConfigParser()
+                    conf=json.loads(config)                                                 
             
-            #cp = ConfigParser.ConfigParser()
-            conf=json.loads(config)                                                 
-            
-            for (section) in conf:
-                    cfgfile.write("["+section+"]\n");
-                    for i in conf[section]:
+                    for (section) in conf:
+                        cfgfile.write("["+section+"]\n")
+                        for i in conf[section]:
                             if i.lower()=="__name__":
-                                    pass
+                                pass
                             else:
-                                    if (conf[section][i]).find(' ')!=-1: # ound spaces, adding " 
-                                            cfgfile.write("{0}=\"{1}\"\n".format(i, (conf[section][i])))
-                                    else:
-                                            cfgfile.write("{0}={1}\n".format(i, (conf[section][i])))
-            cfgfile.close()
+                                if (conf[section][i]).find(' ')!=-1: # ound spaces, adding " 
+                                    cfgfile.write("{0}=\"{1}\"\n".format(i, (conf[section][i])))
+                                else:
+                                    cfgfile.write("{0}={1}\n".format(i, (conf[section][i])))
             
             # Finally merge both conf files:
-            return (self.mergeLtsConf());
+            return n4d.responses.build_successful_call_response(True)
             
         except Exception as e:
-                return {"status":"false", "msg":str(e)}
-
+            return n4d.responses.build_failed_call_response( LmdBootManager.MALFORMED_LTSCONF )
         
     def ReadNBDSwapSize(self):
-        return n4d.responses.build_successful_call_response(True)
+        return n4d.responses.build_successful_call_response("250")
             
 
     def SaveNBDSwapSize(self, swap_size):

@@ -26,7 +26,6 @@ LTSPClientManager.prototype.getClientProperties=function getClientProperties(cli
     Utils.n4d(credentials, n4dclass, n4dmethod, arglist, function(response){
         var ret;
         //var status="unconfigured";
-        console.log(response);
         if (typeof(response)=="string") ret=JSON.parse(response);
         else ret=response;
         
@@ -72,8 +71,6 @@ LTSPClientManager.prototype.getClientList=function getClientList(){
         var arplength=response.length;
         
         for (i in response){
-            //alert(response[i]['mac']);
-            //alert(response[i]['ip']);
             self.createClient(response[i], function(client, clientId){
                 // Add client if not exists...
     
@@ -83,21 +80,10 @@ LTSPClientManager.prototype.getClientList=function getClientList(){
                     if ($(client).attr("type")=="configured") $("#ltsp-clients").prepend(client);
                     else $("#ltsp-clients").append(client);
                 }
-                
-                
-                
             });
         if (($(".ltsp-clienticonContainer").length)==arplength) self.drawDisconnectedClients();
-        //self.drawDisconnectedClients();
-        
         }
-        
         if (response=="") self.drawDisconnectedClients();
-        
-        
-        
-        
-        
         
     },0);
 }
@@ -437,7 +423,6 @@ LTSPClientManager.prototype.getBootListOld=function getBootListOld(callback){
     var arglist=[];
 
     Utils.n4d(credentials, n4dclass, n4dmethod, arglist, function(response){
-        console.log(response);
         for (i in response) {
             if (response[i].id.indexOf("ltsp_")===0){
                 menu_text=response[i].label.replace("menu label ", "");

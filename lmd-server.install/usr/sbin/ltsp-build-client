@@ -2,7 +2,7 @@
 import argparse
 from subprocess import check_output
 from pathlib import Path
-from shutil import rmtree, move
+from shutil import rmtree, move, copy
 from sh import isomaker
 from sh import ltsp
 from sys import exit
@@ -76,6 +76,11 @@ def main():
             else:
                 exit(1)
 
+        rmtree(str(BUILD_FOLDER.joinpath("chroot","etc","resolve.conf")))
+        rmtree(str(BUILD_FOLDER.joinpath("chroot","etc","default","locale")))
+        rmtree(str(BUILD_FOLDER.joinpath("chroot","etc","default","keyboard")))
+        copy("/etc/default/locale", str(BUILD_FOLDER.joinpath("chroot","etc","default","locale")))
+        copy("/etc/default/keyboard", str(BUILD_FOLDER.joinpath("chroot","etc","default","keyboard")))
         move(str(BUILD_FOLDER.joinpath("chroot")),dest_path)
         
         rmtree(str(BUILD_FOLDER))
