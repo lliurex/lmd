@@ -87,15 +87,8 @@ ImageManager.prototype.editImageWithCheck=function editImageWithCheck(id, editCo
     var n4dmethod="check_image_editing";
     var arglist=[];
 
-    
-    console.log(editCommand);
-    console.log(id);
-    //alert("pajaritos tralari");
-
-    
     Utils.n4d(credentials, n4dclass, n4dmethod, arglist, function(response){
-        console.log(response.status+" "+response.response);
-        if ((response.status)&&(response.response)){
+        if (response){
             
             var text=self._("lmd.imagemanager.image.edit.is.blocked.confirm");			
 			bootbox.confirm(text, function(res){
@@ -228,9 +221,6 @@ ImageManager.prototype.editImage=function editImage(id, editCommand="/usr/sbin/m
 
   
       Utils.n4d(credentials, n4dclass, n4dmethod, arglist, function(response){
-          console.log("Received response from run into connection:");
-          console.log(response);
-          
           self.prepareVncWindow(screenWidth, screenHeight, port, id);
           
       });  // 0 is timeout for curl; 0 means sync call...
@@ -280,7 +270,6 @@ ImageManager.prototype.editImage=function editImage(id, editCommand="/usr/sbin/m
         console.log("Calling close_connection "+port);
         try{
         Utils.n4d(credentials, n4dclass, n4dmethod, arglist, function(response){
-          console.log("Response for close_connection:" + response);
           if (response!=-1) {
             console.log("Closing window...");
             
@@ -380,7 +369,6 @@ ImageManager.prototype.prepareXephyrWindow=function prepareXephyrWindow(screenWi
             console.log("Calling close_connection "+port);
             try{
             Utils.n4d(credentials, n4dclass, n4dmethod, arglist, function(response){
-              console.log("Response for close_connection:" + response);
               if (response!=-1) {
                 console.log("Closing window...");
                 
@@ -771,7 +759,6 @@ ImageManager.prototype.EditImageOptions=function EditImageOptions(image){
                                 arglist.push(data);
                                 try {
                                     Utils.n4d(credentials, n4dclass, n4dmethod, arglist, function(response){
-                                        console.log(response);
                                         message=self._("lmd_client_options_dialog.success");
                                         Utils.msg(message, MSG_SUCCESS);
                                         console.log("Removing .llx-ltsp-image-file[target_id='"+id+"']");
@@ -1379,7 +1366,7 @@ ImageManager.prototype.checkMinimalImageIsInstalled=function checkMinimalImageIs
   var arglist="";
   
   Utils.n4d(null, n4dclass, n4dmethod, arglist, function(response){
-    self.imageMinimalInstalled=response["status"];
+    self.imageMinimalInstalled=response;
     //self.imageMinimalInstalled=true;
   });
 }
