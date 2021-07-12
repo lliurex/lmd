@@ -306,7 +306,7 @@ Llx_ltsconf.prototype.saveOptions= function saveOptions(){
     var n4dmethod = "SaveNBDSwapSize";
     var argList=[nbd_swap_size];
     Utils.n4d(credentials,n4dClass,n4dmethod,argList,function(response){
-      if (response.status && response.msg=="finished"){
+      if (response){
         message=self._("ltsconf.msg.swap.saved");
         Utils.msg(message, MSG_INFO);
       } else {
@@ -345,39 +345,19 @@ Llx_ltsconf.prototype.saveOptions= function saveOptions(){
   
   try {
     Utils.n4d(credentials, n4dclass, n4dmethod, arglist, function(response){
-      //console.log(response);
-      //alert(response);
-        if (response.status && response.msg=="all ok"){
+        if (response){
           message=self._("ltsconf.msg.saved");
           Utils.msg(message, MSG_INFO);
         } else {
           message=self._("ltsconf.msg.error")+response.msg;
           Utils.msg(message, MSG_ERROR);
         }
-        
-      
       },0);
-          
-   
     }
     catch (error){
      var message=("Exception: ")+error;
      Utils.msg(message, MSG_ERROR);
     }
-  
-  
-  
-  /*var creds = [sessionStorage.username, sessionStorage.password];
-  var n4dmethod ="setLtsConf";
-  var n4dClass="LmdBootManager";
-  var argList = [];
-  argList.push(resJSONs);
-  
-  Utils.n4d(creds,n4dClass,n4dmethod,argList,function(response){
-    alert("123123123");
-  });*/
-
-
 }
   
 

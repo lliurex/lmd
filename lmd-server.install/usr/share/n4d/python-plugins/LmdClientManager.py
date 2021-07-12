@@ -71,5 +71,5 @@ class LmdClientManager:
             for line in lines:
                 result = spliter.match(line.strip())
                 if result is not None and result.groups()[5] == iface :
-                    arptable.append({"ip":result.groups()[0], "mac":result.groups()[3]});
+                    arptable.append({"ip":result.groups()[0], "mac":result.groups()[3]})
             return n4d.responses.build_successful_call_response(arptable)
