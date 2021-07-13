@@ -191,8 +191,8 @@ ImageManager.prototype.editImage=function editImage(id, editCommand="/usr/sbin/m
     Utils.waitwin.ShowModalInfo(self._("ltsp_loading_image"), self._("ltsp_loading_image_description"), WAITWIN_LOADING);
     Utils.n4d(credentials, n4dclass, n4dmethod, arglist, function(response){
       // Connection is prepared
-      port=response.msg.port;
-      process=response.msg.process;
+      port=response.port;
+      process=response.process;
   
       console.log("::::"+port+" "+process);
       
@@ -443,8 +443,8 @@ ImageManager.prototype.editImage_=function editImage_(id){
     //if (!(response.status)) alert(response);
     console.log(response);
     //console.log("4444444444444444444");
-    port=response.msg.port;
-    display=response.msg.display;
+    port=response.port;
+    display=response.display;
 
     
     console.log("Port: "+port+" Display: "+display);
