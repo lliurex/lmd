@@ -1,3 +1,9 @@
+lmd (2.26) focal; urgency=medium
+
+  * Adapt to webremotegui
+
+ -- Raul Rodrigo Segura <raurodse@gmail.com>  Tue, 13 Jul 2021 16:30:50 +0200
+
 lmd (2.25) focal; urgency=medium
 
   * Migration to new n4d
