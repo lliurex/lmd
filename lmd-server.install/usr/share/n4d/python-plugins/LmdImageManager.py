@@ -73,7 +73,7 @@ class LmdImageManager:
                 
             data["task_status"] = "DONE"
             if ret["status"] == n4d.responses.CALL_SUCCESSFUL :
-                data["task_status"] = ret["result"]["taskStatus"]
+                data["task_status"] = ret["return"]["taskStatus"]
             data["xpraConnections"] = ""
 
             return n4d.responses.build_successful_call_response(json.dumps(data))
