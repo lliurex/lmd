@@ -1,3 +1,9 @@
+lmd (2.28) focal; urgency=medium
+
+  * Remove image build
+
+ -- Raul Rodrigo Segura <raurodse@gmail.com>  Thu, 15 Jul 2021 00:46:29 +0200
+
 lmd (2.27) focal; urgency=medium
 
   * Add new scripts to ltsp command
