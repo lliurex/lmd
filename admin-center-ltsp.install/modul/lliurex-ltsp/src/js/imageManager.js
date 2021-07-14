@@ -1030,9 +1030,8 @@ ImageManager.prototype.renderImage=function renderImage(imagefile){
             
             
             $(listenImgBt).on("click", function(event){
-                //var taskid=$(event.target).parent().parent().attr("taskid");
-                //var taskid=$(event.target).parent().parent();
-                var taskid=$(event.target).attr("taskid");
+                let listen_button = event.target.closest("[taskid]");
+                var taskid = listen_button.getAttribute("taskid");
                 console.log(taskid);
                 Utils.listenJob(taskid);
             });

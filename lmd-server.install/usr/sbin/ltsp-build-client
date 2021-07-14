@@ -76,15 +76,12 @@ def main():
             else:
                 exit(1)
 
-        rmtree(str(BUILD_FOLDER.joinpath("chroot","etc","resolve.conf")))
-        rmtree(str(BUILD_FOLDER.joinpath("chroot","etc","default","locale")))
-        rmtree(str(BUILD_FOLDER.joinpath("chroot","etc","default","keyboard")))
-        copy("/etc/default/locale", str(BUILD_FOLDER.joinpath("chroot","etc","default","locale")))
-        copy("/etc/default/keyboard", str(BUILD_FOLDER.joinpath("chroot","etc","default","keyboard")))
         move(str(BUILD_FOLDER.joinpath("chroot")),dest_path)
         
         rmtree(str(BUILD_FOLDER))
-        
+       
+        p=ltsp("lliurex",args.chroot)
+        p.wait()
         p=ltsp("image",args.chroot, _bg=True, _out=logger)
         p.wait()
         p=ltsp("nfs", _bg=True, _out=logger)
