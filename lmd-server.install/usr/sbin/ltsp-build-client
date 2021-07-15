@@ -82,8 +82,8 @@ def main():
        
         p=ltsp("lliurex",args.chroot)
         p.wait()
-        #p=ltsp("image",args.chroot, _bg=True, _out=logger)
-        #p.wait()
+        p=ltsp("kernel",args.chroot, _bg=True, _out=logger)
+        p.wait()
         p=ltsp("nfs", _bg=True, _out=logger)
         p.wait()
         
