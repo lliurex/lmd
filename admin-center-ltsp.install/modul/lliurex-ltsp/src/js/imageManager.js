@@ -54,8 +54,6 @@ ImageManager.prototype.deleteImage=function deleteImage(targetid){
             //console.log("REMOVE;;;;;;;;;;;;;;;");
             console.log(self.imageList);
             self.imageList.splice(self.imageList.indexOf(targetid+".json"), 1);
-            console.log(self.imageList);
-            $("#llx_ltsp_lliurex_minimal_image").show();
             Utils.msg(message, MSG_SUCCESS);
             }, 0);
         }
@@ -1339,13 +1337,6 @@ ImageManager.prototype.checkImageList_WTF=function checkImageList_WTF(){
 
 ImageManager.prototype.newImageAssistant=function newImageAssistant(){
     var self=this;
-    if (self.imageMinimalInstalled) {
-        $("#llx_ltsp_lliurex_minimal_image").hide();}
-        //$("#llx-ltsp-image-assistant-stage-1").show();
-    /*} else {
-        $("#llx-ltsp-image-assistant-stage-1").show();
-        $("#llx-ltsp-image-assistant-stage-2").hide();
-    }*/
     $("#llx-ltsp-image-assistant-stage-1").show();
     $("#llx-ltsp-image-assistant-stage-2").hide();
     $("#llx-ltsp-new-image-assistant").fadeIn();
@@ -1581,10 +1572,7 @@ ImageManager.prototype.confirmImageCreation=function confirmImageCreation(image_
                 if (res) {
                     $("#llx-ltsp-new-image-assistant").fadeOut();
                     //alert("create image");
-                    if(image_data.type == "mini"){
-                        self.deployMinimalClient();                        
-                    }
-                    else if( image_data.type == "ISO"){
+                    if( image_data.type == "ISO"){
                         var iso_file = document.getElementById("llx_ltsp_new_image_iso");
                         var upload_form = new FormData();
                         upload_form.append('isofile',iso_file.files[0]);
@@ -1725,29 +1713,6 @@ ImageManager.prototype.progressDialog = function progressDialog(req){
 
 }
 
-ImageManager.prototype.deployMinimalClient=function deployMinimalClient(){
-    //var self=this;
-    try{            
-        var credentials=[sessionStorage.username , sessionStorage.password];
-        var n4dclass="LmdServer";
-        var n4dmethod="deploy_minimal_clientWS";
-        var arglist=[];
-        //arglist.push("");
-        //arglist.push(sessionStorage.server);
-                
-        
-        //Utils.n4dWithLog(credentials, n4dclass, n4dmethod, arglist, function(response){});
-        Utils.n4dWithLog(credentials, n4dclass, n4dmethod, arglist, null); // no callback is needed
-        
-        
-        // Hide minimal image button
-        $("#llx_ltsp_lliurex_minimal_image").hide();
-        
-	}catch (error){
-		alert(error);
-	   }
-	};
-
 ImageManager.prototype.bindEvents=function bindEvents(){
     var self=this;
     
@@ -1757,45 +1722,6 @@ ImageManager.prototype.bindEvents=function bindEvents(){
         self.newImageAssistant();
     });
 
-    $("#llx_ltsp_lliurex_minimal_image").on("click", function(){
-        // When selected to create a minimal image from dialog (other images are built in exec time)
-        $(".llx_ltsp_template_div, #llx_ltsp_lliurex_from_iso").removeClass("llx_ltsp_template_div_selected");
-        $(this).addClass("llx_ltsp_template_div_selected");
-        // Show button as primary
-        $("#llx-ltsp-goto-image-assistant-stage-2").addClass("btn-primary");
-        
-        //console.log($(this).attr("image_client_name"));
-        $("#llx_ltsp_new_image_name").val($(this).attr("image_client_name"));
-        $("#llx_ltsp_new_image_desc").val($(this).attr("image_client_desc"));
-        
-        
-    });
-
-    var isoicon = document.getElementById('isouploadicon');
-    var isofileInput = document.getElementById('llx_ltsp_new_image_iso');
-    var isolabel = document.getElementById('isouploadlabel');
-    
-    isofileInput.addEventListener('change', function(){
-        var str = isofileInput.value;
-        var i;
-        if (str.lastIndexOf('\\')) {
-          i = str.lastIndexOf('\\') + 1;
-        } else if (str.lastIndexOf('/')) {
-          i = str.lastIndexOf('/') + 1;
-        }
-        isolabel.innerHTML = str.slice(i, str.length);
-    });
-
-
-
-    $("#llx_ltsp_lliurex_from_iso").on("click", function(){
-        $(".llx_ltsp_template_div, #llx_ltsp_lliurex_minimal_image").removeClass("llx_ltsp_template_div_selected");
-        $(this).addClass("llx_ltsp_template_div_selected");
-        $("#llx-ltsp-goto-image-assistant-stage-2").addClass("btn-primary");
-        $("#llx_ltsp_new_image_name").val("");
-        $("#llx_ltsp_new_image_desc").val("");
-    });
-        
     /* Dialog for create new images UI Evnet Handling */
     $("#llx-ltsp-goback-image-assistant-stage-1").on("click", function(){
           $("#llx-ltsp-image-assistant-stage-2").fadeOut(function(){
@@ -1805,7 +1731,7 @@ ImageManager.prototype.bindEvents=function bindEvents(){
     
     $("#llx-ltsp-goto-image-assistant-stage-2").on("click", function(){
         
-        var available_type_images = ["ltsp_template_client", "ltsp_template_client_smart", "ltsp_template_infantil", "llx_ltsp_lliurex_minimal_image", "llx_ltsp_lliurex_from_iso", "ltsp_template_desktop"];
+        var available_type_images = ["ltsp_template_client", "ltsp_template_client_smart", "ltsp_template_infantil", "ltsp_template_desktop"];
         
         var itemSelected=$(".llx_ltsp_template_div_selected");
         var id_image_selected = $(itemSelected).attr("id");
@@ -1867,18 +1793,9 @@ ImageManager.prototype.bindEvents=function bindEvents(){
             "ltsp_template_infantil":{
                 "i386":"lliurex-ltsp-infantil.conf",
                 "amd64":"lliurex-ltsp-infantil-amd64.conf"
-            },
-            "llx_ltsp_lliurex_minimal_image":{
-                "i386":"",
-                "amd64":""
-            },
-            "llx_ltsp_lliurex_from_iso": "lliurex-from-iso.conf"
+            }
         };
 
-        var type_image = {
-            "llx_ltsp_lliurex_from_iso" : "ISO",
-            "llx_ltsp_lliurex_minimal_image" : "mini",
-        };
 
         // Check templates
         var id=$(".llx_ltsp_template_div_selected").attr("id");
@@ -1896,10 +1813,7 @@ ImageManager.prototype.bindEvents=function bindEvents(){
         If not exists template for options selected or it's not needed then template is void 
         */
         try{ template = list_templates[id][arch] ;} catch(err){};
-        try{ type = type_image[id] ;} catch(err){};
         
-        if (id == 'llx_ltsp_lliurex_from_iso')
-            template = list_templates[id];
         // Setting image arch to description
         if(arch==="i386") image_desc+=" (32 bits)";
         else if (template!=="") image_desc+=" (64 bits)";
