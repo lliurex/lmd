@@ -1,3 +1,9 @@
+lmd (2.29.1) focal; urgency=medium
+
+  * Fix pxemenu. Name is not id
+
+ -- Raul Rodrigo Segura <raurodse@gmail.com>  Thu, 15 Jul 2021 17:10:35 +0200
+
 lmd (2.29) focal; urgency=medium
 
   * Update images on look and feel
