@@ -34,17 +34,15 @@ function add_entry($label, $kernel, $init,$kernel_extra_params){
 	$MenuEntry->id="ltsp_label".$label;
 	$MenuEntry->label= "menu label ${label}";
 	//$MenuEntry->label=$this->label;
-	$MenuEntry->menuString="
-	\n
-	# {$label}
-	LABEL {$label}
-	MENU LABEL {$label}
-	KERNEL pxe-ltsp/{$label}/{$kernel}
-	INITRD pxe-ltsp/ltsp.img,pxe-ltsp/{$label}/{$init}
-	APPEND root=/dev/nfs nfsroot={$server}:/opt/ltsp/{$label}/ {$kernel_extra_params}
-	\n
-	\n
-	";
+	$MenuEntry->menuString="\n
+# {$label}
+LABEL {$label}
+MENU LABEL {$label}
+KERNEL pxe-ltsp/{$label}/{$kernel}
+INITRD pxe-ltsp/ltsp.img,pxe-ltsp/{$label}/{$init}
+APPEND root=/dev/nfs nfsroot={$server}:/opt/ltsp/{$label}/ {$kernel_extra_params}
+\n
+\n";
 	array_push($MenuEntryList, $MenuEntry);
 }
 
