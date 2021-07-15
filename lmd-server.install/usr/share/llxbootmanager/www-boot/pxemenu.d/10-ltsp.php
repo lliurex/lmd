@@ -25,9 +25,7 @@ function getName($dir){
 	}
 }
 
-
-
-function add_entry($label, $kernel, $init,$kernel_extra_params){
+function add_entry($label, $id ,$kernel, $init,$kernel_extra_params){
 	$server = $_SERVER['SERVER_ADDR'];
 	global $MenuEntryList;
 	$MenuEntry=new stdClass();
@@ -38,9 +36,9 @@ function add_entry($label, $kernel, $init,$kernel_extra_params){
 # {$label}
 LABEL {$label}
 MENU LABEL {$label}
-KERNEL pxe-ltsp/{$label}/{$kernel}
-INITRD pxe-ltsp/ltsp.img,pxe-ltsp/{$label}/{$init}
-APPEND root=/dev/nfs nfsroot={$server}:/opt/ltsp/{$label}/ {$kernel_extra_params}
+KERNEL pxe-ltsp/{$id}/{$kernel}
+INITRD pxe-ltsp/ltsp.img,pxe-ltsp/{$id}/{$init}
+APPEND root=/dev/nfs nfsroot={$server}:/opt/ltsp/{$id}/ {$kernel_extra_params}
 \n
 \n";
 	array_push($MenuEntryList, $MenuEntry);
@@ -52,8 +50,9 @@ while ($dir = readdir($dir_desc)){
 
 			try{
 				$string = file_get_contents("/etc/ltsp/images/".$dir.".json"); 
-		        $json=json_decode($string,true);
+		        	$json=json_decode($string,true);
 				$name = getName($dir);
+				$id = $json["id"];
 				if ($json["kernel_extra_params"] != "undefined"){
 					$kernel_extra_params = $json["kernel_extra_params"];
 				}
@@ -63,9 +62,10 @@ while ($dir = readdir($dir_desc)){
 
 			}catch( Exception $e){
 				$name = $dir;
+				$id = $dir;
 				$kernel_extra_params = "";
 			}
-			add_entry( $name, "vmlinuz", "initrd.img",$kernel_extra_params);
+			add_entry( $name, $id ,"vmlinuz", "initrd.img",$kernel_extra_params);
 		}
 	}
 }
