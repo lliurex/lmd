@@ -185,7 +185,6 @@ ImageManager.prototype.editImage=function editImage(id, editCommand="/usr/sbin/m
     var arglist=[id,editCommand]
     var port;
     var process;
-    
     Utils.waitwin.ShowModalInfo(self._("ltsp_loading_image"), self._("ltsp_loading_image_description"), WAITWIN_LOADING);
     Utils.n4d(credentials, n4dclass, n4dmethod, arglist, function(response){
       // Connection is prepared
@@ -901,8 +900,8 @@ ImageManager.prototype.renderImage=function renderImage(imagefile){
             $(editImgBt).append(editImgBtButton, editOptions);
             
             
-            var regenerateImgBt=$(document.createElement("button")).attr("type", "button").addClass("btn btn-info btn-xs ltsp-img-bt btn-raised").attr("title", self._("lmd.regenerate_help"));
-            $(regenerateImgBt).html("<i class='material-icons' style='vertical-align:middle;'>refresh</i>&nbsp;"+self._("lmd.regenerate"));
+	    //var regenerateImgBt=$(document.createElement("button")).attr("type", "button").addClass("btn btn-info btn-xs ltsp-img-bt btn-raised").attr("title", self._("lmd.regenerate_help"));
+            //$(regenerateImgBt).html("<i class='material-icons' style='vertical-align:middle;'>refresh</i>&nbsp;"+self._("lmd.regenerate"));
             var imgOptsBt=$(document.createElement("button")).attr("type", "button").addClass("btn btn-xs btn-info ltsp-img-bt btn-raised").attr("title", self._("lmd.options_help"));
             $(imgOptsBt).html("<i class='material-icons' style='vertical-align:middle;'>edit</i>&nbsp;"+self._("lmd.options"));
             var cloneImgBt=$(document.createElement("button")).attr("type", "button").addClass("btn btn-info btn-xs ltsp-img-bt btn-raised").attr("title", self._("lmd.clone"));
@@ -915,7 +914,7 @@ ImageManager.prototype.renderImage=function renderImage(imagefile){
                 
             // Adding target ids and binding events
             $(editImgBt).attr("target_id", imageContent.id);
-            $(regenerateImgBt).attr("target_id", imageContent.id);
+            //$(regenerateImgBt).attr("target_id", imageContent.id);
             $(imgOptsBt).attr("target_id", imageContent.id);
             $(cloneImgBt).attr("target_id", imageContent.id);
             $(removeImgBt).attr("target_id", imageContent.id);
@@ -953,14 +952,14 @@ ImageManager.prototype.renderImage=function renderImage(imagefile){
                 self.editImageWithCheck($(this).attr("target_id"), "minimal", $(this).attr("arch"));
             });
             
-               
+            /*   
             $(regenerateImgBt).on("click",function(){
                 
                 var targetid=$(this).attr("target_id");
                 var text=self._("lmd.warning.refresh.image")+targetid+self._("lmd.warning.refresh.image.sure");
                 self.dialogRegenerateImage(text, targetid);
             });
-                
+            */  
             $(imgOptsBt).on("click", function(){
                 //alert("Show options for "+$(this).attr("target_id"));
                 
@@ -1047,13 +1046,15 @@ ImageManager.prototype.renderImage=function renderImage(imagefile){
                 $(imgFile).addClass("llx-ltsp-image-file llx-ltsp-image-file-broken");
                 if (imageContent.status==="enabled-non-editable")
                     $(ImageButtonsColumn).append(removeImgBt);
-                else $(ImageButtonsColumn).append(removeImgBt, cloneImgBt, regenerateImgBt, editImgBt, imgOptsBt);
+                //else $(ImageButtonsColumn).append(removeImgBt, cloneImgBt, regenerateImgBt, editImgBt, imgOptsBt);
+                else $(ImageButtonsColumn).append(removeImgBt, cloneImgBt, editImgBt, imgOptsBt);
             }
             else{
                 $(imgFile).addClass("llx-ltsp-image-file llx-ltsp-image-file-available");
                 if (imageContent.status==="enabled-non-editable")
                     $(ImageButtonsColumn).append(removeImgBt);
-                else $(ImageButtonsColumn).append(removeImgBt, cloneImgBt, regenerateImgBt, editImgBt, imgOptsBt);
+                //else $(ImageButtonsColumn).append(removeImgBt, cloneImgBt, regenerateImgBt, editImgBt, imgOptsBt);
+                else $(ImageButtonsColumn).append(removeImgBt, cloneImgBt, editImgBt, imgOptsBt);
             }
             
             
