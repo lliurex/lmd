@@ -128,26 +128,26 @@ class LmdServer:
         json_path.parent.mkdir(parents=True,exist_ok=True)
        
         with json_path.open("w",encoding="utf-8") as fd:
-            fd.write(json.dumps(jsonClient,indent=4,encoding='utf-8',ensure_ascii=False))
+            json.dump(jsonClient, fd, indent=4, ensure_ascii=False )
         return n4d.responses.build_successful_call_response(True)
     
 
     def CloneOrExportWS( self,targetid, newid, newLabel, newDesc, is_export ):
         new_json_descriptor_file = "/tmp/{newid}.json".format(newid=newid)
-        original_path_image = self.image_path.joinpat(targetid)
+        original_path_image = self.ltsp_path.joinpath(targetid)
         self.CreateImgJSON(targetid, newLabel, newid, newDesc, new_json_descriptor_file)
         taskman = self.core.get_plugin("TaskMan")
         lmd_image_manager = self.core.get_plugin("LmdImageManager")
         
         if str(is_export)=="True": #Export to a tar.gz with lmdimg extension
-                command="lmd-export-img.sh "+new_json_descriptor_file+" "+original_path_image+" "+newid+".lmdimg"
+            command = "lmd-export-img.sh {newjson} {origpath} {newid}.lmdimg".format(newjson=new_json_descriptor_file, origpath=original_path_image, newid=newid)
         else:
-                command="lmd-clone-img.sh "+new_json_descriptor_file+" "+original_path_image+" "+newid;
+            command = "lmd-clone-img.sh {newjson} {origpath} {newid}".format(newjson=new_json_descriptor_file, origpath=original_path_image, newid=newid)
         
         ret = taskman.newTask(command)
 
         if ret["status"] == n4d.responses.CALL_SUCCESSFUL:
-            lmd_image_manager.setNewTaskIdForImage(newid, ret["return"])
+            lmd_image_manager.setNewTaskIdForImage(targetid, ret["return"])
             return n4d.responses.build_successful_call_response(ret["return"])
         else:
             return n4d.responses.build_failed_call_response(LmdServer.SERVER_BUSY)
