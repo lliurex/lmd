@@ -11,10 +11,10 @@ tmp_descriptor=${1}
 original_path=${2}
 new_imagename=${3}
 
-rsync -avx $original_path/* /opt/ltsp/${new_imagename}
 cp ${tmp_descriptor} /etc/ltsp/images/
+rsync -avx $original_path/* /opt/ltsp/${new_imagename}
 
-ltsp image ${new_imagename}
+#ltsp image ${new_imagename}
 ltsp kernel ${new_imagename}
 ltsp initrd
 #ltsp-set-domain-search-ltsconf
