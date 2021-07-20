@@ -148,7 +148,7 @@ class LmdServer:
 
         if ret["status"] == n4d.responses.CALL_SUCCESSFUL:
             lmd_image_manager.setNewTaskIdForImage(targetid, ret["return"])
-            if str(is_export) == "True":
+            if str(is_export) != "True":
                 lmd_image_manager.setNewTaskIdForImage(newid, ret["return"])
             return n4d.responses.build_successful_call_response(ret["return"])
         else:
@@ -169,7 +169,7 @@ class LmdServer:
         exported_path = Path("/var/www/exported")
         if not exported_path.exists():
             return n4d.responses.build_failed_call_response(LmdServer.FILE_NOT_EXISTS)
-        return n4d.responses.build_successful_call_response([str(x) for x in exported_path.iterdir()])
+        return n4d.responses.build_successful_call_response([str(x.name) for x in exported_path.iterdir()])
 
     def deploy_minimal_clientWS(self):
         return n4d.responses.build_successful_call_response(False)
