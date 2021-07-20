@@ -148,6 +148,8 @@ class LmdServer:
 
         if ret["status"] == n4d.responses.CALL_SUCCESSFUL:
             lmd_image_manager.setNewTaskIdForImage(targetid, ret["return"])
+            if str(is_export) == "True":
+                lmd_image_manager.setNewTaskIdForImage(newid, ret["return"])
             return n4d.responses.build_successful_call_response(ret["return"])
         else:
             return n4d.responses.build_failed_call_response(LmdServer.SERVER_BUSY)
