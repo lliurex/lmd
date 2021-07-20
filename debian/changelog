@@ -1,3 +1,9 @@
+lmd (2.30ubuntu1) focal; urgency=medium
+
+  * Import/export images working 
+
+ -- Raul Rodrigo Segura <raurodse@gmail.com>  Tue, 20 Jul 2021 17:20:31 +0200
+
 lmd (2.30) focal; urgency=medium
 
   * Remove regenerate option
