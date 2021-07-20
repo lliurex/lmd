@@ -1,3 +1,9 @@
+lmd (2.33) focal; urgency=medium
+
+  * Remove generate image on import lmdimg
+
+ -- Raul Rodrigo Segura <raurodse@gmail.com>  Tue, 20 Jul 2021 23:56:37 +0200
+
 lmd (2.32) focal; urgency=medium
 
   * Add jwm to ltsp clients
