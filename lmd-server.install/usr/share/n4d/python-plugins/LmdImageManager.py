@@ -2,6 +2,7 @@ import json
 import sh
 import re
 
+from time import sleep
 from shutil import rmtree
 from sh import mount, umount, lliurex_version
 from pathlib import Path
@@ -14,6 +15,8 @@ class LmdImageManager:
 
     GET_IMAGE_ERROR = -50
     MIRROR_NOT_EXISTS = -40
+    FILE_NOT_EXISTS = -30
+
 
     def __init__(self):
         self.configimagepath = Path("/etc/ltsp/images/")
@@ -112,7 +115,17 @@ class LmdImageManager:
 
     def setNewTaskIdForImage(self, img_id, newid):
         
-        with self.configimagepath.joinpath(img_id+".json").open("r") as fd:
+        image_file = self.configimagepath.joinpath(img_id+".json")
+        retry = 0
+
+        while not image_file.exists() and retry < 3:
+            sleep(3)
+            retry += 1
+
+        if not image_file.exists() and retry >= 3
+            return n4d.responses.build_failed_call_response(LmdImageManager.FILE_NOT_EXISTS)
+
+        with image_file.open("r") as fd:
             data = json.load(fd)
 
         data["taskid"]=newid
