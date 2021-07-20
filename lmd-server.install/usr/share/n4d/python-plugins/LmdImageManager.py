@@ -122,7 +122,7 @@ class LmdImageManager:
             sleep(3)
             retry += 1
 
-        if not image_file.exists() and retry >= 3
+        if not image_file.exists() and retry >= 3:
             return n4d.responses.build_failed_call_response(LmdImageManager.FILE_NOT_EXISTS)
 
         with image_file.open("r") as fd:
