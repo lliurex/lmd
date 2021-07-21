@@ -261,8 +261,8 @@
 #divXPRA{
     background: #ffffff;
     position: absolute;
-    top: 50%;
-    left: 50%;
+    top: 0%;
+    left: 0%;
     /*top: 20px;
     left: 20px;
     width: 1024px;
@@ -272,11 +272,7 @@
 }
 #divXPRAHdr{
     background: #2f343f;
-    float: left;
-    clear: both;
-    width: 100%;
     height: 30px;
-    border-radius: 2px 2px 0px 0px;
 }
 
 #divXPRAContent {
@@ -284,11 +280,18 @@
     height: 100%;
 }
 
-#divXPRAContent,#divXPRAContentObj{
+#divXPRAContent{
+    width: 100%;
+    height: calc(100% - 30px);
+    background-image: url(img/xephyr_bg.png);
+    background-size: cover;
+}
+#divXPRAContentObj{
     width: 100%;
     height: 100%;
     background-image: url(img/xephyr_bg.png);
     background-size: cover;
+
 }
 
 #divXPRAContentObjCloseBt{
