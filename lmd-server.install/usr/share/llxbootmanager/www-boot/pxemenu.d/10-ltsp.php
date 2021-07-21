@@ -38,7 +38,7 @@ LABEL {$label}
 MENU LABEL {$label}
 KERNEL pxe-ltsp/{$id}/{$kernel}
 INITRD pxe-ltsp/ltsp.img,pxe-ltsp/{$id}/{$init}
-APPEND root=/dev/nfs nfsroot={$server}:/opt/ltsp/{$id}/ {$kernel_extra_params}
+APPEND net.ifnames=0 root=/dev/nfs nfsroot={$server}:/opt/ltsp/{$id}/ {$kernel_extra_params}
 \n
 \n";
 	array_push($MenuEntryList, $MenuEntry);
