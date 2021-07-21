@@ -1,3 +1,9 @@
+lmd (2.34) focal; urgency=medium
+
+  * Fix eth names
+
+ -- Raul Rodrigo Segura <raurodse@gmail.com>  Wed, 21 Jul 2021 11:11:05 +0200
+
 lmd (2.33) focal; urgency=medium
 
   * Remove generate image on import lmdimg
