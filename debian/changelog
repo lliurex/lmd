@@ -1,3 +1,9 @@
+lmd (2.3) focal; urgency=medium
+
+  * Add file to detect semi client 
+
+ -- Raul Rodrigo Segura <raurodse@gmail.com>  Wed, 21 Jul 2021 12:14:57 +0200
+
 lmd (2.34) focal; urgency=medium
 
   * Fix eth names
