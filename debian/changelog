@@ -1,3 +1,9 @@
+lmd (2.37) focal; urgency=medium
+
+  * Responsive Design 
+
+ -- Raul Rodrigo Segura <raurodse@gmail.com>  Thu, 22 Jul 2021 01:00:24 +0200
+
 lmd (2.36) focal; urgency=medium
 
   * Remove mount home by sshfs
