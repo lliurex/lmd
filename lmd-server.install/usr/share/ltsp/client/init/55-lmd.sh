@@ -13,4 +13,6 @@ local_lmd() {
     local devices device magic
     rs mkdir /run/lmd
     rs touch /run/lmd/semi
+
+    echo "SSHFS=0" >> /etc/ltsp/pamltsp.conf
 }
