@@ -29,6 +29,8 @@ lliurex_main() {
 	re cp /etc/default/locale $img_path/etc/default/locale
 	re cp /etc/default/keyboard $img_path/etc/default/keyboard
 	re llx-chroot $img_path dpkg-reconfigure openssh-server
+	rs mkdir -p $img_path/var/lib/lmd
+	rs touch $img_path/var/lib/lmd/semi
     done
 }
 
