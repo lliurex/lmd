@@ -220,7 +220,7 @@ ImageManager.prototype.editImage=function editImage(id, editCommand="/usr/sbin/m
 
   
       Utils.n4d(credentials, n4dclass, n4dmethod, arglist, function(response){
-          self.prepareVncWindow(screenWidth, screenHeight, port, id);
+	  self.waitToVncWindow(screenWidth, screenHeight, port, id);
           
       });  // 0 is timeout for curl; 0 means sync call...
   
@@ -229,6 +229,31 @@ ImageManager.prototype.editImage=function editImage(id, editCommand="/usr/sbin/m
       
   
   }
+
+
+  ImageManager.prototype.waitToVncWindow = function waitToVncWindow( screenWidth, screenHeight, port, id=null, imagefile=null, retry=0){
+	var self = this;
+	if (retry >= 10){
+		console.log("vamos");
+		self.prepareVncWindow(screenWidth, screenHeight, port, id);
+		return;
+	}
+	$.ajax({
+		url: "http://"+sessionStorage.server+":"+port+"/vnc.html", 
+		dataType: "jsonp",
+		statusCode: {
+			200: function(){
+				self.prepareVncWindow(screenWidth, screenHeight, port, id);
+			},
+			404: function(){
+
+				setTimeout(function(){console.log(retry);self.waitToVncWindow(screenWidth, screenHeight, port, id, null, retry + 1);},1000);
+			}
+		},
+	});
+
+  }
+
   ImageManager.prototype.prepareVncWindow=function prepareXephyrWindow2(screenWidth, screenHeight, port, id=null, imagefile=null){
     // Prepare Xephyr Window
     // imagefile only used if we want to refresh image status before...
