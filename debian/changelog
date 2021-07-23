@@ -1,3 +1,9 @@
+lmd (2.39) focal; urgency=medium
+
+  * Open image editor when url is ok
+
+ -- Raul Rodrigo Segura <raurodse@gmail.com>  Fri, 23 Jul 2021 17:46:53 +0200
+
 lmd (2.38) focal; urgency=medium
 
   * Add packages to clientize flavours
