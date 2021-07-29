@@ -1246,4 +1246,46 @@ class LmdServer:
 			return [False,[]]
 			
 		
+	def is_needed_update_image(self, img_id):
+		lliurex_up = "19.4.30"
+		token_ltsp = "/var/lib/lmd/semi"
+		vnc_binary = "/usr/bin/tigervncserver"
+
+		if not os.path.exists(os.path.join(self.ltsp_path, token_ltsp)):
+			return {"status":True,"msg":True}
+
+		if not os.path.exists(os.path.join(self.ltsp_path,vnc_binary)):
+			return {"status":True,"msg":True}
+
+		p = subprocess.Popen("ltsp-chroot -m -a {} dpkg-query --showformat='${{Version}}' --show lliurex-up".format(img_id),shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+		result = p.communicate()
+		if p.returncode == 1:
+			return {"status":True,"msg":True}
+		p = subprocess.Popen("dpkg --compare-versions {} gt {}".format(result[0], lliurex_up),shell=True)
+		p.communicate()
+		if p.returncode == 1:
+			return {"status":True,"msg":True}
+		return {"status":False,"msg":False}
+
+	def update_image_to_vnc_image(self, img_id):
+		if not os.path.exists("/var/lib/lmd/semi"):
+			if not os.path.exists("/var/lib/lmd"):
+				os.makedirs("/var/lib/lmd")
+			x = open("/var/lib/lmd/semi","w")
+			x.close()
+
+		shutil.copy("/usr/share/lmd-server/apt/lliurex.list",os.path.join(self.ltsp_path,img_id,"etc","apt","sources.list.d","lliurex.list"))
+		packages = ["tigervnc-standalone-server", "lliurex-up","vnc-disable-composite"]
 		
+		p = subprocess.Popen("ltsp-chroot -m -a {} apt update".format(img_id),shell=True,stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+		result = p.communicate()
+		if p.returncode != 0 :
+			return {"status": False, "msg": result[1]}
+		p = subprocess.Popen("ltsp-chroot -m -a {} apt install -y {}".format(img_id, " ".join(packages)),shell=True,stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+		p.communicate()
+		if p.returncode != 0 :
+			return {"status": False, "msg": result[1]}
+		os.unlink(os.path.join(self.ltsp_path,img_id,"etc","apt","sources.list.d","lliurex.list"))
+		
+		return {"status": True, "msg": "image updated"}
+

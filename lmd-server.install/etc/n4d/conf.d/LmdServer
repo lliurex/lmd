@@ -31,3 +31,5 @@ check_update_images=anonymous,*
 CloneOrExportWS=admin,admins,sudo
 getExportedList=anonymous
 ImportImageWS=admin,admins,sudo
+is_needed_update_image=anonymous,*
+update_image_to_vnc_image=admin,admins,sudo

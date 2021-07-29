@@ -324,14 +324,14 @@ class LmdImageManager:
 	#   check method relies into lliurex-version call, checking structure of files and dirs into /net/mirror/llx16
 	#   architectures always be all or nothing due to assumption that lliurex-mirror mirror both architectures always.
 	def check_mirror(self):
-	        try:
-	            r=subprocess.check_call(["lliurex-version","-x","mirror"])
-	            
-	            #status will be mirrorReady, msg.llx16.ARCHITECTURES(list) will always be [i386,amd64]
-	            
-	            return {'status': True,'msg': {'llx16': {'ARCHITECTURES':['i386','amd64']}}}
-	        except Exception as e:
-	            return {'status': False,'msg': {'llx16':{'ARCHITECTURES':['None']},'msg':str(e)}}
+		try:
+			r=subprocess.check_call(["lliurex-version","-x","mirror"])
+
+			#status will be mirrorReady, msg.llx16.ARCHITECTURES(list) will always be [i386,amd64]
+
+			return {'status': True,'msg': {'llx16': {'ARCHITECTURES':['i386','amd64']}}}
+		except Exception as e:
+			return {'status': False,'msg': {'llx16':{'ARCHITECTURES':['None']},'msg':str(e)}}
 	
 	# OLD METHOD TO CHECK WITH VARS (Disabled)
 	def check_mirror_with_vars(self):
@@ -339,15 +339,26 @@ class LmdImageManager:
 			response=objects['MirrorManager'].get_all_configs();
 			
 			lliurex_mirror=objects["VariablesManager"].get_variable("LLIUREXMIRROR");
-			
-			
-			
 			if (lliurex_mirror["llx16"]["status_mirror"]!="Ok"):
 				response["status"]=False;
-				
 			return response;
 			
 		except Exception as e:
 			return {'status': False, 'msg': str(e)}
-							
-							
+	
+	def tryUpdateImagesToVnc(self):
+		list_images = self.getImageList()
+		images = json.loads(list_images)
+		images_to_update = []
+		for x in images:
+			if objects["LmdServer"].is_needed_update_image(x["id"]):
+				images_to_update.append(x["id"])
+		if len(images_to_update) > 0:
+			command = "update_ltsp_images_to_vnc " + " ".join(images_to_update)
+			ret=objects['TaskMan'].newTask(command)
+			if ret["status"]==True: ## Task has launched ok
+				for x in images_to_update:
+					objects['LmdImageManager'].setNewTaskIdForImage(x, ret["msg"])
+
+
+
