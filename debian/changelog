@@ -1,3 +1,9 @@
+lmd (2.15.4) bionic; urgency=medium
+
+  * Update images to work with vnc
+
+ -- Raul Rodrigo Segura <raurodse@gmail.com>  Thu, 29 Jul 2021 14:59:23 +0200
+
 lmd (2.15.3) bionic-updates; urgency=medium
 
   * Add packages into image creation templates
