@@ -1275,6 +1275,19 @@ ImageManager.prototype.getImageList=function getImageList(){
 };
 
 
+ImageManager.prototype.get_images_to_update = function get_images_to_update(){
+  var self = this;
+  var credentials=[sessionStorage.username , sessionStorage.password];
+  var n4dclass = "LmdImageManager";
+  var n4dmethod = "tryUpdateImagesToVnc";
+  var arglist = [];
+  Utils.n4d(credentials, n4dclass, n4dmethod, arglist, function(response){
+    self.RenderImageList();
+  });
+}
+
+
+
 /*ImageManager.prototype.checkImageList=function checkImageList(){
     var self=this;
     //var job_id=-1;
@@ -1987,7 +2000,7 @@ ImageManager.prototype.init=function init(){
   var self=this;
   
   self.getImageList();
-  
+  self.get_images_to_update();
   self.checkMinimalImageIsInstalled();
   self.getMirrorConfig(function(){self.getAvailableTemplates();});
   self.bindEvents();
