@@ -321,8 +321,8 @@ class LmdImageManager:
 		except Exception as e:
 			return {'status': False, 'msg': str(e)}
 	# New method to check without vars, this method allow mount the mirror by nfs without use lliurex-mirror
-	#   check method relies into lliurex-version call, checking structure of files and dirs into /net/mirror/llx16
-	#   architectures always be all or nothing due to assumption that lliurex-mirror mirror both architectures always.
+	#	check method relies into lliurex-version call, checking structure of files and dirs into /net/mirror/llx16
+	#	architectures always be all or nothing due to assumption that lliurex-mirror mirror both architectures always.
 	def check_mirror(self):
 		try:
 			r=subprocess.check_call(["lliurex-version","-x","mirror"])
@@ -350,8 +350,9 @@ class LmdImageManager:
 		list_images = self.getImageList()
 		images = json.loads(list_images)
 		images_to_update = []
-		for x in images:
-			if objects["LmdServer"].is_needed_update_image(x["id"]):
+		for y in images:
+			x = json.loads(self.getImage(y))
+			if objects["LmdServer"].is_needed_update_image(x["id"])["status"]:
 				images_to_update.append(x["id"])
 		if len(images_to_update) > 0:
 			command = "update_ltsp_images_to_vnc " + " ".join(images_to_update)
