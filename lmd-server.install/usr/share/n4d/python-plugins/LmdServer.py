@@ -204,7 +204,7 @@ class LmdServer:
 
 			# Trying to solve the non-zenity problem
 			# 
-			command="ltsp-chroot -p -m -a "+imgid+" dpkg-reconfigure libgl1-mesa-dri ;  "
+			command="ltsp-chroot -p -m -a "+imgid+" dpkg-reconfigure libgl1-mesa-dri ;	"
 			
 			
 			command=command + "ltsp-chroot -p -m -a "+imgid+" /usr/share/ltsp/update-kernels && "
@@ -250,7 +250,7 @@ class LmdServer:
 				machine2arch = {'AMD64': 'linux64', 'x86_64': 'linux64'}
 				arch=machine2arch.get(out.strip("\n"), "linux32")
 							
-			command=arch + " ltsp-chroot -p -m -a "+imgid+" dpkg-reconfigure libgl1-mesa-dri ;  "
+			command=arch + " ltsp-chroot -p -m -a "+imgid+" dpkg-reconfigure libgl1-mesa-dri ;	"
 			command=command + arch + " ltsp-chroot -p -m -a "+imgid+" /usr/share/ltsp/update-kernels && "
 			if delay != '' :
 				command = command + " lmd-update-image-delay " + imgid + " '" + delay +"'"
@@ -624,7 +624,7 @@ class LmdServer:
 			# Add Job
 			'''job={
 				'job_id':str(self.last_job_id),
-				'srv_ip': None,   					#  Server (me) IP addr
+				'srv_ip': None,						#  Server (me) IP addr
 				'process': None,
 				'status':'started',
 				'msg':'',				# Error code
@@ -666,11 +666,11 @@ class LmdServer:
 			temp = tempfile.NamedTemporaryFile(prefix='pipe_', dir=self.logfolder, delete=False)
 			
 			# New exec command, ignoring stderr stdin for now
-			proc = subprocess.Popen([command],  shell=True, stdout=temp, preexec_fn=os.setsid)
+			proc = subprocess.Popen([command],	shell=True, stdout=temp, preexec_fn=os.setsid)
 			
 			
 			# Add job to tasklist
-			job['process']=proc 					# Assotiate process to job
+			job['process']=proc						# Assotiate process to job
 			job['status']="running"
 			job['filepipe'] = temp.name
 
@@ -760,8 +760,8 @@ class LmdServer:
 		* Creates a socket to send information to a listening socket in any client
 		
 		Last update:
-		    * 5/02/2014: Added Functionality
-		    * 2/04/2014: Add reference with job_id
+			* 5/02/2014: Added Functionality
+			* 2/04/2014: Add reference with job_id
 		'''
 		
 		try:
@@ -817,7 +817,7 @@ class LmdServer:
 		* Search whic job has certain job_id and adds a listener to it
 		
 		Last update:
-		    * 5/02/2014: Added Functionality
+			* 5/02/2014: Added Functionality
 		'''
 		from operator import itemgetter
 		
@@ -864,8 +864,8 @@ class LmdServer:
 		* If job_id is not specified, get it from ip:port
 		
 		Last update:
-		    * 6/02/2014: Added Functionality
-		    * 2/04/2014: Added checking for job_id and close socket
+			* 6/02/2014: Added Functionality
+			* 2/04/2014: Added checking for job_id and close socket
 		'''
 		
 			
@@ -1150,7 +1150,7 @@ class LmdServer:
 		
 			imagelist_string = " ".join(imagelist)
 			##print imagelist," is ", type(imagelist)
-			### n4d-client -c LmdServer -m update_images -u joamuran -p lliurex -a  2 3 "['pajarito', 'perro']"
+			### n4d-client -c LmdServer -m update_images -u joamuran -p lliurex -a	2 3 "['pajarito', 'perro']"
 			
 			# Prepare and launch command
 			command="/usr/share/lmd-scripts/lmd-upgrade-images.sh "+imagelist_string;
@@ -1251,27 +1251,29 @@ class LmdServer:
 		token_ltsp = "/var/lib/lmd/semi"
 		vnc_binary = "/usr/bin/tigervncserver"
 
-		if not os.path.exists(os.path.join(self.ltsp_path, token_ltsp)):
+		if not os.path.exists(os.path.join(self.ltsp_path, img_id, "var","lib","lmd","semi")):
 			return {"status":True,"msg":True}
 
-		if not os.path.exists(os.path.join(self.ltsp_path,vnc_binary)):
+		if not os.path.exists(os.path.join(self.ltsp_path, img_id, "usr","bin","tigervncserver")):
 			return {"status":True,"msg":True}
 
 		p = subprocess.Popen("ltsp-chroot -m -a {} dpkg-query --showformat='${{Version}}' --show lliurex-up".format(img_id),shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 		result = p.communicate()
 		if p.returncode == 1:
 			return {"status":True,"msg":True}
-		p = subprocess.Popen("dpkg --compare-versions {} gt {}".format(result[0], lliurex_up),shell=True)
+		p = subprocess.Popen("dpkg --compare-versions {} ge {}".format(result[0], lliurex_up),shell=True)
 		p.communicate()
 		if p.returncode == 1:
 			return {"status":True,"msg":True}
 		return {"status":False,"msg":False}
 
 	def update_image_to_vnc_image(self, img_id):
-		if not os.path.exists("/var/lib/lmd/semi"):
-			if not os.path.exists("/var/lib/lmd"):
-				os.makedirs("/var/lib/lmd")
-			x = open("/var/lib/lmd/semi","w")
+		lmd_path = os.path.join(self.ltsp_path,img_id,"var","lib","lmd")
+		semi_path = os.path.join(lmd_path,"semi")
+		if not os.path.exists(semi_path):
+			if not os.path.exists(lmd_path):
+				os.makedirs(lmd_path)
+			x = open(semi_path,"w")
 			x.close()
 
 		shutil.copy("/usr/share/lmd-server/apt/lliurex.list",os.path.join(self.ltsp_path,img_id,"etc","apt","sources.list.d","lliurex.list"))
