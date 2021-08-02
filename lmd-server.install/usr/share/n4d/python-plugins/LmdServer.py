@@ -1247,7 +1247,7 @@ class LmdServer:
 			
 		
 	def is_needed_update_image(self, img_id):
-		lliurex_up = "19.4.30"
+		lliurex_up = "19.04.31"
 		token_ltsp = "/var/lib/lmd/semi"
 		vnc_binary = "/usr/bin/tigervncserver"
 
