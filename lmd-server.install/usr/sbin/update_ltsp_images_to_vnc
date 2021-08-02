@@ -6,7 +6,6 @@ from xmlrpclib import ServerProxy
 c = ServerProxy("https://localhost:9779")
 with open("/etc/n4d/key","r") as fd:
     master_key = fd.readlines()[0].strip()
-print(master_key)
 
 for x in sys.argv[1:]:
     print(c.update_image_to_vnc_image((master_key),"LmdServer",x))

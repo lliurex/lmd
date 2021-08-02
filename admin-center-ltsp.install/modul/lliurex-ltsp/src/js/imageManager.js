@@ -186,8 +186,8 @@ ImageManager.prototype.editImage=function editImage(id, editCommand="/usr/sbin/m
     
     var self=this;
     // Stage 1: Prepare Connection
-    var screenWidth=1043;
-    var screenHeight=787;
+    var screenWidth=1000;
+    var screenHeight=700;
     var credentials=[sessionStorage.username , sessionStorage.password];
     var n4dclass="RemoteWebGui";
     var n4dmethod="create_connection_vnc";
@@ -230,9 +230,8 @@ ImageManager.prototype.editImage=function editImage(id, editCommand="/usr/sbin/m
       Utils.n4d(credentials, n4dclass, n4dmethod, arglist, function(response){
           console.log("Received response from run into connection:");
           console.log(response);
-          
-          self.prepareVncWindow(screenWidth, screenHeight, port, id);
-          
+	  self.waitToVncWindow(screenWidth, screenHeight, port, id);
+ 
       });  // 0 is timeout for curl; 0 means sync call...
   
     },0);
@@ -240,27 +239,54 @@ ImageManager.prototype.editImage=function editImage(id, editCommand="/usr/sbin/m
       
   
   }
+
+ImageManager.prototype.waitToVncWindow = function waitToVncWindow( screenWidth, screenHeight, port, id=null, imagefile=null, retry=0){
+     var self = this;
+     if (retry >= 20){
+             console.log("vamos");
+             self.prepareVncWindow(screenWidth, screenHeight, port, id);
+             return;
+     }
+     $.ajax({
+             url: "http://"+sessionStorage.server+":"+port+"/vnc.html", 
+             dataType: "jsonp",
+             statusCode: {
+                     200: function(){
+                             self.prepareVncWindow(screenWidth, screenHeight, port, id);
+                     },
+                     404: function(){
+
+                             setTimeout(function(){console.log(retry);self.waitToVncWindow(screenWidth, screenHeight, port, id, null, retry + 1);},1000);
+                     }
+             },
+     });
+
+}
+
+
+
+
+
   ImageManager.prototype.prepareVncWindow=function prepareXephyrWindow2(screenWidth, screenHeight, port, id=null, imagefile=null){
     // Prepare Xephyr Window
     // imagefile only used if we want to refresh image status before...
     var self=this;
-    var margin_left=0-(screenWidth/2);
-    var margin_top=0-(screenHeight/2);
-    var divXPRA=$(document.createElement("div")).attr("id", "divXPRA").css("width",screenWidth).css("height", screenHeight).css("margin-left", margin_left).css("margin-top", margin_top);
-    var divXPRAHdr=$(document.createElement("div")).attr("id", "divXPRAHdr").css("margin-top", "-30");
+    var divXPRA=$(document.createElement("div")).attr("id", "divXPRA").css("width","80%").css("height", "100%").css("margin-left", "10%").css("display", "flex").css("flex-direction","column");
+    var divXPRAHdr=$(document.createElement("div")).attr("id", "divXPRAHdr");
     var divXPRAContent=$(document.createElement("div")).attr("id", "divXPRAContent");
     var divXPRAContentInner=$(document.createElement("div")).attr("id", "divXPRAContentInner");
-    $(divXPRAContentInner).css("overflow-y", "hidden").css("position", "absolute");
+    $(divXPRAContentInner).css("overflow-y", "hidden");
 
     var divXPRAContentCloseBt=$(document.createElement("div")).attr("id", "divXPRAContentObjCloseBt");
     // Adding close buton to header
     $(divXPRAHdr).append(divXPRAContentCloseBt);
     
     var obj=$(document.createElement("object")).addClass("emb");
-    $(obj).css("width", screenWidth).css("height", screenHeight);
+    var obj=$(document.createElement("iframe"));
     //$(obj).attr("id", "divXPRAContentObj").attr("data", "http://"+sessionStorage.server+":"+port);
     //$(obj).attr("id", "divXPRAContentObj").attr("type","text/html").attr("data", "http://"+sessionStorage.server+":"+port+'/vnc.html?resize=scale&autoconnect=1&compression=0&quality=9');
-    $(obj).attr("id", "divXPRAContentObj").attr("type","text/html").attr("data", '/novnc/vnc.html?host='+sessionStorage.server+'&port='+port+'&reconnect=1&resize=scale&autoconnect=1&compression=0&quality=9');
+    //$(obj).attr("id", "divXPRAContentObj").attr("type","text/html").attr("data", '/novnc/vnc.html?host='+sessionStorage.server+'&port='+port+'&reconnect=1&resize=scale&autoconnect=1&compression=0&quality=9');
+    $(obj).attr("id", "divXPRAContentObj").attr("src", "http://"+sessionStorage.server+":"+port+"/vnc.html?reconnect=1&resize=scale&autoconnect=1&compression=0&quality=9");
     $(divXPRAContentInner).html(obj);
     $(divXPRAContent).append(divXPRAContentInner);
         
@@ -1999,8 +2025,8 @@ ImageManager.prototype.getMirrorConfig=function getMirrorConfig(callback){
 ImageManager.prototype.init=function init(){
   var self=this;
   
-  self.getImageList();
   self.get_images_to_update();
+  self.getImageList();
   self.checkMinimalImageIsInstalled();
   self.getMirrorConfig(function(){self.getAvailableTemplates();});
   self.bindEvents();

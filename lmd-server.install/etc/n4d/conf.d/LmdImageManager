@@ -12,3 +12,4 @@ deleteImage=admin,admins,sudo
 check_image_editing=anonymous
 clean_image_editing=admin,admins,sudo
 check_mirror=anonymous
+tryUpdateImagesToVnc=admin,admins,sudo
