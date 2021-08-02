@@ -1,3 +1,10 @@
+lmd (2.16) bionic; urgency=medium
+
+  * Update vnc images
+  * Resize vnc window
+
+ -- Raul Rodrigo Segura <raurodse@gmail.com>  Mon, 02 Aug 2021 10:44:47 +0200
+
 lmd (2.15.4) bionic; urgency=medium
 
   * Update images to work with vnc
