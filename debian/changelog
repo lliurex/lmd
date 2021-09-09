@@ -1,3 +1,9 @@
+lmd (2.40) focal; urgency=medium
+
+  * Disable composition on rdp sessions
+
+ -- M.Angel Juan <m.angel.juan@gmail.com>  Thu, 09 Sep 2021 14:17:27 +0200
+
 lmd (2.39) focal; urgency=medium
 
   * Open image editor when url is ok
