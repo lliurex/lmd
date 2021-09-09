@@ -1,5 +1,13 @@
 #!/bin/bash
+SUSPEND=""
 QDBUS=$(which qdbus)
-if [ -n "$QDBUS" -a -n "$VNCDESKTOP" ]; then
+
+if [ -n "$VNCDESKTOP" ]; then
+    SUSPEND="yes"
+fi
+if [ "x$XRDP_SESSION" = "x1" ];then
+    SUSPEND="yes"
+fi
+if [ -n "$QDBUS" -a -n "$SUSPEND" ];then
     $QDBUS org.kde.KWin /Compositor suspend
 fi
