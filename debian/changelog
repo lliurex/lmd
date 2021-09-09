@@ -1,3 +1,9 @@
+lmd (2.17) bionic; urgency=medium
+
+  * Disable composition on rdp sessions
+
+ -- M.Angel Juan <m.angel.juan@gmail.com>  Thu, 09 Sep 2021 14:19:20 +0200
+
 lmd (2.16.1) bionic; urgency=medium
 
   * Update required version of lliurex-up
