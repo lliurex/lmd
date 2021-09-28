@@ -94,9 +94,9 @@ class LmdImageManager:
         data is unicoded string
         image is name
         '''
-        
-        with self.configimagepath.joinpath(img_id+".json").open("w") as fd:
-            fd.writelines(data)
+        if (len(data) > 0 ):
+            with self.configimagepath.joinpath(img_id+".json").open("w") as fd:
+                fd.writelines(data)
 
         return n4d.responses.build_successful_call_response("True") 
         
