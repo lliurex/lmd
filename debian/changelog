@@ -1,3 +1,9 @@
+lmd (2.41) focal; urgency=medium
+
+  * Sanity check when write image json description
+
+ -- Raul Rodrigo Segura <raurodse@gmail.com>  Tue, 28 Sep 2021 14:16:31 +0200
+
 lmd (2.40) focal; urgency=medium
 
   * Disable composition on rdp sessions
