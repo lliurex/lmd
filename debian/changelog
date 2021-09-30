@@ -1,3 +1,9 @@
+lmd (2.41.1) focal; urgency=medium
+
+  * Fix checking and dump data to json file
+
+ -- M.Angel Juan <m.angel.juan@gmail.com>  Thu, 30 Sep 2021 12:37:26 +0200
+
 lmd (2.41) focal; urgency=medium
 
   * Sanity check when write image json description
