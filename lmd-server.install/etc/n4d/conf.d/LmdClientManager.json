@@ -4,6 +4,7 @@
         "path": "LmdClientManager.py",
         "class": "LmdClientManager"
     },
+    
     "METHODS": {
         "getClientList": {
             "allowed_groups": [
