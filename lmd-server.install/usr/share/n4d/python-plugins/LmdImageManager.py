@@ -94,6 +94,10 @@ class LmdImageManager:
         data is unicoded string
         image is name
         '''
+        try:
+            data=json.dumps(data,indent=2)
+        except Exception as e:
+            data=""
         if (len(data) > 0 ):
             with self.configimagepath.joinpath(img_id+".json").open("w") as fd:
                 fd.writelines(data)
