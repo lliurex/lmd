@@ -1417,9 +1417,9 @@ ImageManager.prototype.checkMinimalImageIsInstalled=function checkMinimalImageIs
   var n4dmethod="chek_minimal_client";
   var arglist="";
   
-  Utils.n4d(null, n4dclass, n4dmethod, arglist, function(response){
-    self.imageMinimalInstalled=response["status"];
-    //self.imageMinimalInstalled=true;
+  //Utils.n4d(null, n4dclass, n4dmethod, arglist, function(response){
+  //  self.imageMinimalInstalled=response["status"];
+  self.imageMinimalInstalled=true;
   });
 }
 /*
