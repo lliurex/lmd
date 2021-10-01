@@ -95,9 +95,12 @@ class LmdImageManager:
         image is name
         '''
         try:
-            data=json.dumps(data,indent=2)
+            json.loads(data)
         except Exception as e:
-            data=""
+            try:
+                data = json.dumps(data)
+            except Exception as e2:
+                data = ""
         if (len(data) > 0 ):
             with self.configimagepath.joinpath(img_id+".json").open("w") as fd:
                 fd.writelines(data)
