@@ -1,3 +1,9 @@
+lmd (2.19.1) bionic; urgency=medium
+
+  * Add xf86-input-nextwindow as dependency for client smart ltsp
+
+ -- M.Angel Juan <m.angel.juan@gmail.com>  Fri, 15 Oct 2021 19:00:46 +0200
+
 lmd (2.19) bionic; urgency=medium
 
   * mini-light-client should be hidden now
