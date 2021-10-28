@@ -1,3 +1,9 @@
+lmd (2.19.2) bionic; urgency=medium
+
+  * Remove xf86-input-nextwindow as dependency for ltsp-client-smart
+
+ -- M.Angel Juan <m.angel.juan@gmail.com>  Thu, 28 Oct 2021 12:41:27 +0200
+
 lmd (2.19.1) bionic; urgency=medium
 
   * Add xf86-input-nextwindow as dependency for client smart ltsp
