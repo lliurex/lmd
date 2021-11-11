@@ -7,12 +7,26 @@ $base_dir="/opt/ltsp/";
 $MenuEntryList=array();
 
 #GET VARS
-$MANUFACTURER=$_GET["manufacturer"];
-$PRODUCT=$_GET["product"];
-$IP=$_GET["ip"];
-$MAC=$_GET["mac"];
-
-
+if (isset($_GET["manufacturer"])){
+	$MANUFACTURER=$_GET["manufacturer"];
+}else{
+	$MANUFACTURER="";
+}
+if (isset($_GET["product"])){
+	$PRODUCT=$_GET["product"];
+}else{
+	$PRODUCT="";
+}
+if (isset($_GET["ip"])){
+	$IP=$_GET["ip"];
+}else{
+	$IP="";
+}
+if (isset($_GET["mac"])){
+	$MAC=$_GET["mac"];
+}else{
+	$MAC="";
+}
 
 function getName($dir){
 	// Check if exists /etc/ltsp/images/$dir and gets image name
@@ -35,7 +49,6 @@ function add_entry($label, $id ,$kernel, $init,$kernel_extra_params){
 	$MenuEntry->menuString="\n
 # {$label}
 LABEL {$label}
-MENU LABEL {$label}
 KERNEL pxe-ltsp/{$id}/{$kernel}
 INITRD pxe-ltsp/ltsp.img,pxe-ltsp/{$id}/{$init}
 APPEND net.ifnames=0 root=/dev/nfs nfsroot={$server}:/opt/ltsp/{$id}/ {$kernel_extra_params}
