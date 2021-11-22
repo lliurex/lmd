@@ -1,3 +1,9 @@
+lmd (2.42.1) focal; urgency=medium
+
+  * Add rule to add autologin with ldap users
+
+ -- Raul Rodrigo Segura <raurodse@gmail.com>  Mon, 22 Nov 2021 17:28:24 +0100
+
 lmd (2.42) focal; urgency=medium
 
   * Solved problem with autologin in sddm
