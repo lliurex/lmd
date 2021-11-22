@@ -1,3 +1,9 @@
+lmd (2.42) focal; urgency=medium
+
+  * Solved problem with autologin in sddm
+
+ -- Raul Rodrigo Segura <raurodse@gmail.com>  Mon, 22 Nov 2021 16:27:50 +0100
+
 lmd (2.41.2) focal; urgency=medium
 
   * Fix json dump data
