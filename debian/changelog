@@ -1,8 +1,20 @@
-lmd (2.41.3) focal-updates; urgency=medium
+lmd (2.42.2) focal-updates; urgency=medium
 
-  * Fix php errors
+  * Fix php errors 
 
- -- lliurex <lliurex@lliurex>  Thu, 11 Nov 2021 17:54:06 +0100
+ -- M.Angel Juan <m.angel.juan@gmail.com>  Mon, 29 Nov 2021 11:33:37 +0100
+
+lmd (2.42.1) focal; urgency=medium
+
+  * Add rule to add autologin with ldap users
+
+ -- Raul Rodrigo Segura <raurodse@gmail.com>  Mon, 22 Nov 2021 17:28:24 +0100
+
+lmd (2.42) focal; urgency=medium
+
+  * Solved problem with autologin in sddm
+
+ -- Raul Rodrigo Segura <raurodse@gmail.com>  Mon, 22 Nov 2021 16:27:50 +0100
 
 lmd (2.41.2) focal; urgency=medium
 
