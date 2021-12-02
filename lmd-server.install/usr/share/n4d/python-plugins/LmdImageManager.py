@@ -6,6 +6,7 @@ from time import sleep
 from shutil import rmtree
 from sh import mount, umount, lliurex_version
 from pathlib import Path
+import os
 
 import n4d.responses
 from n4d.server.core import Core
@@ -24,6 +25,7 @@ class LmdImageManager:
         self.chrootpath = Path("/opt/ltsp/")
         self.imagepath = Path("/opt/ltsp/images/")
         self.lmd_editing_path = Path("/tmp/.lmd-editing-chroot")
+        self.locale_file="/etc/default/locale"
 
         self.core = Core.get_core() 
     #def __init__
@@ -60,7 +62,6 @@ class LmdImageManager:
         '''
         
         task_manager = self.core.get_plugin("TaskMan")
-
         try:
 
             with self.configimagepath.joinpath(image).open('r') as fd :
@@ -71,6 +72,7 @@ class LmdImageManager:
             else:
                 taskid = "0"
 
+            data["ldm_language"]="%s"%self._readImageLocale(data["id"])
             # Searching task id for this image
             ret = task_manager.getTaskStatus(taskid)
                 
@@ -87,8 +89,30 @@ class LmdImageManager:
 
         # END def getListTemplate(self, image)
             
-                
-    def setImage(self, img_id, data):
+    def _readImageLocale(self,img_id=None):
+        '''
+         Read /etc/default/locale from image or system to get current locale
+        '''
+        if img_id!=None:
+              tmpImage = os.path.join(self.chrootpath,img_id)
+              localeFile=tmpImage+self.locale_file
+        else:
+              localeFile=self.locale_file
+
+        if os.path.exists(localeFile):
+                with open(localeFile,'r') as fd:
+                        content=fd.readlines()
+                        fd.close()
+                for line in content:
+                        key,value=line.split("=")
+                        if key=="LANG":
+                               return value.strip("\n")
+
+        return 'default'
+
+    #def _readImageLocale
+
+    def setImage(self, img_id, data,lang):
         '''
         Saves metadata from *data to image
         data is unicoded string
@@ -102,14 +126,33 @@ class LmdImageManager:
             except Exception as e2:
                 data = ""
         if (len(data) > 0 ):
-            with self.configimagepath.joinpath(img_id+".json").open("w") as fd:
-                fd.writelines(data)
+            #with self.configimagepath.joinpath(img_id+".json").open("w") as fd:
+            try:  
+                with open(self.configimagepath.joinpath(img_id+".json"),'w') as fd:
+                      fd.writelines(data)
+                      # json.dump(data,fd)
+                 
+                if lang=='default':
+                      lang=self._readImageLocale()
 
-        return n4d.responses.build_successful_call_response("True") 
+                self.set_locale_lmd_img(lang,img_id)
+            except Exception as e:
+                     print(str(e))
+        
+        return n4d.responses.build_successful_call_response(True) 
         
     # def setImage(self, image, data)
-        
-        
+    	
+    def set_locale_lmd_img(self,lang,img_id):
+        '''
+        Change image locale file to change lang default session
+        '''
+        locale_manager=self.core.get_plugin("LocaleManager")
+        basepath="/opt/ltsp/"+img_id+"/"
+        ret=locale_manager.set_locale_base(lang,basepath)
+    
+    #def set_locale_lmd_img                     
+    
     def setStatusImage(self, img_id, status):
         
         with self.configimagepath.joinpath(img_id+".json").open("r") as fd:

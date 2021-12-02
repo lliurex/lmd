@@ -644,8 +644,17 @@ ImageManager.prototype.EditImageOptions=function EditImageOptions(image){
     
     // Setting Up Language
     var imglang="default";
-    if(imagejson.ldm_language=="ca_ES.UTF-8@valencia") imglang="ca";
-    else if(imagejson.ldm_language=="es_ES.UTF-8") imglang="es";
+    if(imagejson.ldm_language=="ca_ES.UTF-8@valencia") {
+	    imglang="ca";
+    }else{
+	    if(imagejson.ldm_language=="es_ES.UTF-8"){
+		    imglang="es";
+	    }else{
+		    if (imagejson.ldm_language.includes("en_")){
+			imglang="en";
+	            }
+	    }
+    }
     
     // Setting up local apps
     var use_local_apps="";
@@ -779,6 +788,8 @@ ImageManager.prototype.EditImageOptions=function EditImageOptions(image){
                                 var arglist=[];
                                 arglist.push(id);
                                 arglist.push(data);
+				arglist.push(ldm_language);
+				console.log(arglist);
                                 try {
                                     Utils.n4d(credentials, n4dclass, n4dmethod, arglist, function(response){
                                         message=self._("lmd_client_options_dialog.success");
