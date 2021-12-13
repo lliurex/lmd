@@ -234,7 +234,6 @@ ImageManager.prototype.editImage=function editImage(id, editCommand="/usr/sbin/m
   ImageManager.prototype.waitToVncWindow = function waitToVncWindow( screenWidth, screenHeight, port, id=null, imagefile=null, retry=0){
 	var self = this;
 	if (retry >= 10){
-		console.log("vamos");
 		self.prepareVncWindow(screenWidth, screenHeight, port, id);
 		return;
 	}
@@ -638,10 +637,7 @@ ImageManager.prototype.EditImageOptions=function EditImageOptions(image){
     alert(imagejson.lmd_extra_params);*/
     
     // Setting up if is fat client
-    var fatclient="default";
-    if(imagejson.ltsp_fatclient=="false") fatclient="thin";
-    else if (imagejson.ltsp_fatclient=="true") fatclient="fat";
-    
+    var fatclient="fat";
     // Setting Up Language
     var imglang="default";
     if(imagejson.ldm_language=="ca_ES.UTF-8@valencia") {
@@ -656,12 +652,7 @@ ImageManager.prototype.EditImageOptions=function EditImageOptions(image){
 	    }
     }
     
-    // Setting up local apps
-    var use_local_apps="";
-    if(imagejson.use_local_apps=="true") use_local_apps="checked";
-    
-    
-    
+   
     var content="";
     /*
     {"status": "edited", "fat_ram_threshold": "default", "name": "Client", "img": "llx-client16.png", "ldm_session": "default", "taskid": "14751445423", "template": "lliurex-ltsp-client.conf", "ltsp_fatclient": "undefined", "task_status": "DONE", "id": "Client", "lmd_extra_params": "", "desc": "Client de model d'aula LliureX (32 bits)."}
@@ -679,15 +670,6 @@ ImageManager.prototype.EditImageOptions=function EditImageOptions(image){
                                         "help": self._("lmd_options_image_desc_help"),
                                         "value":imagejson.desc});
     
-    content+=Utils.formFactory.createSelect({"id":"ltsp_image_options_client_type",
-                               "label":self._("lmd.image.options.client.type"),
-                               "help":self._("lmd.image.options.client.type.help"),
-                               "default":fatclient,
-                               "options":[
-                                {"value":"default", "label":self._("lmd.image.options.client.type.label.default")},
-                                {"value":"thin", "label":self._("lmd.image.options.client.type.label.thin")},
-                                {"value":"fat", "label":self._("lmd.image.options.client.type.label.fat")}  ]});
-    
     content+=Utils.formFactory.createSelect({"id":"ltsp_image_options_client_lang",
                                "help":self._("lmd.image.options.client.language.help"),
                                "label":self._("lmd.image.options.client.language"),
@@ -698,22 +680,7 @@ ImageManager.prototype.EditImageOptions=function EditImageOptions(image){
                                 {"value":"es", "label":self._("lmd.image.options.client.language.es")},
                                 {"value":"en", "label":self._("lmd.image.options.client.language.en")} ]});
                         
-    content+=Utils.formFactory.createSelect({"id":"ltsp_image_options_client_run_as_thin",
-                               "help":self._("lmd.image.options.client.ram.threshold.help"),
-                               "label":self._("lmd.image.options.client.ram.threshold"),
-                               "default":imagejson.fat_ram_threshold,
-                               "options":[
-                                {"value":"default", "label":self._("lmd.image.options.client.ram.threshold.not.apply")},
-                                {"value":"128", "label":"128 Mb"},
-                                {"value":"256", "label":"256 Mb"},
-                                {"value":"512", "label":"512 Mb"} ]});
-                                                
-    content+=Utils.formFactory.createCheckbox({"id":"ltsp_image_options_localapps",
-                                                "label":"Use Local Apps",
-                                                "default":use_local_apps,
-                                                "help":"Run some apps like Firefox or Chrome as local apps."});
-    
-    content+=Utils.formFactory.createTextArea({"id":"lmd_options_image_advanced",
+   content+=Utils.formFactory.createTextArea({"id":"lmd_options_image_advanced",
                                         "label": self._("lmd_options_image_adv_label"),
                                         "help": self._("lmd_options_image_adv_help"),
                                         "value":imagejson.lmd_extra_params.replace("<br/>","\n")});
@@ -733,10 +700,9 @@ ImageManager.prototype.EditImageOptions=function EditImageOptions(image){
                                 var imgbg=imagejson.img;
                                 var template=imagejson.template;
                                 var desc=$("#ltsp_image_options_client_desc").val();
-                                var ltsp_fatclient="undefined";
-                                if ($("#ltsp_image_options_client_type").val()=="fat") ltsp_fatclient="true";
-                                else if ($("#ltsp_image_options_client_type").val()=="thin") ltsp_fatclient="false";
-                                var ldm_session="default";
+                                var ltsp_fatclient="true";
+                             
+				var ldm_session="default";
                                 
                                 var ldm_language="default";
                                 if ($("#ltsp_image_options_client_lang").val()=="ca") ldm_language="ca_ES.UTF-8@valencia";
@@ -744,8 +710,7 @@ ImageManager.prototype.EditImageOptions=function EditImageOptions(image){
                                 else if ($("#ltsp_image_options_client_lang").val()=="en") ldm_language="en_US.UTF-8";
                                 
                                 var use_local_apps="false"; // Check if ltsp_fatclient is false to avoid localapps in fat clients
-                                if ($("#ltsp_image_options_localapps").val()=="on" && ltsp_fatclient=="false")  use_local_apps="true";
-                                
+                       
                                 var local_apps_text="firefox, google-chrome-stable, chromium-browser";
                                 
                                 var fat_ram_threshold=$("#ltsp_image_options_client_run_as_thin").val();
