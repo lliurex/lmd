@@ -1,0 +1,26 @@
+[
+    {
+        "prefix": "net.lliurex.lmd-import-img",
+        "cmd": "/usr/sbin/lmd-import-img.sh",
+        "nameaction": "gui",
+        "icon": "ltsp",
+        "default_auth": {
+            "any": "no",
+            "inactive": "no",
+            "active": "no"
+        },
+        "auths": [
+            {
+                "type": "group",
+                "members": [
+                    "sudo",
+                    "admins",
+                    "admin"
+                ],
+                "any": "yes",
+                "inactive": "yes",
+                "active": "yes"
+            }
+        ]
+    }
+]

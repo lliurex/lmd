@@ -2,7 +2,7 @@ Source: lmd
 Section: misc
 Priority: optional
 Maintainer: LliureX Team <lliurex@gva.es>
-Build-Depends: debhelper (>= 7)
+Build-Depends: debhelper (>= 7),zero-dev
 Standards-Version: 3.9.7
 
 Package: lmd
