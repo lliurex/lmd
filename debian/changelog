@@ -1,3 +1,9 @@
+lmd (2.19.3) bionic-updates; urgency=medium
+
+  * Added function to import client img with double clic
+  
+ -- Juan Ramon Pelegrina <juapesai@hotmail.com>  Tue, 14 Dec 2021 10:14:33 +0100
+
 lmd (2.19.2) bionic; urgency=medium
 
   * Remove xf86-input-nextwindow as dependency for ltsp-client-smart
