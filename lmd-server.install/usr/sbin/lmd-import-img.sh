@@ -2,28 +2,28 @@
 
 ##
 
-lang=$(locale | grep LANGUAGE | cut -d= -f2 | cut -d_ -f1)
-
-if [[ ${lang} == "ca_ES" ]] || [[ ${lang} == "ca_ES@valencia" ]] || [[ ${lang} == "ca" ]] || [[ ${lang} == "ca@valencia" ]];
+#lang=$(locale | grep LANGUAGE | cut -d= -f2 | cut -d_ -f1)
+lang=$LANG
+if [[ ${lang} == "ca_ES" ]] || [[ ${lang} == "ca_ES@valencia" ]] || [[ ${lang} == "ca" ]] || [[ ${lang} == "ca@valencia" ]]  || [[ ${lang} == "ca_ES.utf8@valencia" ]];
 then
     MSG_INFO_IMPORT="Aneu a importar la imatge: "
     MSG_EXTRACTING="Extraient la imatge. Espereu un moment... "
     MSG_CANCELLED="El procés ha estat cancel·lat"
     MSG_CREATE_SQUASHFS="S'està creant la imatge al servidor."
-    MSG_SUCCESS="La imatge de client lleuger s'ha exportat"
+    MSG_SUCCESS="La imatge de client s'ha importat"
     MSG_PASS_TITLE="Contrassenya d'administrador"
     MSG_PASS="Inseriu la contrassenya d'administrador"
     MSG_EXISTS_CHROOT="Ja existeix una imatge amb este nom. Voleu sobreescriure-la?"
     MSG_REMOVING="Esborrant la imatge prèvia..."
     MSG_OK="Accepta"
     MSG_CANCEL="Cancel·la"
-elif  [[ ${lang} == "es_ES" ]] || [[ ${lang} == "es" ]];
+elif  [[ ${lang} == "es_ES" ]] || [[ ${lang} == "es" ]] || [[ ${lang} == "es_ES.UTF-8" ]];
 then
     MSG_INFO_IMPORT="Va a importar la imagen: "
     MSG_EXTRACTING="Extrayendo imagen. Espere un momento. "
     MSG_CANCELLED="El proceso se ha cancelado"
     MSG_CREATE_SQUASHFS="Creando la imagen en el servidor..."
-    MSG_SUCCESS="La imagen de cliente ligero se ha exportado"
+    MSG_SUCCESS="La imagen de cliente se ha importado"
     MSG_PASS_TITLE="Contraseña del administrador"
     MSG_PASS="Inserte la contraseña de administrador"
     MSG_EXISTS_CHROOT="¿Ya existe una imagen con este nombre. Desea sobreescribirla?"
@@ -53,14 +53,14 @@ if [ $# -ne 1 ];
 fi
 
 # Confirm message
-zenity --question --text "${MSG_INFO_IMPORT} ${1}" $ZEN_QUESTION
+zenity --question --text "${MSG_INFO_IMPORT} ${1}" $ZEN_QUESTION --width=500 --height=100
 if [ $? -eq 1 ];
 then
     exit 1
 fi
 
 # Admin Password
-PASS=`zenity --password --text "${MSG_PASS}" --title "${MSG_PASS_TITLE}" $ZEN_QUESTION`
+PASS=`zenity --password --text "${MSG_PASS}" --title "${MSG_PASS_TITLE}" $ZEN_QUESTION` --width=500 --height=100
     
 # Remove previous images in tmp
 echo "[lmd Import] Removing prevous uncompressed images in tmp..."
@@ -75,10 +75,10 @@ mkdir /tmp/extracted_image
 
 echo "[lmd Import] Extracting file..."
 echo "[lmd Import] Extracting file... " > /tmp/importlog.txt
-tar -xvzf ${1} -C /tmp/extracted_image | zenity --progress --pulsate --auto-close --text "${MSG_EXTRACTING}" $ZEN_QUESTION
+tar -xvzf ${1} -C /tmp/extracted_image | zenity --progress --pulsate --auto-close --text "${MSG_EXTRACTING}" $ZEN_QUESTION --width=500 --height=100
 
 if [ $? -ne 0 ] ; then
-zenity --error --text "${MSG_CANCELLED}" $ZEN_ERROR
+zenity --error --text "${MSG_CANCELLED}" $ZEN_ERROR --width=500 --height=100
 exit -1
 fi
 
@@ -95,13 +95,13 @@ echo "[lmd Import] Extracted image is  $extracted_image" >> /tmp/importlog.txt
 
 if [ -d /opt/ltsp/${new_imagename} ];
 then
-    zenity --question --text "${MSG_EXISTS_CHROOT}" $ZEN_QUESTION
+    zenity --question --text "${MSG_EXISTS_CHROOT}" $ZEN_QUESTION --width=500 --height=100
     if [ $? -eq  1 ]; then
         echo "[lmd Import] Cancelled. Image exists." >> /tmp/importlog.txt
         exit -1
     else
         echo "[lmd Import] Image already exists, but deleting that" >> /tmp/importlog.txt
-        rm -r /opt/ltsp/${new_imagename} | zenity --progress --auto-close --pulsate --text "${MSG_REMOVING}" $ZEN_QUESTION
+        rm -r /opt/ltsp/${new_imagename} | zenity --progress --auto-close --pulsate --text "${MSG_REMOVING}" $ZEN_QUESTION --width=500 --height=100
     fi
 fi
 
@@ -124,12 +124,12 @@ echo "[lmd Import] Updating keys" >> /tmp/importlog.txt
 ltsp-update-sshkeys
 
 echo "[lmd Import] Update image" >> /tmp/importlog.txt
-ltsp-update-image ${new_imagename} | zenity --progress --pulsate --text "${MSG_CREATE_SQUASHFS}" $ZEN_QUESTION
+ltsp-update-image ${new_imagename} | zenity --progress --pulsate --text "${MSG_CREATE_SQUASHFS}" $ZEN_QUESTION --width=500 --height=100
 # WTF !!! lmd-server.install/usr/sbin/lmd-import-img.sh
 
 if [ $? -ne 0 ] ; then
 echo "[lmd Import] Some error has success... updating image..." >> /tmp/importlog.txt
-zenity --error --text "${MSG_CANCELLED}" $ZEN_ERROR
+zenity --error --text "${MSG_CANCELLED}" $ZEN_ERROR --width=500 --height=100
 exit -1
 fi
 
@@ -142,5 +142,5 @@ echo "[lmd Import] Restarting NBD" >> /tmp/importlog.txt
 invoke-rc.d nbd-server restart
 
 echo "[lmd Import] All worked fine" >> /tmp/importlog.txt
-zenity --info --text "${MSG_SUCCESS}" $ZEN_ERROR
+zenity --info --text "${MSG_SUCCESS}" $ZEN_ERROR --width=500 --height=100
 exit 0
