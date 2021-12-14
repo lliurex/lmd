@@ -1,0 +1,13 @@
+[Desktop Entry]
+Name=Lmd Importer
+Comment=Import image from LTSP
+Keywords=ltsp;lmd;
+TryExec=/usr/sbin/lmd-import-img.sh
+Exec=pkexec lmd-import-img.sh %U
+StartupNotify=true
+Terminal=false
+Type=Application
+Icon=lmd-gui
+MimeType=application/lmdimg
+Categories=GTK;Archiving;Compression;
+NoDisplay=true
