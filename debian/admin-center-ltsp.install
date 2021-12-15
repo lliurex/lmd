@@ -1,5 +1,0 @@
-admin-center-ltsp.install/modul/* /usr/share/admin-center/modules/
-admin-center-ltsp.install/desktop/* /
-admin-center-ltsp.install/adminroot/* /usr/share/admin-center/
-admin-center-ltsp.install/adminroot/.htaccess /usr/share/admin-center/
-
