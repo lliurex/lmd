@@ -18,18 +18,19 @@ LTSPClientManager.prototype.getClientProperties=function getClientProperties(cli
     var n4dclass="LmdClientManager";
     var n4dmethod="getClient";
     
-    var cl=client+".json";
+   //var cl=client+".json";
+    var cl=client;
     var arglist=[];
     arglist.push(cl);
-    console.log("CALLING N4d WITH: "+cl);
-    
     Utils.n4d(credentials, n4dclass, n4dmethod, arglist, function(response){
         var ret;
         //var status="unconfigured";
-        if (typeof(response)=="string") ret=JSON.parse(response);
-        else ret=response;
-        
-        //if(ret.mac) status="configured";
+        if (typeof(response)=="string") {
+		ret=JSON.parse(response);
+	}else {
+		ret=response;
+	}
+	//if(ret.mac) status="configured";
 
         callback(ret); // Perform callback    
         
@@ -43,7 +44,8 @@ LTSPClientManager.prototype.createClient=function createClient(client, callback)
     //return ("<div>"+client.ip+"->"+client.mac+"</div>");
     
     var clientId=client.mac.split(":").join("");
-    
+    //var clientId=client.mac;
+   
     self.getClientProperties(clientId, function(clientProperties){
         
         if (clientProperties.mac) type="configured";
@@ -69,7 +71,6 @@ LTSPClientManager.prototype.getClientList=function getClientList(){
     
     Utils.n4d(credentials, n4dclass, n4dmethod, arglist, function(response){
         var arplength=response.length;
-        
         for (i in response){
             self.createClient(response[i], function(client, clientId){
                 // Add client if not exists...
@@ -83,7 +84,7 @@ LTSPClientManager.prototype.getClientList=function getClientList(){
             });
         if (($(".ltsp-clienticonContainer").length)==arplength) self.drawDisconnectedClients();
         }
-        if (response=="") self.drawDisconnectedClients();
+        if (response=="")self.drawDisconnectedClients();
         
     },0);
 }
@@ -101,20 +102,21 @@ LTSPClientManager.prototype.drawDisconnectedClients=function drawDisconnectedCli
     
     var arglist=[];
     Utils.n4d(credentials, n4dclass, n4dmethod, arglist, function(response){
-        var disconnected_clients=JSON.parse(response);
-        
+        //var disconnected_clients=JSON.parse(response);
+	var disconnected_clients=response;
+
         if ((disconnected_clients.length)>0){
             for (clientindex in disconnected_clients){
-                
                 //alert("#ltsp_client_"+(disconnected_clients[clientindex]).replace(".json",""));
-                var mac=(disconnected_clients[clientindex]).replace(".json","");
-                var clientId="ltsp_client_"+mac;
+                //var mac=(disconnected_clients[clientindex]).replace(".json","");
+                var mac=disconnected_clients[clientindex];
+		var clientId="ltsp_client_"+mac;
                 
                 if ($("#"+clientId).length===0)  {
                     var item="<div class='ltsp-clienticonContainer col-md-6' id='"+clientId+"'  type='configured'>";
                     item+="<i class='material-icons ltsp-clienticon noselect md-128 disconnected'>computer</i>";
                     item+="<div class='ltsp-clienttext'>"+self.macformatter(mac)+"<br/>Disconnected</div></div>";
-                    
+                    //item+="<div class='ltsp-clienttext'>"+mac+"<br/>Disconnected</div></div>";
                     $("#noClientsFound").remove(); // Delete message "No clients found"
                     $("#ltsp-clients").append(item);
                     
@@ -146,7 +148,7 @@ LTSPClientManager.prototype.deleteClientConfig=function deleteClientConfig(id){
     
     
     Utils.n4d(credentials, n4dclass, n4dmethod, arglist, function(response){
-        self.regenerateLtsConf(function(){
+        //self.regenerateLtsConf(function(){
             var mac=self.macformatter(client);
             var credentials=[sessionStorage.username , sessionStorage.password];
             var n4dclass="LlxBootManager";
@@ -166,7 +168,7 @@ LTSPClientManager.prototype.deleteClientConfig=function deleteClientConfig(id){
                     Utils.msg(message, MSG_SUCCESS);
             },0);
             
-        }); 
+      //  }); 
         
         
         
@@ -188,21 +190,18 @@ LTSPClientManager.prototype.showClientDialog=function showClientDialog(id, confi
     var arglist=[];
     arglist.push(client);*/
     
-    
     self.getClientProperties(client, function(clientProperties){
          var content="";
-         
          var autologin="";
          if ((clientProperties.autologin)&&(clientProperties.autologin).toLowerCase()=="true") autologin="checked";
          
          var username=clientProperties.user || "";
-         var pass=clientProperties.pass || "";
+         //var pass=clientProperties.pass || "";
          
-         var forceThinClient="";
-         if ((clientProperties.forceThin)&&(clientProperties.forceThin).toLowerCase()=="true") forceThinClient="checked";
+         //var forceThinClient="";
+         //if ((clientProperties.forceThin)&&(clientProperties.forceThin).toLowerCase()=="true") forceThinClient="checked";
          
          var extraOptions=clientProperties.extraOptions || "";
-         
          var default_boot=clientProperties.defaultBoot || "default";
          
         
@@ -217,15 +216,15 @@ LTSPClientManager.prototype.showClientDialog=function showClientDialog(id, confi
                                         "value":username});
         
         
-        content+=Utils.formFactory.createText({"id":"ltsp_client_autologin_pass",
-                                        "label": self._("ltsp_client_autologin_pass"),
-                                        "help":self._("ltsp_client_autologin_pass"),
-                                        "value":pass});
+        //content+=Utils.formFactory.createText({"id":"ltsp_client_autologin_pass",
+        //                                "label": self._("ltsp_client_autologin_pass"),
+        //                                "help":self._("ltsp_client_autologin_pass"),
+        //                                "value":pass});
         
-        content+=Utils.formFactory.createCheckbox({"id":"ltsp_client_force_thin",
-                                                "label":self._("ltsp_client_force_thin"),
-                                                "default":forceThinClient,
-                                                "help":self._("ltsp_client_force_thin")});
+        //content+=Utils.formFactory.createCheckbox({"id":"ltsp_client_force_thin",
+        //                                        "label":self._("ltsp_client_force_thin"),
+        //                                        "default":forceThinClient,
+        //                                        "help":self._("ltsp_client_force_thin")});
         
         content+=Utils.formFactory.createTextArea({"id":"ltsp_client_extra_opts_per_mac",
                                         "label": self._("ltsp_client_extra_opts_per_mac"),
@@ -241,8 +240,8 @@ LTSPClientManager.prototype.showClientDialog=function showClientDialog(id, confi
                     callback: function (){
                         var ltsp_client_use_autologin=$("#ltsp_client_use_autologin").is(":checked");
                         var ltsp_client_autologin_name=$("#ltsp_client_autologin_name").val();
-                        var ltsp_client_autologin_pass=$("#ltsp_client_autologin_pass").val();
-                        var ltsp_client_force_thin=$("#ltsp_client_force_thin").is(":checked");
+                        //var ltsp_client_autologin_pass=$("#ltsp_client_autologin_pass").val();
+                        //var ltsp_client_force_thin=$("#ltsp_client_force_thin").is(":checked");
                         var ltsp_client_extra_opts_per_mac=$("#ltsp_client_extra_opts_per_mac").val();
                         var ltsp_client_default_boot=$("#ltsp_client_default_boot").val();
                         
@@ -252,21 +251,21 @@ LTSPClientManager.prototype.showClientDialog=function showClientDialog(id, confi
                         
                         // Set up Client Options
                         var clientOptions={"mac":self.macformatter(client), "defaultBoot":ltsp_client_default_boot,
-                                            "forceThin":ltsp_client_force_thin.toString(),
+                                            //"forceThin":ltsp_client_force_thin.toString(),
                                            "extraOptions":ltsp_client_extra_opts_per_mac};
                                            
                         // Check autologin, user and password
                         
-                        if (ltsp_client_use_autologin && ((ltsp_client_autologin_name=="")||(ltsp_client_autologin_pass==""))){
+                        if (ltsp_client_use_autologin && ltsp_client_autologin_name==""){//||(ltsp_client_autologin_pass==""))){
                             //$("[controlid="+ltsp_client_autologin_name+"]").addClass("has-error");
                             if ((ltsp_client_autologin_name=="")) $('[controlid=ltsp_client_autologin_name]').addClass("has-error");
-                            if ((ltsp_client_autologin_pass=="")) $('[controlid=ltsp_client_autologin_pass]').addClass("has-error");
+                           // if ((ltsp_client_autologin_pass=="")) $('[controlid=ltsp_client_autologin_pass]').addClass("has-error");
                             return false;
                         }
                         
                         // If autologin is in use, adds autologin, password and user                        
                         clientOptions.user=ltsp_client_autologin_name;
-                        clientOptions.pass=ltsp_client_autologin_pass;
+                        //clientOptions.pass=ltsp_client_autologin_pass;
                         clientOptions.autologin=ltsp_client_use_autologin.toString();
                         
                         // Create options string
@@ -281,9 +280,9 @@ LTSPClientManager.prototype.showClientDialog=function showClientDialog(id, confi
                         var arglist=[client,json_client_options];
                         
                         Utils.n4d(credentials, n4dclass, n4dmethod, arglist, function(response){
-                            self.regenerateLtsConf(function(){
-                                self.generateBootForClient(clientOptions);
-                                }); // after regenerate, it will set boot for client
+                            //self.regenerateLtsConf(function(){
+			    self.generateBootForClient(clientOptions);
+                                //}); // after regenerate, it will set boot for client
                         },0);
                         
             
@@ -344,7 +343,6 @@ LTSPClientManager.prototype.showClientDialog=function showClientDialog(id, confi
 LTSPClientManager.prototype.generateBootForClient=function generateBootForClient(client){
     
     // Boot: client.mac, client.defaultBoot.replace("ltsp_label", "")
-    
     var credentials=[sessionStorage.username , sessionStorage.password];
     var n4dclass="LlxBootManager";
     var n4dmethod="setClientConfig";
@@ -367,7 +365,7 @@ LTSPClientManager.prototype.generateBootForClient=function generateBootForClient
     
 }
 
-
+//FUNCTION regenerateLtsConf DEPRECATED
 LTSPClientManager.prototype.regenerateLtsConf=function regenerateLtsConf(callback){
     var self=this;
     

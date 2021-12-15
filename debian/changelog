@@ -1,3 +1,9 @@
+lmd (2.42.2) focal-updates; urgency=medium
+
+  * Fix php errors 
+
+ -- M.Angel Juan <m.angel.juan@gmail.com>  Mon, 29 Nov 2021 11:33:37 +0100
+
 lmd (2.42.1) focal; urgency=medium
 
   * Add rule to add autologin with ldap users
