@@ -13,7 +13,7 @@ Description: LMD Metapackage
  an LTPS/LMD server.
 
 Package: lmd-server
-Depends: ${misc:Depends}, dnsmasq, ltsp, ltsp-binaries, php-cli, apache2, libapache2-mod-php7.4, llx-netinstall , n4d-lliurex-base , llx-bootmanager , util-linux, python3-apt, n4d-taskscheduler-server, n4d-taskscheduler-client, python3-sh, isomaker, lliurex-maker
+Depends: ${misc:Depends}, dnsmasq, ltsp, ltsp-binaries, php-cli, apache2, libapache2-mod-php7.4, llx-netinstall , n4d-lliurex-base , llx-bootmanager , util-linux, python3-apt, n4d-taskscheduler-server, n4d-taskscheduler-client, python3-sh, isomaker, lliurex-maker, n4d-locale-manager
 Architecture: all
 Description: LMD - LTSP Management for Dummies.
  This package gives support to Thin and Fat
