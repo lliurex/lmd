@@ -8,7 +8,7 @@
 # @LTSP.CONF: AUTOLOGIN RELOGIN GDM3_CONF LIGHTDM_CONF SDDM_CONF SLICK_CONF
 # @LTSP.CONF: LTSPDM_USERS
 
-fix_display_manager_main() {
+display_manager_main() {
     local _ALUSER _AUTOLOGIN _RELOGIN
 
     if [ -z "$AUTOLOGIN" ]; then
@@ -27,7 +27,10 @@ fix_display_manager_main() {
     else
         _RELOGIN=true
     fi
+    re configure_gdm
+    re configure_lightdm
     re configure_sddm
+    re ltspdm
 }
 
 configure_sddm() {
