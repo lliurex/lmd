@@ -1,0 +1,1143 @@
+lmd (2.42.2) focal-updates; urgency=medium
+
+  * Fix php errors 
+
+ -- M.Angel Juan <m.angel.juan@gmail.com>  Mon, 29 Nov 2021 11:33:37 +0100
+
+lmd (2.42.1) focal; urgency=medium
+
+  * Add rule to add autologin with ldap users
+
+ -- Raul Rodrigo Segura <raurodse@gmail.com>  Mon, 22 Nov 2021 17:28:24 +0100
+
+lmd (2.42) focal; urgency=medium
+
+  * Solved problem with autologin in sddm
+
+ -- Raul Rodrigo Segura <raurodse@gmail.com>  Mon, 22 Nov 2021 16:27:50 +0100
+
+lmd (2.41.2) focal; urgency=medium
+
+  * Fix json dump data
+
+ -- M.Angel Juan <m.angel.juan@gmail.com>  Fri, 01 Oct 2021 16:30:21 +0200
+
+lmd (2.41.1) focal; urgency=medium
+
+  * Fix checking and dump data to json file
+
+ -- M.Angel Juan <m.angel.juan@gmail.com>  Thu, 30 Sep 2021 12:37:26 +0200
+
+lmd (2.41) focal; urgency=medium
+
+  * Sanity check when write image json description
+
+ -- Raul Rodrigo Segura <raurodse@gmail.com>  Tue, 28 Sep 2021 14:16:31 +0200
+
+lmd (2.40) focal; urgency=medium
+
+  * Disable composition on rdp sessions
+
+ -- M.Angel Juan <m.angel.juan@gmail.com>  Thu, 09 Sep 2021 14:17:27 +0200
+
+lmd (2.39) focal; urgency=medium
+
+  * Open image editor when url is ok
+
+ -- Raul Rodrigo Segura <raurodse@gmail.com>  Fri, 23 Jul 2021 17:46:53 +0200
+
+lmd (2.38) focal; urgency=medium
+
+  * Add packages to clientize flavours
+
+ -- Raul Rodrigo Segura <raurodse@gmail.com>  Thu, 22 Jul 2021 12:22:10 +0200
+
+lmd (2.37) focal; urgency=medium
+
+  * Responsive Design 
+
+ -- Raul Rodrigo Segura <raurodse@gmail.com>  Thu, 22 Jul 2021 01:00:24 +0200
+
+lmd (2.36) focal; urgency=medium
+
+  * Remove mount home by sshfs
+
+ -- Raul Rodrigo Segura <raurodse@gmail.com>  Wed, 21 Jul 2021 18:09:34 +0200
+
+lmd (2.35) focal; urgency=medium
+
+  * Add file to detect semi client 
+
+ -- Raul Rodrigo Segura <raurodse@gmail.com>  Wed, 21 Jul 2021 12:14:57 +0200
+
+lmd (2.34) focal; urgency=medium
+
+  * Fix eth names
+
+ -- Raul Rodrigo Segura <raurodse@gmail.com>  Wed, 21 Jul 2021 11:11:05 +0200
+
+lmd (2.33) focal; urgency=medium
+
+  * Remove generate image on import lmdimg
+
+ -- Raul Rodrigo Segura <raurodse@gmail.com>  Tue, 20 Jul 2021 23:56:37 +0200
+
+lmd (2.32) focal; urgency=medium
+
+  * Add jwm to ltsp clients
+
+ -- Raul Rodrigo Segura <raurodse@gmail.com>  Tue, 20 Jul 2021 18:30:33 +0200
+
+lmd (2.31) focal; urgency=medium
+
+  * Import/export images working 
+
+ -- Raul Rodrigo Segura <raurodse@gmail.com>  Tue, 20 Jul 2021 17:20:31 +0200
+
+lmd (2.30) focal; urgency=medium
+
+  * Remove regenerate option
+
+ -- Raul Rodrigo Segura <raurodse@gmail.com>  Fri, 16 Jul 2021 18:10:43 +0200
+
+lmd (2.29.1) focal; urgency=medium
+
+  * Fix pxemenu. Name is not id
+
+ -- Raul Rodrigo Segura <raurodse@gmail.com>  Thu, 15 Jul 2021 17:10:35 +0200
+
+lmd (2.29) focal; urgency=medium
+
+  * Update images on look and feel
+  * Remove minimal client and build from iso of wizard
+
+ -- Raul Rodrigo Segura <raurodse@gmail.com>  Thu, 15 Jul 2021 16:46:56 +0200
+
+lmd (2.28.1) focal; urgency=medium
+
+  * Fix menu entry
+  * Build kernel on ltsp-build-client image
+
+ -- Raul Rodrigo Segura <raurodse@gmail.com>  Thu, 15 Jul 2021 15:51:16 +0200
+
+lmd (2.28) focal; urgency=medium
+
+  * Remove image build
+
+ -- Raul Rodrigo Segura <raurodse@gmail.com>  Thu, 15 Jul 2021 00:46:29 +0200
+
+lmd (2.27) focal; urgency=medium
+
+  * Add new scripts to ltsp command
+
+ -- Raul Rodrigo Segura <raurodse@gmail.com>  Wed, 14 Jul 2021 23:03:20 +0200
+
+lmd (2.26.2) focal; urgency=medium
+
+  * Fix: wrong variable
+
+ -- Raul Rodrigo Segura <raurodse@gmail.com>  Tue, 13 Jul 2021 23:51:55 +0200
+
+lmd (2.26.1) focal; urgency=medium
+
+  * Fix: compare with n4d.responses 
+
+ -- Raul Rodrigo Segura <raurodse@gmail.com>  Tue, 13 Jul 2021 17:08:27 +0200
+
+lmd (2.26) focal; urgency=medium
+
+  * Adapt to webremotegui
+
+ -- Raul Rodrigo Segura <raurodse@gmail.com>  Tue, 13 Jul 2021 16:30:50 +0200
+
+lmd (2.25) focal; urgency=medium
+
+  * Migration to new n4d
+
+ -- Raul Rodrigo Segura <raurodse@gmail.com>  Mon, 12 Jul 2021 21:40:41 +0200
+
+lmd (2.24) focal; urgency=medium
+
+  * Fix get exported image list
+
+ -- Raul Rodrigo Segura <raurodse@gmail.com>  Fri, 09 Jul 2021 17:35:49 +0200
+
+lmd (2.23.2) focal; urgency=medium
+
+  * Fix	fix
+
+ -- Raul Rodrigo Segura <raurodse@gmail.com>  Tue, 06 Jul 2021 23:43:59 +0200
+
+lmd (2.23.1) focal; urgency=medium
+
+  * Execute ltsp image and wait
+
+ -- Raul Rodrigo Segura <raurodse@gmail.com>  Tue, 06 Jul 2021 18:01:31 +0200
+
+lmd (2.23) focal; urgency=medium
+
+  * fix menu ipxe
+  * Build nfs exports 
+
+ -- Raul Rodrigo Segura <raurodse@gmail.com>  Tue, 06 Jul 2021 17:27:30 +0200
+
+lmd (2.22) focal; urgency=medium
+
+  * Update templates
+
+ -- Raul Rodrigo Segura <raurodse@gmail.com>  Tue, 06 Jul 2021 16:52:52 +0200
+
+lmd (2.21.2) focal; urgency=medium
+
+  * Fix typo
+
+ -- Raul Rodrigo Segura <raurodse@gmail.com>  Tue, 06 Jul 2021 16:03:19 +0200
+
+lmd (2.21.1) focal; urgency=medium
+
+  * Fix postinst
+
+ -- Raul Rodrigo Segura <raurodse@gmail.com>  Tue, 06 Jul 2021 15:45:31 +0200
+
+lmd (2.21) focal; urgency=medium
+
+  * Add new pxe menu script
+
+ -- Raul Rodrigo Segura <raurodse@gmail.com>  Tue, 06 Jul 2021 14:02:56 +0200
+
+lmd (2.20.3) focal; urgency=medium
+
+  * minor fixes
+
+ -- Raul Rodrigo Segura <raurodse@gmail.com>  Tue, 06 Jul 2021 10:16:24 +0200
+
+lmd (2.20.2) focal; urgency=medium
+
+  * minor fixes
+
+ -- Raul Rodrigo Segura <raurodse@gmail.com>  Sat, 03 Jul 2021 00:16:51 +0200
+
+lmd (2.20.1) focal; urgency=medium
+
+  * Remove useless dependencies
+
+ -- Raul Rodrigo Segura <raurodse@gmail.com>  Fri, 02 Jul 2021 23:36:26 +0200
+
+lmd (2.20) focal; urgency=medium
+
+  * First focal version 
+
+ -- Raul Rodrigo Segura <raurodse@gmail.com>  Fri, 02 Jul 2021 17:27:53 +0200
+
+lmd (2.15.3) bionic-updates; urgency=medium
+
+  * Add packages into image creation templates
+
+ -- M.Angel Juan <m.angel.juan@gmail.com>  Thu, 04 Mar 2021 16:11:50 +0100
+
+lmd (2.15.2) bionic-updates; urgency=medium
+
+  * Fix
+
+ -- M.Angel Juan <m.angel.juan@gmail.com>  Thu, 04 Mar 2021 13:35:03 +0100
+
+lmd (2.15.1) bionic-updates; urgency=medium
+
+  * Fix vnc remote desktop selection method
+
+ -- M.Angel Juan <m.angel.juan@gmail.com>  Thu, 04 Mar 2021 13:17:08 +0100
+
+lmd (2.15) bionic-updates; urgency=medium
+
+  * Vnc image edition
+
+ -- M.Angel Juan <m.angel.juan@gmail.com>  Wed, 03 Mar 2021 13:20:50 +0100
+
+lmd (2.14) bionic; urgency=medium
+
+  * Non-maintainer upload.
+  * Migration to python3 
+
+ -- Daniel Duran Vecino <daduve@gmail.com>  Tue, 25 Feb 2020 12:42:32 +0100
+
+lmd (2.13) bionic; urgency=medium
+
+  * Restored autologin support. It changes back to LDM if autologin is enabled
+
+ -- Hector Garcia Huerta <hectorgh@gmail.com>  Tue, 17 Dec 2019 12:06:39 +0100
+
+lmd (2.12.1) bionic; urgency=medium
+
+  * Fixed SMART template messages
+
+ -- Hector Garcia Huerta <hectorgh@gmail.com>  Mon, 30 Sep 2019 16:35:55 +0200
+
+lmd (2.12) bionic; urgency=medium
+
+  * Adding SMART template
+
+ -- Hector Garcia Huerta <hectorgh@gmail.com>  Mon, 23 Sep 2019 16:40:18 +0200
+
+lmd (2.11.2) bionic; urgency=medium
+
+  * fix module.json
+
+ -- Juanma Navarro Mañez <juanma1980@gmail.com>  Tue, 23 Jul 2019 13:40:11 +0200
+
+lmd (2.11.1) bionic; urgency=medium
+
+  * Svg fix
+
+ -- Juanma Navarro Mañez <juanma1980@gmail.com>  Tue, 23 Jul 2019 13:27:13 +0200
+
+lmd (2.11) bionic; urgency=medium
+
+  * Updated icons
+
+ -- Juanma Navarro Mañez <juanma1980@gmail.com>  Mon, 22 Jul 2019 09:08:34 +0200
+
+lmd (2.10.2-1) bionic; urgency=medium
+
+  * Add apparmor to rm system services in lts.conf
+
+ -- Juanma Navarro Mañez <juanma1980@gmail.com>  Wed, 17 Jul 2019 14:54:26 +0200
+
+lmd (2.10.1) bionic; urgency=medium
+
+  * update xephyr background
+
+ -- Juanma Navarro Mañez <juanma1980@gmail.com>  Tue, 16 Jul 2019 14:39:50 +0200
+
+lmd (2.10) bionic; urgency=medium
+
+  * Fix translations
+  * Load kwin for launch standalone commands (like lliurex-up, konsole...)
+
+ -- Juanma Navarro Mañez <juanma1980@gmail.com>  Thu, 11 Jul 2019 13:33:25 +0200
+
+lmd (2.9) bionic; urgency=medium
+
+  * Update labels for sessions types
+
+ -- Juanma Navarro Mañez <juanma1980@gmail.com>  Thu, 11 Jul 2019 08:49:44 +0200
+
+lmd (2.8.16) bionic; urgency=medium
+
+  * Disabled SMART COLOR DEPTH for thin clients
+
+ -- Hector Garcia Huerta <hectorgh@gmail.com>  Tue, 09 Jul 2019 14:31:44 +0200
+
+lmd (2.8.15) bionic; urgency=medium
+
+  * Fixed ltsp_fatclient if in LmdImageManager
+
+ -- Hector Garcia Huerta <hectorgh@gmail.com>  Mon, 08 Jul 2019 15:56:23 +0200
+
+lmd (2.8.14) bionic; urgency=medium
+
+  * Fix iso builder
+
+ -- Raul Rodrigo Segura <raurodse@gmail.com>  Fri, 05 Jul 2019 13:31:41 +0200
+
+lmd (2.8.13) bionic; urgency=medium
+
+  * Making sure ldm is used when configuring FAT_CLIENT=False 
+
+ -- Hector Garcia Huerta <hectorgh@gmail.com>  Fri, 05 Jul 2019 12:46:53 +0200
+
+lmd (2.8.12) bionic; urgency=medium
+
+  * Added templates to build client from iso
+
+ -- Raul Rodrigo Segura <raurodse@gmail.com>  Wed, 26 Jun 2019 17:13:50 +0200
+
+lmd (2.8.11) bionic; urgency=medium
+
+  * Templates updated to bionic
+
+ -- Hector Garcia Huerta <hectorgh@gmail.com>  Thu, 30 May 2019 13:46:08 +0200
+
+lmd (2.8.10-1) bionic; urgency=medium
+
+  * Adding neon link
+
+ -- Hector Garcia Huerta <hectorgh@gmail.com>  Thu, 30 May 2019 13:25:58 +0200
+
+lmd (2.8.10) bionic; urgency=medium
+
+  * SDDM as default display manager
+
+ -- Hector Garcia Huerta <hectorgh@gmail.com>  Thu, 30 May 2019 09:45:20 +0200
+
+lmd (2.8.9-1) bionic; urgency=medium
+
+  * Added missing dirs
+
+ -- Hector Garcia Huerta <hectorgh@gmail.com>  Tue, 28 May 2019 14:46:02 +0200
+
+lmd (2.8.9) bionic; urgency=high
+
+  * Removing old script
+
+ -- Hector Garcia Huerta <hectorgh@gmail.com>  Tue, 05 Mar 2019 10:26:40 +0100
+
+lmd (2.8.8) bionic; urgency=medium
+
+  * Adding sudo group to n4d plugin
+
+ -- Juan Ramon Pelegrina <juapesai@hotmail.com>  Thu, 14 Feb 2019 09:37:10 +0100
+
+lmd (2.8.7) bionic; urgency=high
+
+  * Missing dirs files
+
+ -- Hector Garcia Huerta <hectorgh@gmail.com>  Wed, 06 Feb 2019 13:18:06 +0100
+
+lmd (2.8.6) bionic; urgency=high
+
+  * Changing session to plasma
+
+ -- Hector Garcia Huerta <hectorgh@gmail.com>  Wed, 06 Feb 2019 13:04:21 +0100
+
+lmd (2.8.5) bionic; urgency=medium
+
+  * First bionic release
+
+ -- Hector Garcia Huerta <hectorgh@gmail.com>  Thu, 26 Apr 2018 09:21:32 +0200
+
+lmd (2.8.4) xenial; urgency=high
+
+  * Fixed bug in method ReadNBDSwapSize. If file does not exists, returns default 512.
+
+ -- Jose A. Murcia <joamuran@gmail.com>  Thu, 19 Apr 2018 11:02:12 +0200
+
+lmd (2.8.3) xenial; urgency=high
+
+  * Clean /opt/ltsp/images files when promote image
+  * Remove /var/lib/tftpboot/ltsp/ folder when promote image
+
+ -- Raul Rodrigo Segura <raurodse@gmail.com>  Mon, 05 Mar 2018 13:36:05 +0100
+
+lmd (2.8.2) xenial; urgency=high
+
+  * Remove comment line
+
+ -- Raul Rodrigo Segura <raurodse@gmail.com>  Mon, 26 Feb 2018 11:54:27 +0100
+
+lmd (2.8.1) xenial; urgency=medium
+
+  * Fix path url
+
+ -- Raul Rodrigo Segura <raurodse@gmail.com>  Fri, 23 Feb 2018 14:55:59 +0100
+
+lmd (2.8) xenial; urgency=medium
+
+  * New feature: Create client from iso
+  * New feature: Refresh client image with delay
+  * Infantil flavour now has preschool component on sourceslist
+
+ -- Raul Rodrigo Segura <raurodse@gmail.com>  Mon, 19 Feb 2018 12:34:21 +0100
+
+lmd (2.7.20) xenial; urgency=high
+
+  * Deleted -terminate from Xephyr call
+
+ -- Jose A. Murcia <joamuran@gmail.com>  Wed, 15 Nov 2017 09:10:08 +0100
+
+lmd (2.7.19) xenial; urgency=high
+
+  * Fixed lts.conf configuration section for admin center
+
+ -- Jose A. Murcia <joamuran@gmail.com>  Fri, 03 Nov 2017 11:50:20 +0100
+
+lmd (2.7.18) xenial; urgency=high
+
+  * Fixed bug in ltsp-lliurex-update
+  * Added lliurex-umount-chroot after each ltsp-chroot
+
+ -- Jose A. Murcia <joamuran@gmail.com>  Mon, 16 Oct 2017 09:00:12 +0200
+
+lmd (2.7.17) xenial; urgency=high
+
+  * Added lliurex-umount-chroot to force umount some dirs if mounted before create squash in ltsp-lliurex-update
+
+ -- Jose A. Murcia <joamuran@gmail.com>  Wed, 04 Oct 2017 11:41:00 +0200
+
+lmd (2.7.16) xenial; urgency=high
+
+  * Fixed bug in checking mirror for amd64 Desktop image creation
+
+ -- Jose A. Murcia <joamuran@gmail.com>  Tue, 26 Sep 2017 12:59:18 +0200
+
+lmd (2.7.15) xenial; urgency=high
+
+  * Fixed bug when creating image with and existing id
+
+ -- Jose A. Murcia <joamuran@gmail.com>  Wed, 20 Sep 2017 10:03:31 +0200
+
+lmd (2.7.14) xenial; urgency=medium
+
+  * Fix ltsp desktop
+
+ -- Juan Ramon Pelegrina <juapesai@hotmail.com>  Wed, 20 Sep 2017 08:54:31 +0200
+
+lmd (2.7.13) xenial; urgency=high
+
+  * Increased Xephyr window dimension from 800x600 to 1024x768
+  * Added -u option to lliurex-ltsp-update
+
+ -- Jose A. Murcia <joamuran@gmail.com>  Mon, 11 Sep 2017 08:56:20 +0200
+
+lmd (2.7.12) xenial; urgency=high
+
+  * Added components configuration to infantil-client-build template
+
+ -- Hector Garcia Huerta <hectorgh@gmail.com>  Fri, 08 Sep 2017 13:42:53 +0200
+
+lmd (2.7.11) xenial; urgency=medium
+
+  * Added preschool in client.list
+
+ -- Hector Garcia Huerta <hectorgh@gmail.com>  Fri, 08 Sep 2017 13:19:47 +0200
+
+lmd (2.7.10) xenial; urgency=high
+
+  * Fixed keyboard layout to es in xpra html5 connections
+
+ -- Jose A. Murcia <joamuran@gmail.com>  Fri, 28 Jul 2017 12:32:54 +0200
+
+lmd (2.7.9) xenial; urgency=high
+
+  * Using getXPRAConnections to get all "loses" connections for xpra
+
+ -- Jose A. Murcia <jamuran@gmail.com>  Tue, 18 Jul 2017 13:44:57 +0200
+
+lmd (2.7.8) xenial; urgency=high
+
+  * Fixed gksudo before executing lmd-import-img-sh from desktop
+
+ -- Jose A. Murcia <joamuran@gmail.com>  Wed, 12 Jul 2017 08:14:31 +0200
+
+lmd (2.7.7) xenial; urgency=high
+
+  * Fixing pushToBootList after regenerates an existent image
+
+ -- Jose A. Murcia <joamuran@gmail.com>  Thu, 22 Jun 2017 11:40:57 +0200
+
+lmd (2.7.6) xenial; urgency=high
+
+  * Fixing prepend call when creating images
+  * Decreased refresh image query to 20s.
+
+ -- Hector Garcia Huerta <hectorgh@gmail.com>  Mon, 12 Jun 2017 17:52:17 +0200
+
+lmd (2.7.5) xenial; urgency=high
+
+  * Newly created semi clients are set as the default pxe boot option if hdd is the current option.
+
+ -- Hector Garcia Huerta <hectorgh@gmail.com>  Mon, 12 Jun 2017 13:12:04 +0200
+
+lmd (2.7.4.1) xenial; urgency=high
+
+  * Fixed echo in postinst
+
+ -- Hector Garcia Huerta <hectorgh@gmail.com>  Wed, 07 Jun 2017 11:36:51 +0200
+
+lmd (2.7.4) xenial; urgency=high
+
+  * Added timezone to lts.conf. 
+  * postinst makes sure installed lts.conf ends up with timezone var
+  * ltsp-set-domain-search-ltsconf also removed duplicated AUTOMATICALLY ADDED msg
+
+ -- Hector Garcia Huerta <hectorgh@gmail.com>  Wed, 07 Jun 2017 10:23:32 +0200
+
+lmd (2.7.3.1) xenial; urgency=high
+
+  * Increased time for refresh images status on imagemanager (60 sec)
+
+ -- Jose A. Murcia <joamuran@gmail.com>  Wed, 07 Jun 2017 09:09:26 +0200
+
+lmd (2.7.3) xenial; urgency=high
+
+  * Making sure nbd-server is restarted no matter ltsp-build-client result
+
+ -- Hector Garcia Huerta <hectorgh@gmail.com>  Mon, 05 Jun 2017 14:43:08 +0200
+
+lmd (2.7.2.7) xenial; urgency=medium
+
+  * Fixed 'bariable'
+
+ -- Jose A. Murcia <joamuran@gmail.com>  Mon, 05 Jun 2017 08:31:41 +0200
+
+lmd (2.7.2.6) xenial; urgency=medium
+
+  * Add zenity buttons translations
+
+ -- M.Angel Juan <m.angel.juan@gmail.com>  Tue, 23 May 2017 23:12:17 +0200
+
+lmd (2.7.2.5) xenial; urgency=high
+
+  * Fixed ca@valencia.
+
+ -- Jose A. Murcia <joamuran@gmail.com>  Tue, 16 May 2017 10:55:09 +0200
+
+lmd (2.7.2.4) xenial; urgency=high
+
+  * Update icon info 
+
+ -- Daniel Duran Vecino <daduve@gmail.com>  Wed, 03 May 2017 17:54:18 +0200
+
+lmd (2.7.2.3) xenial; urgency=high
+
+  * Adding new desktop to admin-center-ltsp in menu
+
+ -- Daniel Duran Vecino <daduve@gmail.com>  Wed, 03 May 2017 17:16:24 +0200
+
+lmd (2.7.2.2) xenial; urgency=medium
+
+  * New method to check if mirror it's done through n4d
+
+ -- M.Angel Juan <m.angel.juan@gmail.com>  Thu, 20 Apr 2017 10:33:07 +0200
+
+lmd (2.7.2.1) xenial; urgency=medium
+
+  * Fixed default language when editing boot options in admin-center-ltsp
+
+ -- Juanma Navarro Mañez <juanma1980@gmail.com>  Tue, 28 Mar 2017 13:43:57 +0200
+
+lmd (2.7.2) xenial; urgency=high
+
+  * ltsp-set-domain-search-ltsconf now writes a comment in the conf file so that 
+    everybody knows where that search_domain extra line comes from.
+  * Added ltsp-update-image.excludes file to fix the removal of ssh_host keys.
+
+ -- Hector Garcia Huerta <hectorgh@gmail.com>  Mon, 20 Mar 2017 17:57:54 +0100
+
+lmd (2.7.1) xenial; urgency=high
+
+  * LmdServer.py: Added automatic chroot check arch if it's not specified in json image descriptor (avoid ws.close error)
+
+ --  <joamuran@gmail.com>  Mon, 20 Feb 2017 11:58:59 +0100
+
+lmd (2.7) xenial; urgency=high
+
+  * Added ltsp-lliurex-update command to cli
+
+ -- Jose A. Murcia <joamuran@gmail.com>  Thu, 16 Feb 2017 14:06:13 +0100
+
+lmd (2.6.9) xenial; urgency=medium
+
+  * Prepare to download lliurexberry-data & remove dependencies
+
+ -- M.Angel Juan <m.angel.juan@gmail.com>  Wed, 08 Feb 2017 17:25:03 +0100
+
+lmd (2.6.8) xenial; urgency=high
+
+  * Fixed language detection in lmd-import-img.sh script
+  * Fixed lmd-import-img desktop for hiding it in menu  
+
+ -- Jose A. Murcia <jose@gmail.com>  Mon, 06 Feb 2017 09:43:08 +0100
+
+lmd (2.6.7) xenial; urgency=high
+
+  * Fixed LmdClientManager n4d plugin to get all clients
+  * ignore 2.6.6 version... that file is for admin-center
+
+ -- Jose A. Murcia <joamuran@gmail.com>  Fri, 20 Jan 2017 13:49:49 +0100
+
+lmd (2.6.6) xenial; urgency=medium
+
+  * fixed login.php
+
+ -- Jose A. Murcia <joamuran@gmail.com>  Fri, 20 Jan 2017 09:05:41 +0100
+
+lmd (2.6.5) xenial; urgency=high
+
+  * Fixed ClientManager.js to bind properly events
+  * Fixed i18n
+
+ --  <jose@gmail.com>  Wed, 18 Jan 2017 12:51:36 +0100
+
+lmd (2.6.4) xenial; urgency=high
+
+  * Fixed 094-lliurex in ltsp scripts to include opcion lliurex-sourceslist
+
+ --  <joamuran@gmail.com>  Tue, 17 Jan 2017 13:17:57 +0100
+
+lmd (2.6.3) xenial; urgency=medium
+
+  * replace lliurex-maker with lliurex-preseed-common
+
+ -- Raul Rodrigo Segura <raurodse@gmail.com>  Mon, 16 Jan 2017 18:32:41 +0100
+
+lmd (2.6.2) xenial; urgency=high
+
+  * fixed mirror checking bug before create images
+  * added check_mirror method to LmdImageManager
+  * Fixed validation bugs in Client Manager
+  * Fixed client discover to internal network
+
+ --  <joamuran@gmail.com>  Thu, 12 Jan 2017 12:47:04 +0100
+
+lmd (2.6.1) xenial; urgency=high
+
+  * Fixed llx_ltsconf
+
+ -- Jose <joamuran@gmail.com>  Thu, 22 Dec 2016 21:21:07 +0100
+
+lmd (2.6) xenial; urgency=medium
+
+  * Add script to set search domain to solve found server problem on semi-clients.
+
+ -- Raul Rodrigo Segura <raurodse@gmail.com>  Wed, 21 Dec 2016 13:38:38 +0100
+
+lmd (2.5.4) xenial; urgency=high
+
+  * Fixed parameters bug in image creation, adding arch
+  * Fixed launch scripts on chroot according to client arch
+  * Fixed bug in export images
+  * Icons added
+
+ --  <joamuran@gmail.com>  Thu, 15 Dec 2016 13:19:17 +0100
+
+lmd (2.5.3) xenial; urgency=high
+
+  * Added new methods to edit images (mate desktop), and run apps such as synaptic or lliurex-up
+  * Fixed main page
+  * Added waiting rows
+
+ -- Jose Alfredo Murcia Andres <joamuran@gmail.com>  Thu, 08 Dec 2016 21:16:57 +0100
+
+lmd (2.5.2) xenial; urgency=medium
+
+  * Update ltsp's metas desktop & infantil
+
+ -- M.Angel Juan <m.angel.juan@gmail.com>  Wed, 07 Dec 2016 14:27:06 +0100
+
+lmd (2.5.1) xenial; urgency=high
+
+  * Added RCFILE_01 value in lts.conf to force change to tty7 on boot
+
+ -- Hector Garcia Huerta <hectorgh@gmail.com>  Wed, 30 Nov 2016 12:28:35 +0100
+
+lmd (2.5) xenial; urgency=high
+
+  * Fixed css: Icons, headers
+  * Client manager bug fixed
+  * Added Main Menu
+
+ --  <joamuran@gmail.com>  Thu, 17 Nov 2016 14:32:35 +0100
+
+lmd (2.4.58) xenial; urgency=high
+
+  * Removed netinstall methods to fix it in netinstall module
+  * Fixed some mirror names
+  * Fixed image manager to check mirror before create an image
+
+ --  <joamuran@gmail.com>  Mon, 14 Nov 2016 09:02:27 +0100
+
+lmd (2.4.57) xenial; urgency=high
+
+  * Fixed create_imageWS
+  * Added deletion of /etc/ltsp/images/*.json files
+
+ -- Hector Garcia Huerta <hectorgh@gmail.com>  Tue, 08 Nov 2016 12:27:57 +0100
+
+lmd (2.4.56) xenial; urgency=medium
+
+  * Changed mirror path to llx16
+
+ -- Juanma Navarro Mañez <juanma1980@gmail.com>  Mon, 07 Nov 2016 14:55:28 +0100
+
+lmd (2.4.55) xenial; urgency=high
+
+  * Fixing mirror path
+  * Added lliurex keyring to ltsp-build
+
+ -- Hector Garcia Huerta <hectorgh@gmail.com>  Mon, 07 Nov 2016 13:54:06 +0100
+
+lmd (2.4.54) xenial; urgency=high
+
+  * Fixed bug /var/www/exported not found
+
+ -- Jose A. Murcia <joamuran@gmail.com>  Wed, 02 Nov 2016 14:41:40 +0100
+
+lmd (2.4.53) xenial; urgency=high
+
+  * Fixed client managing
+  * Added some help markdown files
+  * New lmd metapackage with all packages needed
+
+ --  <joamuran@gmail.com>  Thu, 27 Oct 2016 12:00:49 +0200
+
+lmd (2.4.52) xenial; urgency=high
+
+  * Added Client Managing
+
+ --  <joamuran@gmail.com>  Mon, 24 Oct 2016 15:05:12 +0200
+
+lmd (2.4.51) xenial; urgency=high
+
+  * Added some lmd scripts for clone, export and improt images
+  * Added export and importa capabilities from gui
+  * Added options per ltsp image for booting
+
+ --  <joamuran@gmail.com>  Fri, 07 Oct 2016 14:13:03 +0200
+
+lmd (2.4.50) xenial; urgency=high
+
+  * Deleting ./lmd-lliurex-data.install/etc/sudoers.d/zz-home-linker 
+
+ -- Daniel Duran Vecino <daduve@gmail.com>  Thu, 29 Sep 2016 12:12:10 +0200
+
+lmd (2.4.49) xenial; urgency=medium
+
+  * mate-session is started by default
+
+ -- M.Angel Juan <m.angel.juan@gmail.com>  Wed, 21 Sep 2016 14:21:16 +0200
+
+lmd (2.4.48) xenial; urgency=high
+
+  * change instruction in /et/sudoers.d/zz-home-linker 
+
+ -- Daniel Duran Vecino <daduve@gmail.com>  Mon, 19 Sep 2016 13:41:19 +0200
+
+lmd (2.4.47) xenial; urgency=high
+
+  * fixed ca-es language for admin-center module
+
+ -- joamuran <joamuran@gmail.com>  Fri, 22 Jul 2016 09:39:44 +0200
+
+lmd (2.4.46) xenial; urgency=high
+
+  * CSS fixed
+
+ -- joamuran <joamuran@gmail.com>  Wed, 29 Jun 2016 15:07:54 +0200
+
+lmd (2.4.45) xenial; urgency=high
+
+  * Added edit image features
+
+ -- joamuran <joamuran@gmail.com>  Fri, 24 Jun 2016 10:23:48 +0200
+
+lmd (2.4.44) xenial; urgency=medium
+
+  * fixed json sended
+
+ -- Vicent Fernandez i Capilla <vfernandezc@llx-vfernandez.edu.gva.es>  Thu, 23 Jun 2016 12:49:19 +0200
+
+lmd (2.4.43) xenial; urgency=high
+
+  * Added enhacements to change status for images and reflect it gui
+
+ -- joamuran <joamuran@gmail.com>  Thu, 09 Jun 2016 16:39:15 +0200
+
+lmd (2.4.42) xenial; urgency=high
+
+  * Enhaced log integration with TaskMan in AdminCenter
+  * Added new n4d methods: create_clientWS and deploy_minimal_clientWS
+
+ -- joamuran <joamuran@gmail.com>  Wed, 08 Jun 2016 13:21:51 +0200
+
+lmd (2.4.41) xenial; urgency=medium
+
+  * Fix bug starting Xephyr when editing images
+
+ -- M.Angel Juan <m.angel.juan@gmail.com>  Tue, 24 May 2016 17:48:43 +0200
+
+lmd (2.4.40) xenial; urgency=medium
+
+  * Minor bugs in admin center ltspconf plugin
+
+ -- Vicent Fernandez i Capilla <vfernandezc@llx-vfernandez.edu.gva.es>  Tue, 24 May 2016 11:35:23 +0200
+
+lmd (2.4.39) xenial; urgency=medium
+
+  * Changed netinstall menu, enabled amd64 install mode
+
+ -- M.Angel Juan <m.angel.juan@gmail.com>  Thu, 12 May 2016 20:44:45 +0200
+
+lmd (2.4.38) xenial; urgency=high
+
+  * Fixed dependency
+
+ -- joamuran <joamuran@gmail.com>  Sun, 15 May 2016 16:40:08 +0200
+
+lmd (2.4.37) xenial; urgency=high
+
+  * Updated admincenter modules
+
+ -- joamuran <joamuran@gmail.com>  Fri, 13 May 2016 14:10:12 +0200
+
+lmd (2.4.36) xenial; urgency=high
+
+  * Added admin-center module and n4d plugins
+
+ -- joamuran <joamuran@gmail.com>  Mon, 02 May 2016 15:20:28 +0200
+
+lmd (2.4.35-lliurex2) xenial; urgency=medium
+
+  * Add xfce4 as default session
+
+ -- M.Angel Juan <m.angel.juan@gmail.com>  Mon, 11 Apr 2016 18:28:28 +0200
+
+lmd (2.4.35-lliurex1) xenial; urgency=medium
+
+  * Fixes php7 calls
+
+ -- M.Angel Juan <m.angel.juan@gmail.com>  Mon, 11 Apr 2016 12:50:32 +0200
+
+lmd (2.4.35) xenial; urgency=medium
+
+  * Updated artwork
+
+ -- M.Angel Juan <m.angel.juan@gmail.com>  Fri, 08 Apr 2016 11:56:04 +0200
+
+lmd (2.4.34-lliurex2) xenial; urgency=high
+
+  * Updating dependencies
+
+ -- Hector Garcia Huerta <hectorgh@gmail.com>  Thu, 07 Apr 2016 16:37:03 +0200
+
+lmd (2.4.34-lliurex1) xenial; urgency=medium
+
+  * Removed method to detect lliurex 13
+
+ -- M.Angel Juan <m.angel.juan@gmail.com>  Tue, 05 Apr 2016 18:13:21 +0200
+
+lmd (2.4.34) xenial; urgency=medium
+
+  * Added preseeds & client meta
+
+ -- M.Angel Juan <m.angel.juan@gmail.com>  Tue, 05 Apr 2016 17:50:38 +0200
+
+lmd (2.4.33) xenial; urgency=high
+
+  * Added module for admin-center, and wip on it.
+
+ -- joamuran <joamuran@gmail.com>  Tue, 05 Apr 2016 14:25:23 +0200
+
+lmd (2.4.32-wip) xenial; urgency=medium
+
+  * wip
+
+ -- M.Angel Juan <m.angel.juan@gmail.com>  Wed, 09 Mar 2016 13:49:53 +0100
+
+lmd (2.4.31) xenial; urgency=high
+
+  * Added python-apt dependency
+
+ -- Hector Garcia Huerta <hectorgh@gmail.com>  Fri, 26 Feb 2016 09:33:43 +0100
+
+lmd (2.4.30) xenial; urgency=high
+
+  * First xenial release
+
+ -- Hector Garcia Huerta <hectorgh@gmail.com>  Mon, 08 Feb 2016 14:12:37 +0100
+
+lmd (2.4.29) trusty; urgency=high
+
+  * Forcing i386 when editing images (awesome-desktop.sh)
+
+ -- Hector Garcia Huerta <hectorgh@gmail.com>  Mon, 18 Jan 2016 12:56:33 +0100
+
+lmd (2.4.28.1) trusty; urgency=medium
+
+  * Minor translations fixed in gui and templates
+
+ -- joamuran <joamuran@gmail.com>  Tue, 15 Dec 2015 14:47:50 +0100
+
+lmd (2.4.28) trusty; urgency=high
+
+  * Fixed some translations in dialogs
+  * Added new jquery-ui dialogs replacing pure javascript confirm when asks for delete image
+
+ -- joamuran <joamuran@gmail.com>  Mon, 14 Dec 2015 13:47:20 +0100
+
+lmd (2.4.27) trusty; urgency=high
+
+  * Fixed bug in bootmanager
+
+ -- joamuran <joamuran@gmail.com>  Fri, 27 Nov 2015 14:04:08 +0100
+
+lmd (2.4.26) trusty; urgency=high
+
+  * Fixed with reboot clients time
+
+ -- joamuran <joamuran@gmail.com>  Tue, 10 Nov 2015 10:15:57 +0100
+
+lmd (2.4.25) trusty; urgency=high
+
+  * Hidden new features
+
+ -- joamuran <joamuran@gmail.com>  Mon, 09 Nov 2015 11:36:15 +0100
+
+lmd (2.4.24) trusty; urgency=high
+
+  * Fixed
+
+ -- joamuran <joamuran@gmail.com>  Fri, 06 Nov 2015 13:16:33 +0100
+
+lmd (2.4.23) trusty; urgency=high
+
+  * Adding capabilities to set shutdown time
+
+ -- joamuran <joamuran@gmail.com>  Fri, 06 Nov 2015 13:09:47 +0100
+
+lmd (2.4.22) trusty; urgency=high
+
+  * Renamed home-linker to zz-home-linker
+
+ -- joamuran <joamuran@gmail.com>  Thu, 05 Nov 2015 13:35:28 +0100
+
+lmd (2.4.21) trusty; urgency=high
+
+  * Fixed bug in import image
+
+ -- joamuran <joamuran@gmail.com>  Wed, 28 Oct 2015 12:15:05 +0100
+
+lmd (2.4.20) trusty; urgency=high
+
+  * Added question to confirm image deletion
+
+ -- joamuran <joamuran@gmail.com>  Tue, 20 Oct 2015 14:17:14 +0200
+
+lmd (2.4.19) trusty; urgency=high
+
+  * removed sun and stars fo default boot: go to bootmanager.
+
+ -- joamuran <joamuran@gmail.com>  Wed, 23 Sep 2015 12:20:04 +0200
+
+lmd (2.4.18) trusty; urgency=high
+
+  * Enable netinstall on pxe-boot-menu by default 
+
+ -- Angel Berlanas Vicente <angel.berlanas@gmail.com>  Mon, 29 Jun 2015 10:41:06 +0200
+
+lmd (2.4.16) trusty; urgency=high
+
+  * Updated with 32 bits only  to Friday Deployment 
+
+ -- Angel Berlanas Vicente <angel.berlanas@gmail.com>  Fri, 26 Jun 2015 11:35:14 +0200
+
+lmd (2.4.15) trusty; urgency=high
+
+  * Add menuentry for amd64 netboot installer
+
+ -- Miguel Angel <m.angel.juan@gmail.com>  Tue, 23 Jun 2015 16:48:55 +0200
+
+lmd (2.4.14) trusty; urgency=high
+
+  * Add unattended netinstall 
+
+ -- Angel Berlanas Vicente <angel.berlanas@gmail.com>  Fri, 19 Jun 2015 13:25:33 +0200
+
+lmd (2.4.13) trusty; urgency=high
+
+  * Quit unattended netinstall
+
+ -- Daniel Duran Vecino <daduve@gmail.com>  Mon, 15 Jun 2015 13:08:04 +0200
+
+lmd (2.4.12) trusty; urgency=high
+
+  * Added dpkg-reconfigure on update-images
+    to solve the zenity bug 
+
+ -- Angel Berlanas Vicente <angel.berlanas@gmail.com>  Mon, 15 Jun 2015 09:25:31 +0200
+
+lmd (2.4.11) trusty; urgency=high
+
+  * Fixed netinstall path
+
+ -- Daniel Duran Vecino <daduve@gmail.com>  Thu, 11 Jun 2015 11:56:52 +0200
+
+lmd (2.4.10) trusty; urgency=high
+
+  * Fixed syntax 
+
+ -- Angel Berlanas Vicente <angel.berlanas@gmail.com>  Wed, 10 Jun 2015 13:58:44 +0200
+
+lmd (2.4.9) trusty; urgency=high
+
+  * Updated mirror on templates:
+    - http://mirror/llx1505 
+
+ -- Angel Berlanas Vicente <angel.berlanas@gmail.com>  Wed, 10 Jun 2015 12:19:51 +0200
+
+lmd (2.4.8) trusty; urgency=high
+
+  * Updated translations
+  * Hidden network installation option
+  * Updated update-kernels on update image, to solve the
+    kernel upgrade situation.
+
+ -- Angel Berlanas Vicente <angel.berlanas@gmail.com>  Thu, 21 May 2015 11:34:38 +0200
+
+lmd (2.4.5) trusty; urgency=high
+
+  * Updated icon 
+
+ -- Angel Berlanas Vicente <angel.berlanas@gmail.com>  Wed, 20 May 2015 15:02:44 +0200
+
+lmd (2.4.4) trusty; urgency=high
+
+  * Moved to nw 0.12
+
+ -- José A. Murcia <joamuran@gmail.com>  Fri, 08 May 2015 10:24:24 +0200
+
+lmd (2.4.3) trusty; urgency=high
+
+  * fixed server postinstall
+
+ -- José A. Murcia <joamuran@gmail.com>  Tue, 28 Apr 2015 14:20:14 +0200
+
+lmd (2.4.2) trusty; urgency=high
+
+  * Trustized UI
+
+ -- José A. Murcia <joamuran@gmail.com>  Tue, 28 Apr 2015 13:50:52 +0200
+
+lmd (2.4.1) trusty; urgency=high
+
+  * Added local Apps Support
+  * Enhacing GUI with oficial fonts and colors
+
+ -- José A. Murcia <joamuran@gmail.com>  Tue, 21 Apr 2015 14:04:59 +0200
+
+lmd (2.4) trusty; urgency=high
+
+  * Registering boot labels, according to LlxBootManager > 0.3
+  * Integration of lmd-lliurex-data package
+  * Fixed UI bug in import images form version 13 (better late than ever...)
+
+ -- José A. Murcia <joamuran@gmail.com>  Wed, 15 Apr 2015 10:31:48 +0200
+
+lmd (2.3) trusty; urgency=high
+
+  * Added dependence of lliurexberry-data 
+
+ -- Angel Berlanas Vicente <angel.berlanas@gmail.com>  Fri, 20 Feb 2015 14:45:12 +0100
+
+lmd (2.2) trusty; urgency=high
+
+  * Now can write sd lliurexberry anywhere
+
+ -- Raul Rodrigo Segura <raurodse@gmail.com>  Fri, 20 Feb 2015 13:16:15 +0100
+
+lmd (2.1) trusty; urgency=high
+
+  [ Raul Rodrigo Segura ]
+  * Replace check images version from 14.06 to 15.05
+  * Added ethdevice-timeout=50 on cmdline
+
+  [ José A. Murcia ]
+  * Refactor to llx-bootmanager ipxemenu
+  * Added links and code for GUI iframe for llx-bootmanager-client
+
+ -- José A. Murcia <joamuran@gmail.com>  Fri, 23 Jan 2015 12:56:31 +0100
+
+lmd (2.0) trusty; urgency=medium
+
+  * Initial release.
+
+ -- José A. Murcia <joamuran@gmail.com>  Mon, 15 Dec 2014 09:33:38 +0100
