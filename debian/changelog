@@ -1,3 +1,9 @@
+lmd (2.42.4) focal-updates; urgency=medium
+
+  * Fix error in LmdImageManager plugin.
+  
+ -- Juan Ramon Pelegrina <juapesai@hotmail.com>  Wed, 15 Dec 2021 20:05:30 +0100
+
 lmd (2.42.3) focal-updates; urgency=medium
 
   * Fix autologin
