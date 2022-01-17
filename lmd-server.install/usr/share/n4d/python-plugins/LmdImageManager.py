@@ -112,7 +112,7 @@ class LmdImageManager:
 
     #def _readImageLocale
 
-    def setImage(self, img_id, data,lang):
+    def setImage(self, img_id, data,lang=None):
         '''
         Saves metadata from *data to image
         data is unicoded string
@@ -132,10 +132,11 @@ class LmdImageManager:
                       fd.writelines(data)
                       # json.dump(data,fd)
                  
-                if lang=='default':
-                      lang=self._readImageLocale()
+                if lang!=None:
+                      if lang=='default':
+                                lang=self._readImageLocale()
 
-                self.set_locale_lmd_img(lang,img_id)
+                      self.set_locale_lmd_img(lang,img_id)
             except Exception as e:
                      print(str(e))
         
