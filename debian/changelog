@@ -1,3 +1,9 @@
+lmd (2.42.4) focal; urgency=medium
+
+  * Fix ltsp import script: execute ltsp nfs to share nfs folder
+
+ -- Raul Rodrigo Segura <raurodse@gmail.com>  Mon, 17 Jan 2022 15:35:04 +0100
+
 lmd (2.42.3) focal-updates; urgency=medium
 
   * Fix autologin
