@@ -37,6 +37,7 @@ mv /opt/ltsp/${new_imagename}/${extracted_filename}  /etc/ltsp/images/
 echo "Updating kernels..."
 # Update kernels and regenerate image
 ltsp kernel ${new_imagename}
+ltsp nfs
 ltsp initrd
 #ltsp-set-domain-search-ltsconf
  
