@@ -15,7 +15,11 @@ mkdir /tmp/extracted_image
 
 echo "[lmd Import] Extracting file... ${1}"
 tar -xvzf /var/www/exported/${1} -C /tmp/extracted_image/
-echo $?
+ERR=$?
+if [ $ERR -ne 0 ] ; then
+    echo "[lmd Import] Error. File ${1} could not be extracted. Tar codeErr $ERR"
+	exit -1
+fi
 # Moving
 echo "[lmd Import] Moving files to LTSP folder"
 extracted_image=`ls /tmp/extracted_image/opt/ltsp/*/*.json | cut -d "/" -f 6`
