@@ -15,7 +15,11 @@ mkdir /tmp/extracted_image
 
 echo "[lmd Import] Extracting file... ${1}"
 tar -xvzf /var/www/exported/${1} -C /tmp/extracted_image/
-echo $?
+ERR=$?
+if [ ${ERR} -ne 0 ] ; then
+    echo "[lmd Import] Error. Extract failed. Tar error code ${ERR}"
+	exit -1
+fi
 # Moving
 echo "[lmd Import] Moving files to LTSP folder"
 extracted_image=`ls /tmp/extracted_image/opt/ltsp/*/*.json | cut -d "/" -f 6`
@@ -46,6 +50,8 @@ ltsp initrd
 # Setting image into bootMenu
 #echo "Setting image into bootMenu"
 #n4d-client -c LlxBootManager -m pushToBootList -u ${USER} -p ${PASS} -a ltsp_label${new_imagename}
+
+[ ! -e /etc/ltsp/images/$2 ] || rm /etc/ltsp/images/$2 
 
 echo "DONE.."
 exit 0

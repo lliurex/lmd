@@ -13,6 +13,7 @@ then
     MSG_PASS="Inseriu la contrassenya d'administrador"
     MSG_EXISTS_CHROOT="Ja existeix una imatge amb este nom. Voleu sobreescriure-la?"
     MSG_REMOVING="Esborrant la imatge prèvia..."
+    MSG_EXTRACT_ERROR="Error al descomprimir el fitxer "
 elif  [[ ${LANGUAGE} == "es_ES" ]] || [[ ${LANGUAGE} == "es" ]];
 then
     MSG_INFO_IMPORT="Va a importar la imagen: "
@@ -24,16 +25,18 @@ then
     MSG_PASS="Inserte la contraseña de administrador"
     MSG_EXISTS_CHROOT="¿Ya existe una imagen con este nombre. Desea sobreescribirla?"
     MSG_REMOVING="Borrando la imagen previa..."
+    MSG_EXTRACT_ERROR="Error al descomprimir el fichero "
 else
     MSG_INFO_IMPORT="You are going to import image: "
     MSG_EXTRACTING="Extracting image. Please wait... "
     MSG_CANCELLED="Process has been cancelled"
     MSG_CREATE_SQUASHFS="Creating image in server..."
-    MSG_SUCCESS="Thin client image has been exporported"
+    MSG_SUCCESS="Thin client image has been exported"
     MSG_PASS_TITLE="Admin Password"
     MSG_PASS="Insert admin password"
     MSG_EXISTS_CHROOT="An image with this name alreasy exists. Overwrite it?"
     MSG_REMOVING="Deleting previous image..."
+    MSG_EXTRACT_ERROR="Error extracting file "
 fi
 
 
@@ -66,6 +69,11 @@ mkdir /tmp/extracted_image
 
 echo "[lmd Import] Extracting file..."
 tar -xvzf ${1} -C /tmp/extracted_image
+
+if [ $? -ne 0 ] ; then
+	echo "${MSG_EXTRACT_ERROR}"
+	exit -1
+fi
 
 # Moving
 extracted_image=`ls /tmp/extracted_image/opt/ltsp/*/*.json | cut -d "/" -f 6`
