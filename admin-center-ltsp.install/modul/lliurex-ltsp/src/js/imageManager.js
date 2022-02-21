@@ -827,7 +827,9 @@ ImageManager.prototype.renderImage=function renderImage(imagefile){
             
             //var checker=$("#llx-ltsp-imagelist").children().find("[target_id='"+imageContent.id+"']");
             var checker=$(".llx-ltsp-image-file[target_id='"+imageContent.id+"']");
-            
+	    checker.removeAttr("llx-to-delete");
+	    self.counter_image_list -= 1;
+	    if (self.counter_image_list <=0){ self.clean_deleted_images();}
             console.log(checker);
             if (checker.length>0){
                 if($(checker).attr("status")==imageContent.task_status)
@@ -1220,7 +1222,10 @@ ImageManager.prototype.RenderImageList=function RenderImageList(){
     var self=this;
     if (typeof(self.imageList)==="undefined") return;
     try{
+	self.mark_all_to_delete();
+	self.counter_image_list = 0;
         for (var image in self.imageList) {
+	    self.counter_image_list += 1;
             if(self.imageList.hasOwnProperty(image)){
             var imagefile=self.imageList[image];
             self.renderImage(imagefile);
@@ -1231,6 +1236,23 @@ ImageManager.prototype.RenderImageList=function RenderImageList(){
         alert("Exception in RenderImageList: "+e);
     }
 };
+
+ImageManager.prototype.mark_all_to_delete = function mark_all_to_delete(){
+	let list_images = document.querySelectorAll(".llx-ltsp-image-file");
+	list_images.forEach(function(element){
+		element.setAttribute("llx-to-delete",true);
+	});
+}
+
+
+ImageManager.prototype.clean_deleted_images = function clean_deleted_images(){
+	let list_images = document.querySelectorAll(".llx-ltsp-image-file[llx-to-delete=true]");
+	list_images.forEach(function(element){
+		element.remove();
+	});
+
+}
+
 
 //ImageManager.prototype.getImageList=function getImageList(callback){
 ImageManager.prototype.getImageList=function getImageList(){
