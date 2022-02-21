@@ -155,12 +155,33 @@ class LmdServer:
             return n4d.responses.build_failed_call_response(LmdServer.SERVER_BUSY)
 
     def ImportImageWS(self, filename):
-            
-        command="lmd-import-from-admin-center.sh {filename}".format(filename=filename)
+        
+        metadata = {'id':"import_image", 'name' : "import LTSP",
+                        'desc' : "" ,
+                        "template" : "Import",
+                        'img': "desktop",
+                        'arch': "amd64",
+                        'taskid': 0,
+                        'ltsp_fatclient': 'undefined',
+                        'ldm_session': 'default',
+                        'fat_ram_threshold': 'default',
+                        'lmd_extra_params':'' }
+
+        metadata_string = json.dumps( metadata, indent=4, ensure_ascii=False )
+
+        with open("/etc/ltsp/images/import.json","w") as fd:
+            fd.write(metadata_string)
+
+        command="lmd-import-from-admin-center.sh {filename} import.json".format(filename=filename)
         taskman = self.core.get_plugin("TaskMan")
         result = taskman.newTask(command)
+        print(result)
         if result["status"] == n4d.responses.CALL_SUCCESSFUL:
-            return n4d.responses.build_successful_call_response(result["return"])
+            metadata['taskid'] = result["return"]
+            metadata_string = json.dumps( metadata, indent=4, ensure_ascii=False )
+            with open("/etc/ltsp/images/import.json","w") as fd:
+                fd.write(metadata_string)
+            return n4d.responses.build_successful_call_response({"status":True,"msg":result["return"]})
         else:
             return n4d.responses.build_failed_call_response(LmdServer.SERVER_BUSY)
 
