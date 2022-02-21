@@ -1,3 +1,9 @@
+lmd (2.43) focal; urgency=medium
+
+  * Enhance ltsp images import 
+
+ -- Raul Rodrigo Segura <raurodse@gmail.com>  Mon, 21 Feb 2022 17:51:54 +0100
+
 lmd (2.42.6) focal; urgency=medium
 
   * Check tar exit code in lmd-import-from-admin-center.sh and lmd-import-img-non-ui.sh
