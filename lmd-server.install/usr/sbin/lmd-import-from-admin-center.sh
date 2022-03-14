@@ -14,7 +14,7 @@ mkdir /tmp/extracted_image
 #### Ubicar dins la llista d'opcions el que hem creat n4d
 
 echo "[lmd Import] Extracting file... ${1}"
-tar -xvzf /var/www/exported/${1} -C /tmp/extracted_image/
+pv -f -p /var/www/exported/${1} | tar -xz -C /tmp/extracted_image/
 ERR=$?
 if [ ${ERR} -ne 0 ] ; then
     echo "[lmd Import] Error. Extract failed. Tar error code ${ERR}"
