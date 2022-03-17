@@ -51,7 +51,7 @@ ltsp initrd
 #echo "Setting image into bootMenu"
 #n4d-client -c LlxBootManager -m pushToBootList -u ${USER} -p ${PASS} -a ltsp_label${new_imagename}
 
-[ ! -e /etc/ltsp/images/$2 ] || rm /etc/ltsp/images/$2 
+lmd-import-clean $2
 
 echo "DONE.."
 exit 0

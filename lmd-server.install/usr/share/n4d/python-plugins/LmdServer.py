@@ -173,8 +173,9 @@ class LmdServer:
             fd.write(metadata_string)
 
         command="lmd-import-from-admin-center.sh {filename} import.json".format(filename=filename)
+        command_cancel="lmd-import-clean import.json"
         taskman = self.core.get_plugin("TaskMan")
-        result = taskman.newTask(command)
+        result = taskman.newTask(command,command_cancel)
         print(result)
         if result["status"] == n4d.responses.CALL_SUCCESSFUL:
             metadata['taskid'] = result["return"]
