@@ -1,3 +1,9 @@
+lmd (2.45.1) focal; urgency=medium
+
+  * Enhance clean list images
+
+ -- Raul Rodrigo Segura <raurodse@gmail.com>  Fri, 18 Mar 2022 13:39:02 +0100
+
 lmd (2.45) focal; urgency=medium
 
   * Add pv as dependency
