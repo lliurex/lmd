@@ -1220,9 +1220,12 @@ ImageManager.prototype.regenerateImageWithDelay = function regenerateImageWithDe
 ImageManager.prototype.RenderImageList=function RenderImageList(){
     // When image list has been loaded, we should load them one by one.
     var self=this;
-    if (typeof(self.imageList)==="undefined") return;
+    self.mark_all_to_delete();
+    if (typeof(self.imageList)==="undefined" || self.imageList.length === 0 ){
+	    self.clean_deleted_images();
+	    return;
+    }
     try{
-	self.mark_all_to_delete();
 	self.counter_image_list = 0;
         for (var image in self.imageList) {
 	    self.counter_image_list += 1;

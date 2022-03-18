@@ -1,0 +1,5 @@
+#!/bin/bash
+
+[ ! -e /tmp/extracted_image ] || rm /tmp/extracted_image 
+
+[ ! -e /etc/ltsp/images/$1 ] || rm /etc/ltsp/images/$1 
