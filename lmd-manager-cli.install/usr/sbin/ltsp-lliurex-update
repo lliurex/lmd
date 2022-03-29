@@ -8,6 +8,8 @@ import ssl
 import time
 import sys
 
+from pathlib import Path
+from n4d import client
 '''
 USAGE:
 
@@ -17,136 +19,123 @@ ltsp-lliurex-update [-i image ] [ --mode { update | regenerate} ] [--update-mirr
 
 
 def update_image(image):
-	try:
-		print("\nltsp-lliurex-update: Updating chroot... "+image+"\n")
-		cmd="ltsp-chroot -p -m -a "+image+" lliurex-upgrade -u"
-		os.system(cmd)
-		
-		cmd="/usr/sbin/lliurex-umount-chroot "+image
-		os.system(cmd)
-		
-		return 0
-		
-	except Exception as e:
-		print("\n\n Exception Upgrading chroot !! \n\n ")
-		return -1
-		
-	pass
-	
-
-
+    try:
+        print("\nltsp-lliurex-update: Updating chroot... "+image+"\n")
+        cmd="llx-chroot /opt/ltsp/{image} lliurex-upgrade -u".format(image=image)
+        os.system(cmd)
+        return 0
+        
+    except Exception as e:
+        print("\n\n Exception Upgrading chroot !! \n\n ")
+        print(str(e))
+        return 1
+        
 def regenerate_image(image):
-	try:
-		print(("\nltsp-lliurex-update: Checking chroot is completely umounted for "+image+"\n"))
-		cmd="/usr/sbin/lliurex-umount-chroot "+image
-		os.system(cmd)
-
-
-		#print "Regenerate ... "+image
-		print(("\nltsp-lliurex-update: Updating Kernels for image "+image+"\n"))
-		cmd="ltsp-chroot -p -m -a "+image+" /usr/share/ltsp/update-kernels"
-		os.system(cmd)
-		
-		print(("\nltsp-lliurex-update: Updating Kernels "+image+"\n"))
-		cmd="ltsp-update-kernels "+image
-		os.system(cmd)
-		
-		print(("\nltsp-lliurex-update: Updating NBD image"+image+"\n"))
-		cmd="ltsp-update-image "+image
-		os.system(cmd)
-		
-		return 0
-	
-	except Exception as e:
-		print("\n\n EXCEPTION UPDATING IMAGE !! \n\n ")
-		return -1
-		
-	
-	pass
+    try:
+        print("\nltsp-lliurex-update: Checking chroot is completely umounted for {image}\n".format(image=image))
+        print("\nltsp-lliurex-update: Updating Kernels for image {image}\n".format(image=image))
+        cmd = "ltsp kernel {image}".format(image=image)
+        #print "Regenerate ... "+image
+        os.system(cmd)
+        
+        cmd="ltsp initrd"
+        os.system(cmd)
+        
+        return 0
+    
+    except Exception as e:
+        print("\n\n EXCEPTION UPDATING IMAGE !! \n\n ")
+        print(str(e))
+        return 1
+        
+    
+    pass
 
 
 def update_mirror():
-	try:
-		context=ssl._create_unverified_context()
-		server=xmlrpclib.ServerProxy('https://localhost:9779',context=ssl._create_unverified_context())
-		response=server.get_available_mirrors('', 'MirrorManager')
-		if (not response['status']):
-			return -1
-		
-		for mirror in response['msg']:
-			print("mirror")
-			cmd="lliurex-mirror update "+mirror
-			sys.stdout.write("Updating mirror for "+mirror+".")
-			sys.stdout.flush()
-			os.system(cmd)
-			while True:
-				time.sleep(3)
-				sys.stdout.write('.')
-				sys.stdout.flush()
-				
-				response=server.is_alive('','MirrorManager')
-				if (not response['status']):
-					break
-			
-		return 0
-	
-	except Exception as e:
-		print("\n\nException Updating Mirror: "+str(e))
-		return -1
-				
-	pass	
+    c = client.Client("https://localhost:9779")
+    try:
+        response = c.MirrorManager.get_available_mirrors()
+    except client.CALL_FAILED as e:
+        print(e.message)
+        sys.exit(1)
+    except Exception as e:
+        print(str(e))
+        sys.exit(1)
 
+    for mirror in response:
+        print("mirror")
+        print("Updating mirror for "+mirror+".")
+        c.MirrorManager.update("","",mirror)
+        while True:
+            time.sleep(3)
+            print('.')
+            try:
+                response = c.MirrorManager.is_alive()
+                if (not response['status']):
+                    break
+            except Exception as e:
+                print("!!Failed to update mirror {mirror}".format(mirror=mirror))
+                print(str(e))
+                sys.exit(1)
+    return 0
 
 def ltsp_update(args):
-	
-	confdir="/etc/ltsp/images/"
-	globalErr=0
-	
-	if (args.update_mirror):
-		globalErr=update_mirror()
-			
-	
-	for i in os.listdir(confdir):
-		if i.endswith('.json'):
-			try:
-				json_data=open(confdir+i)
-				data = json.load(json_data)
-				json_data.close()
-				
-				localError=0
-				
-				if (args.i==None or args.i==data["id"]):
-					if (args.mode==None or args.mode=="update"):
-						localError=update_image(data["id"])
-						
-					if (localError==0 and (args.mode==None or args.mode=="regenerate")):
-						# If there where errors in update, not regenerate img
-						regenerate_image(data["id"])
+    
+    confdir = Path( "/etc/ltsp/images/" )
+    globalErr = 0
+    
+    if ( args.update_mirror ):
+        globalErr = update_mirror()
+            
+    
+    for i in confdir.iterdir():
+        if i.suffix == ".json":
+            try:
+                with i.open("r", encoding="utf-8") as fd:
+                    data = json.load(fd)
 
-			except Exception as e:
-				print("Exception "+str(e))
-		
-	# If we have regenerated images, let's restart nbd
-	if (args.mode==None or args.mode=="regenerate"):
-		cmd="invoke-rc.d nbd-server restart"
-		os.system(cmd)
+                localError=0
+                if ( args.i == None or args.i == data["id"] ):
+                    if (args.mode==None or args.mode=="update"):
+                        localError=update_image(data["id"])
+                        
+                    if (localError==0 and (args.mode==None or args.mode=="regenerate")):
+                        # If there where errors in update, not regenerate img
+                        regenerate_image(data["id"])
 
-	if (globalErr==0):
-		print("\n\nltsp-lliurex-update: OK. Updates finished without errors")
-	else:
-		print("\n\nltsp-lliurex-update: FAIL.Updates finished with errors!!")
+            except Exception as e:
+                print("Exception "+str(e))
+        
+    if (globalErr==0):
+        print("\n\nltsp-lliurex-update: OK. Updates finished without errors")
+    else:
+        print("\n\nltsp-lliurex-update: FAIL.Updates finished with errors!!")
 
-	pass
+    pass
 
 
-parser = argparse.ArgumentParser(description='Updates one or more images in a ltsp server.')
-parser.add_argument('-i', help='Specifies an image. If none, all are selected.')
-parser.add_argument('--mode', help='Specifies how image/s are updated (update, regenerate). If none specified, performs all operations.', choices=["update", "regenerate"])
-parser.add_argument('--update-mirror', help='Updates mirror before update clients', action='store_true', default=False)
+def main():
+    parser = argparse.ArgumentParser(description='Updates one or more images in a ltsp server.')
+    parser.add_argument('-i', help='Specifies an image. If none, all are selected.')
+    parser.add_argument('--mode', help='Specifies how image/s are updated (update, regenerate). If none specified, performs all operations.', choices=["update", "regenerate"])
+    parser.add_argument('--update-mirror', help='Updates mirror before update clients', action='store_true', default=False)
 
-args = parser.parse_args()
+    args = parser.parse_args()
 
-ltsp_update(args)
+    ltsp_update(args)
 
-		
-		
+
+
+if __name__ == "__main__":
+    main()
+
+
+
+
+
+
+
+
+        
+        
