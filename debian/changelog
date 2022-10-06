@@ -1,3 +1,9 @@
+lmd (2.46.1) focal; urgency=medium
+
+  * Regenerate initrd
+
+ -- Raul Rodrigo Segura <raurodse@gmail.com>  Thu, 06 Oct 2022 12:57:41 +0200
+
 lmd (2.46) focal; urgency=medium
 
   * Fix problem with epoptes
