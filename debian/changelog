@@ -1,3 +1,9 @@
+lmd (2.46.1.23) jammy; urgency=medium
+
+  * First jammy release 
+
+ -- Hector Garcia Huerta <hectorgh@gmail.com>  Wed, 24 Jan 2024 09:44:04 +0100
+
 lmd (2.46.1) focal; urgency=medium
 
   * Regenerate initrd
