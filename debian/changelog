@@ -1,3 +1,10 @@
+lmd (2.46.2) jammy; urgency=medium
+
+  * php dependency to unnumbered package
+  * removed admin-center dependency for now 
+
+ -- Hector Garcia Huerta <hectorgh@gmail.com>  Thu, 25 Jan 2024 08:49:28 +0100
+
 lmd (2.46.1.23) jammy; urgency=medium
 
   * First jammy release 
