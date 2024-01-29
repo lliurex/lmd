@@ -35,8 +35,7 @@ Description: LMD - LTSP links and data for LliureX.
  and templates to working with LMD in LliureX.
 
 Package: admin-center-ltsp
-#Depends: ${misc:Depends}, admin-center
-Depends: ${misc:Depends}
+Depends: ${misc:Depends}, admin-center
 Architecture: all
 Description: LMD - LTSP Module for admin-center.
  LTSP gives support to Thin and Fat
