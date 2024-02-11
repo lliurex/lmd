@@ -1,3 +1,9 @@
+lmd (2.47.1) jammy; urgency=medium
+
+  * Fix other templates
+
+ -- Raul Rodrigo Segura <raurodse@gmail.com>  Sun, 11 Feb 2024 22:26:43 +0100
+
 lmd (2.47) jammy; urgency=medium
 
   * Update templates to build jammy
