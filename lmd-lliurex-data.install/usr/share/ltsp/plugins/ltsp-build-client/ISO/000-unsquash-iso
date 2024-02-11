@@ -28,13 +28,13 @@ case "$MODE" in
 			n4d-client -m is_mirror_available -c MirrorManager | grep 'True' && rc=0 || rc=1
 			set +e
 			if [ '$rc' = '0' ]; then
-				echo "deb http://mirror/llx21 focal main restricted universe multiverse" >> $ROOT/etc/apt/sources.list
-				echo "deb http://mirror/llx21 focal-updates main restricted universe multiverse" >> $ROOT/etc/apt/sources.list
-				echo "deb http://mirror/llx21 focal-security main restricted universe multiverse" >> $ROOT/etc/apt/sources.list
+				echo "deb http://mirror/llx23 jammy main restricted universe multiverse" >> $ROOT/etc/apt/sources.list
+				echo "deb http://mirror/llx23 jammy-updates main restricted universe multiverse" >> $ROOT/etc/apt/sources.list
+				echo "deb http://mirror/llx23 jammy-security main restricted universe multiverse" >> $ROOT/etc/apt/sources.list
 			else
-				echo "deb http://lliurex.net/focal focal main restricted universe multiverse" >> $ROOT/etc/apt/sources.list
-				echo "deb http://lliurex.net/focal focal-updates main restricted universe multiverse" >> $ROOT/etc/apt/sources.list
-				echo "deb http://lliurex.net/focal focal-security main restricted universe multiverse" >> $ROOT/etc/apt/sources.list
+				echo "deb http://lliurex.net/jammy jammy main restricted universe multiverse" >> $ROOT/etc/apt/sources.list
+				echo "deb http://lliurex.net/jammy jammy-updates main restricted universe multiverse" >> $ROOT/etc/apt/sources.list
+				echo "deb http://lliurex.net/jammy jammy-security main restricted universe multiverse" >> $ROOT/etc/apt/sources.list
 			fi
 			chroot $ROOT apt-get $APT_GET_OPTS update
 		else
