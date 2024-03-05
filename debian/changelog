@@ -1,3 +1,9 @@
+lmd (2.48) jammy; urgency=medium
+
+  * Remove smart image
+
+ -- Raul Rodrigo Segura <raurodse@gmail.com>  Tue, 05 Mar 2024 10:15:09 +0100
+
 lmd (2.47.1) jammy; urgency=medium
 
   * Fix other templates
